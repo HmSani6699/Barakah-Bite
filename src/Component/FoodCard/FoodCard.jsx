@@ -23,14 +23,14 @@ const FoodCard = () => {
             />
           </div>
           <div className="flex items-center gap-[10px] bg-white">
-            <h2 className="text-[16px]  bg-white whitespace-nowrap">
+            <h2 className="text-[16px]  bg-white whitespace-nowrap text-gray-500">
               Barakah Mart
             </h2>
             <div className="flex items-center bg-white gap-[10px]">
               <p>
                 <FaStar className="text-[#ff6347] bg-white" />
               </p>
-              <p className="bg-white"> 5.5</p>
+              <p className="bg-white text-gray-500 font-semibold"> 5.5</p>
             </div>
           </div>
         </div>

@@ -10,6 +10,10 @@
   background: #ff6347;
 }
 
+.main_color {
+  color: #ff6347;
+}
+
 /* global.css বা index.css এ রাখবেন */
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari */

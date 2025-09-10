@@ -7,7 +7,7 @@ import HomeBottomNavber from "../../Navber/HomeBottomNavber";
 
 const Home = () => {
   return (
-    <div>
+    <div className="max-w-[1200px] mx-auto">
       <HomeTopNavber />
       <RestaurantsShops />
       <FilterTab />

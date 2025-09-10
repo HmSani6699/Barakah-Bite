@@ -1,10 +1,11 @@
 import { Outlet } from "react-router";
+import HomeBottomNavber from "../../Pages/Navber/HomeBottomNavber";
 
 const MainLayout = () => {
   return (
     <div>
       <Outlet />
-      <div> Bottom Menu</div>
+      <HomeBottomNavber />
     </div>
   );
 };

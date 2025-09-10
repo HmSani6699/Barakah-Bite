@@ -11,8 +11,8 @@ const Home = () => {
       <HomeTopNavber />
       <RestaurantsShops />
       <FilterTab />
-      <PopularItem />
       <GroseryShop />
+      <PopularItem />
     </div>
   );
 };

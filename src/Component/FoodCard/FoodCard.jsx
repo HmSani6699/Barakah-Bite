@@ -41,7 +41,7 @@ const FoodCard = () => {
               <span className=" font-extrabold  bg-white p-0">৳</span> 250
             </h2>
 
-            <h2 className="bg-white font-extrabold p-0 text-red-600 text-[20px]">
+            <h2 className="bg-white font-extrabold p-0 main_color text-[20px]">
               <span className="font-extrabold  bg-white p-0">৳</span> 200
             </h2>
           </div>

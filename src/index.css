@@ -22,3 +22,31 @@
   -ms-overflow-style: none; /* IE এবং Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+/* pagination container center align */
+.custom-pagination .swiper-pagination {
+  position: relative;
+  bottom: 0px !important;
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* all bullets (dot) */
+.custom-pagination .swiper-pagination-bullet {
+  background: #ff5733; /* তোমার main_color */
+  opacity: 0.5;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin: 0 4px !important;
+  transition: all 0.3s ease;
+}
+
+/* active bullet (line shape) */
+.custom-pagination .swiper-pagination-bullet-active {
+  width: 30px; /* লম্বা লাইন */
+  height: 6px;
+  border-radius: 10px;
+  opacity: 1;
+  background: #ff5733; /* তোমার main_color */
+}

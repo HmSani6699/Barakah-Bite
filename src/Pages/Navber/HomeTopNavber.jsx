@@ -10,7 +10,7 @@ const HomeTopNavber = () => {
           <div className="h-[60px] w-[60px] rounded-full  border-[3px] border-white">
             <img
               className="h-full w-full rounded-full"
-              src="../../../public/images/dal.jpeg"
+              src="https://i.postimg.cc/bJqXjHd5/FB-IMG-1757409260966.jpg"
               alt="logo"
             />
           </div>

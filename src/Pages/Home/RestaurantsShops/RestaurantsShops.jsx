@@ -33,12 +33,12 @@ const RestaurantsShops = () => {
                 <div className="h-[70px] w-[70px] rounded-full border-[3px] border-white">
                   <img
                     className="h-full w-full rounded-full"
-                    src="../../../public/images/dal.jpeg"
+                    src="https://i.postimg.cc/bJqXjHd5/FB-IMG-1757409260966.jpg"
                     alt="logo"
                   />
                 </div>
                 <h2 className="font-semibold mt-[10px] text-[13px]">
-                  Barakah Bite
+                  Barakah Mart
                 </h2>
               </div>
             </SwiperSlide>

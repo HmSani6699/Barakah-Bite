@@ -6,7 +6,7 @@ const FoodCard = () => {
       <div className="h-[150px] bg-white rounded-t-[15px] w-full">
         <img
           className="h-full w-full bg-cover rounded-t-[15px]"
-          src="../../../public/images/Biriyani1.jpg"
+          src="https://i.postimg.cc/zXBTG8qp/Biriyani1.jpg"
           alt=""
         />
       </div>
@@ -18,7 +18,7 @@ const FoodCard = () => {
           <div className="h-[30px] w-[30px] rounded-full  border-[3px] border-white">
             <img
               className="h-full w-full rounded-full"
-              src="../../../public/images/dal.jpeg"
+              src="https://i.postimg.cc/zXBTG8qp/Biriyani1.jpg"
               alt="logo"
             />
           </div>

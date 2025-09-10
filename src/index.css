@@ -5,3 +5,16 @@
 * {
   background: #eff1f1;
 }
+
+.main_bg_color {
+  background: #ff6347;
+}
+
+/* global.css বা index.css এ রাখবেন */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE এবং Edge */
+  scrollbar-width: none; /* Firefox */
+}

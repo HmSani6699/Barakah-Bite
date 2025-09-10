@@ -1,4 +1,3 @@
-import { BsJournalBookmarkFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
 import { HiClipboardList, HiHome, HiShoppingCart } from "react-icons/hi";
 import "./Navber.css";

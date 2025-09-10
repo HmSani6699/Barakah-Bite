@@ -3,6 +3,9 @@ import MainLayout from "../Layout/MainLayout/MainLayout";
 import Home from "../Pages/Home/Home/Home";
 import MyOrders from "../Pages/MyOrders/MyOrders";
 import CustomerOrderTracking from "../Pages/CustomerOrderTracking/CustomerOrderTracking";
+import Card from "../Component/Card/Card";
+import CheckOut from "../Component/Card/CheckOut";
+import Profile from "../Component/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +23,14 @@ const router = createBrowserRouter([
       {
         path: "/myorderstracking/:id",
         element: <CustomerOrderTracking />,
+      },
+      {
+        path: "/card",
+        element: <CheckOut />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
     ],
   },

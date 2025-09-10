@@ -11,7 +11,7 @@ const MyOrderCard = () => {
         <div className="h-[65px] w-[65px] rounded-[15px]  border-[3px] border-[#eff1f1] ">
           <img
             className="h-full w-full rounded-[15px]"
-            src="https://i.postimg.cc/bJqXjHd5/FB-IMG-1757409260966.jpg"
+            src="https://i.postimg.cc/QNH0fRzB/download-3.jpgg"
             alt="logo"
           />
         </div>

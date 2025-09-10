@@ -19,14 +19,20 @@ const HomeBottomNavber = () => {
           <h2 className="text-[14px] bg-white"> অর্ডারস</h2>
         </div>
       </Link>
-      <div className="flex flex-col items-center bg-white ">
-        <HiShoppingCart className="text-[25px] mb-[3px] text-gray-500 bg-white" />
-        <h2 className="text-[14px] bg-white"> কার্ড</h2>
-      </div>
-      <div className="flex flex-col items-center bg-white ">
-        <FaUser className="text-[22px] mb-[3px] text-gray-500 bg-white" />
-        <h2 className="text-[14px] bg-white">প্রোফাইল</h2>
-      </div>
+
+      <Link to={"/card"}>
+        <div className="flex flex-col items-center bg-white ">
+          <HiShoppingCart className="text-[25px] mb-[3px] text-gray-500 bg-white" />
+          <h2 className="text-[14px] bg-white"> কার্ড</h2>
+        </div>
+      </Link>
+
+      <Link to={"/profile"}>
+        <div className="flex flex-col items-center bg-white ">
+          <FaUser className="text-[22px] mb-[3px] text-gray-500 bg-white" />
+          <h2 className="text-[14px] bg-white">প্রোফাইল</h2>
+        </div>
+      </Link>
     </div>
   );
 };

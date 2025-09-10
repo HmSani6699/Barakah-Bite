@@ -1,8 +1,12 @@
-import React from "react";
+import { useNavigate } from "react-router";
 
 const MyOrderCard = () => {
+  const usenavigate = useNavigate();
   return (
-    <div className="flex items-center justify-between bg-white  rounded-[15px] p-[20px]">
+    <div
+      onClick={() => usenavigate("/myorderstracking/1")}
+      className="flex items-center justify-between bg-white  rounded-[15px] p-[20px]"
+    >
       <div className=" flex items-center gap-[10px] bg-white">
         <div className="h-[65px] w-[65px] rounded-[15px]  border-[3px] border-[#eff1f1] ">
           <img

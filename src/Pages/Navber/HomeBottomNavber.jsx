@@ -50,7 +50,12 @@ const HomeBottomNavber = () => {
       <Link
         to={"/profile"}
         className={` ${
-          pathname === "/profile" ? "text-[#ff6347]" : "text-gray-500"
+          pathname === "/profile" ||
+          pathname === "/contactus" ||
+          pathname === "/aboutus" ||
+          pathname === "/address"
+            ? "text-[#ff6347]"
+            : "text-gray-500"
         }`}
       >
         <div className="flex flex-col items-center bg-white ">

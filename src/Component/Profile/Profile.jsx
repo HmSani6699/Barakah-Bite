@@ -39,7 +39,7 @@ const Profile = () => {
             icon={
               <FaLocationDot className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
             }
-            url={"/myorders"}
+            url={"/address"}
           />
           {/* <ProfileNaveList
             title={"পেমেন্ট পদ্ধতি"}
@@ -56,14 +56,14 @@ const Profile = () => {
             icon={
               <FaInfoCircle className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
             }
-            url={"/myorders"}
+            url={"/aboutus"}
           />
           <ProfileNaveList
             title={"যোগাযোগ"}
             icon={
               <FaHeadset className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
             }
-            url={"/myorders"}
+            url={"/contactus"}
           />
 
           <div className="w-full flex items-center justify-between">

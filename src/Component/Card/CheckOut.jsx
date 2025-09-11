@@ -17,10 +17,15 @@ const CheckOut = () => {
       <div className="px-[15px] mt-[20px]">
         <Card />
       </div>
-      <div className="flex items-center gap-[10px] rounded-[15px] bg-[#ffffff80] mx-[15px] mt-[20px] p-[20px] border-[1px] border-dashed border-[#ff6347]">
-        <FaLocationDot className="text-[20px] text-[#ff6347] bg-[#ffffff80]" />
-        <p className="bg-[#ffffff80] text-gray-400">ডেলিভারি ঠিকানা যোগ করুন</p>
-      </div>
+      <Link to={"/address"}>
+        {" "}
+        <div className="flex items-center gap-[10px] rounded-[15px] bg-[#ffffff80] mx-[15px] mt-[20px] p-[20px] border-[1px] border-dashed border-[#ff6347]">
+          <FaLocationDot className="text-[20px] text-[#ff6347] bg-[#ffffff80]" />
+          <p className="bg-[#ffffff80] text-gray-400">
+            ডেলিভারি ঠিকানা যোগ করুন
+          </p>
+        </div>
+      </Link>
       <div className="bg-[#ffffff80] mx-[15px] rounded-[15px] mt-[20px] p-[20px]">
         <h2 className="font-bold mb-[10px] bg-[#ffffff80]">বিল বিবরণী</h2>
         <div className="flex items-center justify-between mb-[8px] bg-[#ffffff80]">

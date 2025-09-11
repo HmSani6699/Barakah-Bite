@@ -10,7 +10,7 @@ const GroceryCard = () => {
           alt="logo"
         />
       </div>
-      <div className="bg-[#eff1f1] text-center px-[10px] py-[4px] rounded-[10px] shadow-md">
+      <div className="bg-[#eff1f1] text-center px-[10px] py-[4px] rounded-b-[10px] shadow-md">
         <h2 className=" font-bold text-[16px]">চাল</h2>
         <p className="main_color font-semibold text-[12px]">10 আইটেম </p>
       </div>

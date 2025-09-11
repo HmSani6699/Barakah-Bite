@@ -7,6 +7,9 @@ import Card from "../Component/Card/Card";
 import CheckOut from "../Component/Card/CheckOut";
 import Profile from "../Component/Profile/Profile";
 import OrderSuccess from "../Component/OrderSuccess/OrderSuccess";
+import Address from "../Component/Address/Address";
+import AboutUs from "../Pages/Home/AboutUs/AboutUs";
+import ContactUs from "../Pages/Home/ContactUs/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +35,18 @@ const router = createBrowserRouter([
       {
         path: "/success",
         element: <OrderSuccess />,
+      },
+      {
+        path: "/address",
+        element: <Address />,
+      },
+      {
+        path: "/aboutus",
+        element: <AboutUs />,
+      },
+      {
+        path: "/contactus",
+        element: <ContactUs />,
       },
       {
         path: "/profile",

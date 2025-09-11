@@ -5,6 +5,7 @@ import "swiper/css";
 
 // import required modules
 import { Autoplay, FreeMode } from "swiper/modules";
+import { Link } from "react-router";
 
 const RestaurantsShops = () => {
   return (
@@ -29,18 +30,21 @@ const RestaurantsShops = () => {
         >
           {[...Array(10)].map((_, i) => (
             <SwiperSlide key={i}>
-              <div className="flex flex-col items-center">
-                <div className="h-[70px] w-[70px] rounded-full border-[3px] border-white">
-                  <img
-                    className="h-full w-full rounded-full"
-                    src="https://i.postimg.cc/bJqXjHd5/FB-IMG-1757409260966.jpg"
-                    alt="logo"
-                  />
+              <Link to={"/shope-profile/1"}>
+                {" "}
+                <div className="flex flex-col items-center">
+                  <div className="h-[70px] w-[70px] rounded-full border-[3px] border-white">
+                    <img
+                      className="h-full w-full rounded-full"
+                      src="https://i.postimg.cc/bJqXjHd5/FB-IMG-1757409260966.jpg"
+                      alt="logo"
+                    />
+                  </div>
+                  <h2 className="font-semibold mt-[10px] text-[13px] whitespace-nowrap">
+                    Barakah Mart
+                  </h2>
                 </div>
-                <h2 className="font-semibold mt-[10px] text-[13px] whitespace-nowrap">
-                  Barakah Mart
-                </h2>
-              </div>
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>

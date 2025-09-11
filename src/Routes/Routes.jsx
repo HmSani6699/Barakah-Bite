@@ -10,6 +10,10 @@ import OrderSuccess from "../Component/OrderSuccess/OrderSuccess";
 import Address from "../Component/Address/Address";
 import AboutUs from "../Pages/Home/AboutUs/AboutUs";
 import ContactUs from "../Pages/Home/ContactUs/ContactUs";
+import ShopeProfile from "../Component/ShopeProfile/ShopeProfile";
+import AllPopularItem from "../Pages/Home/PopularItem/AllPopularItem";
+import AllGroseryShope from "../Pages/Home/GroseryShop/AllGroseryShope";
+import GroceryShopCaed from "../Component/GroceryShopCaed/GroceryShopCaed";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +55,22 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+      },
+      {
+        path: "/shope-profile/:id",
+        element: <ShopeProfile />,
+      },
+      {
+        path: "/all_populer_item",
+        element: <AllPopularItem />,
+      },
+      {
+        path: "/all_grocery_shop",
+        element: <AllGroseryShope />,
+      },
+      {
+        path: "/grocery_shop_card",
+        element: <GroceryShopCaed />,
       },
     ],
   },

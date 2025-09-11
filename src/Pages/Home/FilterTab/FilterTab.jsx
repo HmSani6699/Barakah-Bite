@@ -1,6 +1,6 @@
 import FoodCard from "../../../Component/FoodCard/FoodCard";
 
-const FilterTab = () => {
+const FilterTab = ({ setIsFullImageOpen }) => {
   return (
     <div>
       {" "}
@@ -25,12 +25,12 @@ const FilterTab = () => {
         </button>
       </div>
       <div className="px-[15px] mt-[20px] flex items-center gap-[20px] overflow-auto scrollbar-hide mb-[20px]">
-        <FoodCard />
-        <FoodCard />
-        <FoodCard />
-        <FoodCard />
-        <FoodCard />
-        <FoodCard />
+        <FoodCard setIsFullImageOpen={setIsFullImageOpen} height="h-[150px]" />
+        <FoodCard setIsFullImageOpen={setIsFullImageOpen} height="h-[150px]" />
+        <FoodCard setIsFullImageOpen={setIsFullImageOpen} height="h-[150px]" />
+        <FoodCard setIsFullImageOpen={setIsFullImageOpen} height="h-[150px]" />
+        <FoodCard setIsFullImageOpen={setIsFullImageOpen} height="h-[150px]" />
+        <FoodCard setIsFullImageOpen={setIsFullImageOpen} height="h-[150px]" />
       </div>
     </div>
   );

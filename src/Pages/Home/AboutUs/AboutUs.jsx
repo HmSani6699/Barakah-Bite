@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 const AboutUs = () => {
   return (
-    <div>
+    <div className="mb-[120px]">
       <Link to={"/profile"}>
         <div className="bg-white h-[65px]  flex items-center gap-[15px] px-[15px] top_header_shadow">
           <FaArrowLeft className="bg-white text-[20px]" />

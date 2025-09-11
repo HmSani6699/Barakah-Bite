@@ -10,7 +10,11 @@ const HomeBottomNavber = () => {
   return (
     <div
       className={`bg-white fixed bottom-0 w-full  flex items-center justify-around text-gray-500 top_shadow py-[10px] z-[100] ${
-        pathname === "/card" || pathname === "/success" ? "hidden" : "block"
+        pathname === "/card" ||
+        pathname === "/success" ||
+        pathname === "/aboutus"
+          ? "hidden"
+          : "block"
       }`}
     >
       <Link

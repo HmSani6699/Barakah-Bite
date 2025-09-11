@@ -44,7 +44,7 @@ body {
 
 /* active bullet (line shape) */
 .custom-pagination .swiper-pagination-bullet-active {
-  width: 30px; /* লম্বা লাইন */
+  width: 70px; /* লম্বা লাইন */
   height: 6px;
   border-radius: 10px;
   opacity: 1;

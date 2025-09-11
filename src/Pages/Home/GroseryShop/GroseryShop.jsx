@@ -8,15 +8,20 @@ import "swiper/css/pagination";
 
 // import required modules
 import { Pagination } from "swiper/modules";
+import { Link } from "react-router";
 
 const GroseryShop = () => {
   return (
     <div className="px-[15px] mt-[50px] ">
       <div className="flex items-center justify-between">
         <h2 className="text-[20px] font-bold ">নিত্যপ্রয়োজনীয় বাজার</h2>
-        <button className="flex  items-center gap-[10px] main_color">
-          আরো দেখুন <MdKeyboardDoubleArrowRight />
-        </button>
+
+        <Link to={"/all_grocery_shop"}>
+          {" "}
+          <button className="flex  items-center gap-[10px] main_color">
+            আরো দেখুন <MdKeyboardDoubleArrowRight />
+          </button>{" "}
+        </Link>
       </div>
       {/*  */}
 

@@ -9,7 +9,7 @@ import { FiLogOut } from "react-icons/fi";
 
 const Profile = () => {
   return (
-    <div>
+    <div className="mb-[120px]">
       <div className="bg-white h-[90px] text-center flex items-center justify-center">
         <div className="h-[90px] w-[90px] rounded-full  border-[4px] border-[#eff1f1] -mb-[100px] shadow-md">
           <img
@@ -26,7 +26,7 @@ const Profile = () => {
 
       <div className=" px-[20px] mt-[30px]">
         {/* About me */}
-        <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[30px] shadow-md">
+        <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md">
           <ProfileNaveList
             title={"আমার অর্ডারসমূহ"}
             icon={
@@ -50,7 +50,7 @@ const Profile = () => {
           /> */}
         </div>
         {/* About Company */}
-        <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[30px] shadow-md mt-[30px]">
+        <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mt-[30px]">
           <ProfileNaveList
             title={"আমাদের সম্পর্কে"}
             icon={

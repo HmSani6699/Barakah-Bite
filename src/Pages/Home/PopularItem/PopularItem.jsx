@@ -3,8 +3,8 @@ import FoodCard from "../../../Component/FoodCard/FoodCard";
 
 const PopularItem = () => {
   return (
-    <div className="mb-[120px]">
-      <div className="flex items-center justify-between mt-[20px] px-[15px]">
+    <div className="mb-[120px] mt-[50px]">
+      <div className="flex items-center justify-between  px-[15px]">
         <h2 className="text-[20px] font-bold ">জনপ্রিয় খাবার</h2>
         <button className="flex  items-center gap-[10px] main_color">
           আরো দেখুন <MdKeyboardDoubleArrowRight />

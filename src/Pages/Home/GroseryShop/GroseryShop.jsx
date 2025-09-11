@@ -11,7 +11,7 @@ import { Pagination } from "swiper/modules";
 
 const GroseryShop = () => {
   return (
-    <div className="px-[15px] mt-[20px] ">
+    <div className="px-[15px] mt-[50px] ">
       <div className="flex items-center justify-between">
         <h2 className="text-[20px] font-bold ">নিত্যপ্রয়োজনীয় বাজার</h2>
         <button className="flex  items-center gap-[10px] main_color">

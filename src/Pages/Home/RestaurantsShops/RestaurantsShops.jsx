@@ -37,7 +37,7 @@ const RestaurantsShops = () => {
                     alt="logo"
                   />
                 </div>
-                <h2 className="font-semibold mt-[10px] text-[13px]">
+                <h2 className="font-semibold mt-[10px] text-[13px] whitespace-nowrap">
                   Barakah Mart
                 </h2>
               </div>

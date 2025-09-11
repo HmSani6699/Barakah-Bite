@@ -6,6 +6,7 @@ import CustomerOrderTracking from "../Pages/CustomerOrderTracking/CustomerOrderT
 import Card from "../Component/Card/Card";
 import CheckOut from "../Component/Card/CheckOut";
 import Profile from "../Component/Profile/Profile";
+import OrderSuccess from "../Component/OrderSuccess/OrderSuccess";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "/card",
         element: <CheckOut />,
+      },
+      {
+        path: "/success",
+        element: <OrderSuccess />,
       },
       {
         path: "/profile",

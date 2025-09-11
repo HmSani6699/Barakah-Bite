@@ -50,3 +50,7 @@ body {
   opacity: 1;
   background: #ff5733; /* তোমার main_color */
 }
+
+.top_header_shadow {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}

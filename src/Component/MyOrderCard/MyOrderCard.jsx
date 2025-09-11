@@ -8,15 +8,15 @@ const MyOrderCard = () => {
       className="flex items-center justify-between bg-white  rounded-[15px] p-[20px]"
     >
       <div className=" flex items-center gap-[10px] bg-white">
-        <div className="h-[65px] w-[65px] rounded-[15px]  border-[3px] border-[#eff1f1] ">
+        <div className="h-[75px] w-[75px] rounded-[10px]  border-[3px] border-[#eff1f1] ">
           <img
-            className="h-full w-full rounded-[15px]"
+            className="h-full w-full rounded-[10px]"
             src="https://i.postimg.cc/QNH0fRzB/download-3.jpgg"
             alt="logo"
           />
         </div>
         <div className="bg-white">
-          <h2 className="bg-white text-[10px] text-gray-500 mb-[3px]">
+          <h2 className="bg-white text-[10px] text-gray-500 mb-[5px]">
             অর্ডার আইডি #LSKF&
           </h2>
           <h2 className="bg-white text-[14px] font-semibold">সাহি বিরিয়ানি</h2>

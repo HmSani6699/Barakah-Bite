@@ -8,7 +8,7 @@ const CheckOut = () => {
   return (
     <div className="">
       <Link to={"/"}>
-        <div className="bg-white h-[65px]  flex items-center gap-[15px] px-[15px]">
+        <div className="bg-white h-[65px]  flex items-center gap-[15px] px-[15px] top_header_shadow">
           <FaArrowLeft className="bg-white text-[20px]" />
           <h2 className="bg-white font-bold text-[20px]">আমার কার্ট</h2>
         </div>

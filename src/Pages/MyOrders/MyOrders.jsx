@@ -4,7 +4,7 @@ import MyOrderCard from "../../Component/MyOrderCard/MyOrderCard";
 const MyOrders = () => {
   return (
     <div>
-      <div className="bg-white h-[65px] text-center flex items-center justify-center">
+      <div className="bg-white h-[65px] text-center flex items-center justify-center top_header_shadow">
         <h2 className="bg-white font-bold text-[20px]">আমার অর্ডারসমূহ</h2>
       </div>
 

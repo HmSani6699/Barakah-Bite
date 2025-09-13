@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { HiClipboardList } from "react-icons/hi";
 import { IoIosArrowForward } from "react-icons/io";
 import { Link } from "react-router";
@@ -8,6 +8,7 @@ import { FaInfoCircle } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 
 const Profile = () => {
+  const [user, setUser] = useState("rider");
   return (
     <div className="mb-[120px]">
       <div className="bg-white h-[90px] text-center flex items-center justify-center">
@@ -25,6 +26,17 @@ const Profile = () => {
       </div>
 
       <div className=" px-[20px] mt-[30px]">
+        {/* Rider nav */}
+
+        {user === "rider" ? (
+          <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mb-[20px]">
+            {" "}
+            sider
+          </div>
+        ) : (
+          ""
+        )}
+
         {/* About me */}
         <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md">
           <ProfileNaveList
@@ -50,7 +62,7 @@ const Profile = () => {
           /> */}
         </div>
         {/* About Company */}
-        <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mt-[30px]">
+        <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mt-[20px]">
           <ProfileNaveList
             title={"আমাদের সম্পর্কে"}
             icon={

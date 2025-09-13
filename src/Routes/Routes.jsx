@@ -20,6 +20,9 @@ import RiderOrders from "../Dashboard/Rider/RiderOrders/RiderOrders";
 import RiderEarningHistroy from "../Dashboard/Rider/RiderEarningHistroy/RiderEarningHistroy";
 import Login from "../Pages/Login/Login";
 import Signup from "../Pages/Signup/Signup";
+import FoodShop from "../Dashboard/FoodShop/FoodShop";
+import FoodShopLayout from "../Layout/FoodShopLayout/FoodShopLayout";
+import FoodShopOrders from "../Dashboard/FoodShop/FoodShopOrders/FoodShopOrders";
 
 const router = createBrowserRouter([
   {
@@ -104,6 +107,25 @@ const router = createBrowserRouter([
       {
         path: "/rider/earnings-history",
         element: <RiderEarningHistroy />,
+      },
+      {
+        path: "/rider/profile",
+        element: <Profile />,
+      },
+    ],
+  },
+  // Food and Shop Route //
+  {
+    path: "/food-shop",
+    element: <FoodShopLayout />,
+    children: [
+      {
+        path: "/food-shop",
+        element: <FoodShop />,
+      },
+      {
+        path: "/food-shop/orders",
+        element: <FoodShopOrders />,
       },
     ],
   },

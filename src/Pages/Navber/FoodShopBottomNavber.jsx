@@ -3,9 +3,9 @@ import { HiClipboardList, HiHome, HiShoppingCart } from "react-icons/hi";
 import "./Navber.css";
 import { Link, useLocation } from "react-router";
 import HomeBottomNavList from "../../Component/Navlist/HomeBottomNavList";
-import { MdAttachMoney } from "react-icons/md";
+import { MdAttachMoney, MdOutlineRestaurantMenu } from "react-icons/md";
 
-const RiderHomeBottomNavber = () => {
+const FoodShopBottomNavber = () => {
   const { pathname } = useLocation();
   console.log(pathname);
 
@@ -22,21 +22,23 @@ const RiderHomeBottomNavber = () => {
       {/* Customer Navlist  Start*/}
       <HomeBottomNavList
         title={"হোম"}
-        url={"/rider"}
+        url={"/food-shop"}
         icon={<HiHome className="text-[25px] mb-[3px]  bg-white" />}
       />
       <HomeBottomNavList
         title={"অর্ডারস"}
-        url={"/rider/delivery-history"}
+        url={"/food-shop/orders"}
         icon={<HiClipboardList className="text-[22px] mb-[3px]0 bg-white" />}
       />
       <HomeBottomNavList
-        title={"আয়"}
-        url={"/rider/earnings-history"}
-        icon={<MdAttachMoney className="text-[25px] mb-[3px]  bg-white" />}
+        title={"মেনু"}
+        url={"/food-shop/earnings-history"}
+        icon={
+          <MdOutlineRestaurantMenu className="text-[25px] mb-[3px]  bg-white" />
+        }
       />
       <Link
-        to={"/rider/profile"}
+        to={"/food-shop/profile"}
         className={` ${
           pathname === "/rider/profile" ||
           pathname === "/contactus" ||
@@ -55,4 +57,4 @@ const RiderHomeBottomNavber = () => {
   );
 };
 
-export default RiderHomeBottomNavber;
+export default FoodShopBottomNavber;

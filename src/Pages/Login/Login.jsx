@@ -22,6 +22,8 @@ const Login = () => {
       navigate("/");
     } else if (password === "rider") {
       navigate("/rider");
+    } else if (password === "foodShop") {
+      navigate("/food-shop");
     }
   };
 

@@ -43,6 +43,8 @@ const Profile = () => {
       navigate("/");
     } else if (password === "rider") {
       navigate("/rider");
+    } else if (password === "foodShop") {
+      navigate("/food-shop");
     }
   };
 
@@ -135,7 +137,7 @@ const Profile = () => {
           </div>
         </div>
       ) : (
-        <div className="flex items-center justify-center p-[20px]">
+        <div className="flex items-center justify-center p-[20px] mb-[100px]">
           <div>
             <div className="my-[20px]   rounded-[10px] p-[20px] border-l-[4px] border-red-500 bg-red-100">
               <h1>

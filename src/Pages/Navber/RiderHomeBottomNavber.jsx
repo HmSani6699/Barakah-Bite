@@ -26,7 +26,7 @@ const RiderHomeBottomNavber = () => {
       />
       <HomeBottomNavList
         title={"অর্ডারস"}
-        url={"/myorders"}
+        url={"/rider/delivery-history"}
         icon={<HiClipboardList className="text-[22px] mb-[3px]0 bg-white" />}
       />
       <HomeBottomNavList

@@ -17,6 +17,7 @@ import GroceryShopCaed from "../Component/GroceryShopCaed/GroceryShopCaed";
 import RiderLayout from "../Layout/RiderLayout/RiderLayout";
 import Rider from "../Dashboard/Rider/Rider";
 import RiderOrders from "../Dashboard/Rider/RiderOrders/RiderOrders";
+import RiderEarningHistroy from "../Dashboard/Rider/RiderEarningHistroy/RiderEarningHistroy";
 
 const router = createBrowserRouter([
   {
@@ -89,6 +90,10 @@ const router = createBrowserRouter([
       {
         path: "/rider/delivery-history",
         element: <RiderOrders />,
+      },
+      {
+        path: "/rider/earnings-history",
+        element: <RiderEarningHistroy />,
       },
     ],
   },

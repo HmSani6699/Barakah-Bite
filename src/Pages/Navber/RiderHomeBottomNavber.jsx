@@ -3,6 +3,7 @@ import { HiClipboardList, HiHome, HiShoppingCart } from "react-icons/hi";
 import "./Navber.css";
 import { Link, useLocation } from "react-router";
 import HomeBottomNavList from "../../Component/Navlist/HomeBottomNavList";
+import { MdAttachMoney } from "react-icons/md";
 
 const RiderHomeBottomNavber = () => {
   const { pathname } = useLocation();
@@ -30,9 +31,9 @@ const RiderHomeBottomNavber = () => {
         icon={<HiClipboardList className="text-[22px] mb-[3px]0 bg-white" />}
       />
       <HomeBottomNavList
-        title={"কার্ড"}
-        url={"/card"}
-        icon={<HiShoppingCart className="text-[25px] mb-[3px]  bg-white" />}
+        title={"আয়"}
+        url={"/rider/earnings-history"}
+        icon={<MdAttachMoney className="text-[25px] mb-[3px]  bg-white" />}
       />
       <Link
         to={"/profile"}

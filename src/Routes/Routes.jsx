@@ -14,6 +14,8 @@ import ShopeProfile from "../Component/ShopeProfile/ShopeProfile";
 import AllPopularItem from "../Pages/Home/PopularItem/AllPopularItem";
 import AllGroseryShope from "../Pages/Home/GroseryShop/AllGroseryShope";
 import GroceryShopCaed from "../Component/GroceryShopCaed/GroceryShopCaed";
+import RiderLayout from "../Layout/RiderLayout/RiderLayout";
+import Rider from "../Dashboard/Rider/Rider";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +73,17 @@ const router = createBrowserRouter([
       {
         path: "/grocery_shop_card",
         element: <GroceryShopCaed />,
+      },
+    ],
+  },
+  // Rider Route //
+  {
+    path: "/rider",
+    element: <RiderLayout />,
+    children: [
+      {
+        path: "/rider",
+        element: <Rider />,
       },
     ],
   },

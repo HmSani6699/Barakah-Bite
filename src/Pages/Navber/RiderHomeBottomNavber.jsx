@@ -4,7 +4,7 @@ import "./Navber.css";
 import { Link, useLocation } from "react-router";
 import HomeBottomNavList from "../../Component/Navlist/HomeBottomNavList";
 
-const HomeBottomNavber = () => {
+const RiderHomeBottomNavber = () => {
   const { pathname } = useLocation();
   console.log(pathname);
 
@@ -21,7 +21,7 @@ const HomeBottomNavber = () => {
       {/* Customer Navlist  Start*/}
       <HomeBottomNavList
         title={"হোম"}
-        url={"/"}
+        url={"/rider"}
         icon={<HiHome className="text-[25px] mb-[3px]  bg-white" />}
       />
       <HomeBottomNavList
@@ -54,4 +54,4 @@ const HomeBottomNavber = () => {
   );
 };
 
-export default HomeBottomNavber;
+export default RiderHomeBottomNavber;

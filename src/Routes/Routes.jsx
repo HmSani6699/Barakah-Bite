@@ -18,6 +18,8 @@ import RiderLayout from "../Layout/RiderLayout/RiderLayout";
 import Rider from "../Dashboard/Rider/Rider";
 import RiderOrders from "../Dashboard/Rider/RiderOrders/RiderOrders";
 import RiderEarningHistroy from "../Dashboard/Rider/RiderEarningHistroy/RiderEarningHistroy";
+import Login from "../Pages/Login/Login";
+import Signup from "../Pages/Signup/Signup";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
       },
       {
         path: "/myorders",

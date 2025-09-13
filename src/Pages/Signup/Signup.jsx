@@ -33,7 +33,7 @@ const Signup = () => {
         </div>
 
         <button className="bg-[#ff6347] text-white w-full py-[10px] rounded-[10px] mt-[30px]">
-          লগইন করুন
+          অ্যাকাউন্ট তৈরি করুন
         </button>
         <h2 className="text-center mt-[20px]">অথবা</h2>
         <button className="bg-[#eff1f1]  w-full py-[10px] rounded-[10px] mt-[20px] border flex items-center justify-center gap-[10px]">

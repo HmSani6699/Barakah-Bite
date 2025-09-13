@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import InputField from "../../Component/InputField/InputField";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [number, setNumber] = useState("01996359111");
+  const [password, setPassword] = useState("customer");
+
+  const handleLogin = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      localStorage.removeItem("user");
+    }
+    localStorage.setItem(
+      "user",
+      JSON.stringify({ phone: number, role: password })
+    );
+
+    if (password === "customer") {
+      navigate("/");
+    } else if (password === "rider") {
+      navigate("/rider");
+    }
+  };
+
   return (
     <div className="flex items-center justify-center h-screen px-[15px]">
       <div className="border-t-[4px] border-[#ff6347] rounded-[10px] bg-white shadow-md  w-full p-[20px]">
@@ -25,15 +46,22 @@ const Login = () => {
           <InputField
             title={"ফোন নাম্বার "}
             placeholder={"আপনার ফোন নাম্বার লিখুন"}
+            value={number}
+            setValue={setNumber}
           />
           <InputField
             title={"পাসওয়ার্ড "}
             placeholder={" আপনার পাসওয়ার্ড লিখুন"}
+            value={password}
+            setValue={setPassword}
           />
         </div>
 
-        <button className="bg-[#ff6347] text-white w-full py-[10px] rounded-[10px] mt-[30px]">
-          অ্যাকাউন্ট তৈরি করুন
+        <button
+          onClick={handleLogin}
+          className="bg-[#ff6347] text-white w-full py-[10px] rounded-[10px] mt-[30px]"
+        >
+          লগইন করুন
         </button>
         <h2 className="text-center mt-[20px]">অথবা</h2>
         <button className="bg-[#eff1f1]  w-full py-[10px] rounded-[10px] mt-[20px] border flex items-center justify-center gap-[10px]">

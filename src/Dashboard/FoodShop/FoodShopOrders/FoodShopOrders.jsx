@@ -68,7 +68,7 @@ const FoodShopOrders = () => {
       <div className="flex items-center justify-between mb-[20px]">
         <h2 className="text-[20px] font-bold">অর্ডার ম্যানেজমেন্ট</h2>
         <div className="flex gap-2">
-          <button className="flex items-center gap-[10px] bg-[#ff6347] text-white px-[15px] py-[4px] rounded-[6px]">
+          <button className="flex items-center gap-[10px] bg-[#ff6347] text-white px-[15px] py-[8px] rounded-[6px]">
             <FiFilter className="h-4 w-4 mr-2" />
             ফিল্টার
           </button>

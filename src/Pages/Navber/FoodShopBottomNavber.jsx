@@ -32,7 +32,7 @@ const FoodShopBottomNavber = () => {
       />
       <HomeBottomNavList
         title={"মেনু"}
-        url={"/food-shop/earnings-history"}
+        url={"/food-shop/menu"}
         icon={
           <MdOutlineRestaurantMenu className="text-[25px] mb-[3px]  bg-white" />
         }

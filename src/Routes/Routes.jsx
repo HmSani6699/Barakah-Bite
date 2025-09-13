@@ -23,6 +23,7 @@ import Signup from "../Pages/Signup/Signup";
 import FoodShop from "../Dashboard/FoodShop/FoodShop";
 import FoodShopLayout from "../Layout/FoodShopLayout/FoodShopLayout";
 import FoodShopOrders from "../Dashboard/FoodShop/FoodShopOrders/FoodShopOrders";
+import Menu from "../Dashboard/FoodShop/Menu/Menu";
 
 const router = createBrowserRouter([
   {
@@ -126,6 +127,14 @@ const router = createBrowserRouter([
       {
         path: "/food-shop/orders",
         element: <FoodShopOrders />,
+      },
+      {
+        path: "/food-shop/menu",
+        element: <Menu />,
+      },
+      {
+        path: "/food-shop/profile",
+        element: <Profile />,
       },
     ],
   },

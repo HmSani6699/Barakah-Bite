@@ -88,7 +88,7 @@ const FoodShop = () => {
           {[1, 2, 3].map((item) => (
             <div
               key={item}
-              className="flex items-center justify-between p-3 bg-muted rounded-lg bg-white "
+              className="flex items-center justify-between p-[20px] bg-muted rounded-lg bg-white "
             >
               <div className="flex items-center gap-3">
                 <div>

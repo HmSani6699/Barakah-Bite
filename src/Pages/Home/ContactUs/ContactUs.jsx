@@ -8,9 +8,11 @@ const ContactUs = () => {
     <div className="mb-[120px]">
       {" "}
       <Link to={"/profile"}>
-        <div className="bg-white h-[65px]  flex items-center gap-[15px] px-[15px] top_header_shadow">
-          <FaArrowLeft className="bg-white text-[20px]" />
-          <h2 className="bg-white font-bold text-[20px]">যোগাযোগ</h2>
+        <div className="bg-white h-[65px]  flex items-center justify-center gap-[15px] px-[15px] top_header_shadow">
+          {/* <FaArrowLeft className="bg-white text-[20px]" /> */}
+          <h2 className="bg-white font-bold text-[20px] text-center">
+            যোগাযোগ
+          </h2>
         </div>
       </Link>
       <div className="px-[15px] flex flex-col gap-[30px] mt-[30px]">

@@ -6,7 +6,6 @@ import ProfileNaveList from "./ProfileNaveList";
 import { FaHeadset, FaLocationDot, FaStar } from "react-icons/fa6";
 import { FaInfoCircle } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
-import Login from "../../Pages/Login/Login";
 import { FcGoogle } from "react-icons/fc";
 import InputField from "../InputField/InputField";
 

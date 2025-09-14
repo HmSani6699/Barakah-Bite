@@ -39,12 +39,7 @@ const SuperAdminBottomNavber = () => {
       <Link
         to={"/super-admin/menu"}
         className={` ${
-          pathname === "/rider/profile" ||
-          pathname === "/contactus" ||
-          pathname === "/aboutus" ||
-          pathname === "/address"
-            ? "text-[#ff6347]"
-            : "text-gray-500"
+          pathname === "/super-admin/menu" ? "text-[#ff6347]" : "text-gray-500"
         }`}
       >
         <div className="flex flex-col items-center bg-white ">

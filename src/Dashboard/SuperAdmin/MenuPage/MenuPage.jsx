@@ -2,8 +2,11 @@ import { FaHeadset, FaInfoCircle, FaUser } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { IoIosArrowForward } from "react-icons/io";
 import ProfileNaveList from "../../../Component/Profile/ProfileNaveList";
+import { useNavigate } from "react-router";
 
 const MenuPage = () => {
+  const navigate = useNavigate();
+
   const handleLogOut = () => {
     localStorage.removeItem("user");
     navigate("/");

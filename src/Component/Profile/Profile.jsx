@@ -44,6 +44,8 @@ const Profile = () => {
       navigate("/rider");
     } else if (password === "foodShop") {
       navigate("/food-shop");
+    } else if (password === "superAdmin") {
+      navigate("/super-admin");
     }
   };
 

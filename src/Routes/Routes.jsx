@@ -24,6 +24,8 @@ import FoodShop from "../Dashboard/FoodShop/FoodShop";
 import FoodShopLayout from "../Layout/FoodShopLayout/FoodShopLayout";
 import FoodShopOrders from "../Dashboard/FoodShop/FoodShopOrders/FoodShopOrders";
 import Menu from "../Dashboard/FoodShop/Menu/Menu";
+import SuperAdminLayout from "../Layout/SuperAdminLayout/SuperAdminLayout";
+import SuperAdmin from "../Dashboard/SuperAdmin/SuperAdmin";
 
 const router = createBrowserRouter([
   {
@@ -134,6 +136,21 @@ const router = createBrowserRouter([
       },
       {
         path: "/food-shop/profile",
+        element: <Profile />,
+      },
+    ],
+  },
+  // Super Admin Route //
+  {
+    path: "/super-admin",
+    element: <SuperAdminLayout />,
+    children: [
+      {
+        path: "/super-admin",
+        element: <SuperAdmin />,
+      },
+      {
+        path: "/super-admin/profile",
         element: <Profile />,
       },
     ],

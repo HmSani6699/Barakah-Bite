@@ -1,8 +1,7 @@
-import React from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { Link } from "react-router";
-import FilterTab from "../../Pages/Home/FilterTab/FilterTab";
 import FoodCard from "../FoodCard/FoodCard";
+import SearchInputField from "../SearchInputField/SearchInputField";
 
 const ShopeProfile = () => {
   return (
@@ -33,8 +32,11 @@ const ShopeProfile = () => {
         <span className="text-[#ff6347] text-[12px]"> ( 10 আইটেম )</span>
       </h2>
 
-      {/*  */}
+      <div className="px-[15px] pt-[20px]">
+        <SearchInputField />
+      </div>
 
+      {/*  */}
       <div>
         <div className="px-[15px] flex items-center gap-[20px] overflow-auto scrollbar-hide pb-[15px] mt-[30px]">
           <button className="main_bg_color text-white border-[1px] border-gray-300 py-[6px] px-[20px]  rounded-full shadow-sm">

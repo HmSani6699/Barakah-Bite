@@ -9,8 +9,11 @@ const FoodCard = ({ height }) => {
     <div>
       {" "}
       <div className="bg-white rounded-[15px] min-w-[290px] relative">
-        <div className="absolute top-[15px] left-0 bg-[#ff6347] text-[12px] text-white px-[10px] py-[5px] rounded-r-[10px]">
+        <div className="absolute top-[20px] left-0 bg-[#ff6347] text-[12px] text-white px-[10px] py-[5px] rounded-r-[10px] shadow-md">
           10 % OFF
+        </div>
+        <div className="absolute top-[60px] left-0 bg-[#1c8645] text-[12px] text-white px-[10px] py-[5px] rounded-r-[10px] shadow-md">
+          Sold Out
         </div>
         <div
           onClick={() => setIsFullImageOpen(true)}

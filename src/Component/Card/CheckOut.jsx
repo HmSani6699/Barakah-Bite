@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaArrowLeft, FaMoneyBillWave } from "react-icons/fa";
 import Card from "./Card";
-import { FaLocationDot } from "react-icons/fa6";
+import { FaLocationDot, FaPlus } from "react-icons/fa6";
 import { Link } from "react-router";
 
 const CheckOut = () => {
   const [selected, setSelected] = useState("cod");
+  const [address, setAddress] = useState({});
 
   const options = [
     {
@@ -30,6 +31,13 @@ const CheckOut = () => {
       img: "https://i.postimg.cc/NFZtSzJj/Rocket-Payment-Integration-removebg-preview.png",
     },
   ];
+
+  // set Addres
+  useEffect(() => {
+    const deliveryAddress = JSON.parse(localStorage.getItem("deliveryAddress"));
+    setAddress(deliveryAddress);
+  }, []);
+
   return (
     <div className="">
       <Link to={"/"}>
@@ -43,15 +51,46 @@ const CheckOut = () => {
         <div className=" mt-[20px]">
           <Card />
         </div>
-        <Link to={"/address"}>
-          {" "}
-          <div className="flex items-center gap-[10px] rounded-[15px] bg-[#ffffff80]  mt-[20px] p-[20px] border-[1px] border-dashed border-[#ff6347]">
-            <FaLocationDot className="text-[20px] text-[#ff6347] bg-[#ffffff80]" />
-            <p className="bg-[#ffffff80] text-gray-400">
-              ডেলিভারি ঠিকানা যোগ করুন
-            </p>
+
+        {/* Address */}
+
+        {address ? (
+          <div className="flex items-center gap-[10px] mt-[20px]">
+            <div
+              className={`flex items-center justify-between bg-white p-[20px] rounded-[10px]  border border-[#ff6347] w-[80%]`}
+            >
+              <div className="flex items-center gap-[20px]">
+                <FaLocationDot className="text-[#ff6347] text-[30px]" />
+                <div>
+                  <h2 className="font-bold text-[18px]">{address?.name}</h2>
+
+                  <h2 className="font-semibold text-gray-500">
+                    {address?.hous}, {address?.area}
+                  </h2>
+                </div>
+              </div>
+            </div>
+
+            <Link
+              to={"/address"}
+              className=" bg-[#ff6347]  flex items-center flex-col h-full text-white py-[10px] rounded-[10px] w-[20%]"
+            >
+              <FaPlus />
+              <p className="text-[10px] mt-[10px]">নতুন ঠিকানা</p>
+            </Link>
           </div>
-        </Link>
+        ) : (
+          <Link to={"/address"}>
+            {" "}
+            <div className="flex items-center gap-[10px] rounded-[15px] bg-[#ffffff80]  mt-[20px] p-[20px] border-[1px] border-dashed border-[#ff6347]">
+              <FaLocationDot className="text-[20px] text-[#ff6347] bg-[#ffffff80]" />
+              <p className="bg-[#ffffff80] text-gray-400">
+                ডেলিভারি ঠিকানা যোগ করুন
+              </p>
+            </div>
+          </Link>
+        )}
+
         <div className="bg-[#ffffff80]  rounded-[15px] mt-[20px] p-[20px]">
           <h2 className="font-bold mb-[10px] bg-[#ffffff80]">বিল বিবরণী</h2>
           <div className="flex items-center justify-between mb-[8px] bg-[#ffffff80]">

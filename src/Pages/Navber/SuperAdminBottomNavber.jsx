@@ -1,9 +1,10 @@
-import { FaUser } from "react-icons/fa";
+import { FaMotorcycle, FaUser } from "react-icons/fa";
 import { HiClipboardList, HiHome } from "react-icons/hi";
 import "./Navber.css";
 import { Link, useLocation } from "react-router";
 import HomeBottomNavList from "../../Component/Navlist/HomeBottomNavList";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
+import { IoMdMenu } from "react-icons/io";
 
 const SuperAdminBottomNavber = () => {
   const { pathname } = useLocation();
@@ -26,16 +27,14 @@ const SuperAdminBottomNavber = () => {
         icon={<HiHome className="text-[25px] mb-[3px]  bg-white" />}
       />
       <HomeBottomNavList
-        title={"অর্ডারস"}
+        title={"রেস্তোরাঁ"}
         url={"/food-shop/orders"}
         icon={<HiClipboardList className="text-[22px] mb-[3px]0 bg-white" />}
       />
       <HomeBottomNavList
-        title={"মেনু"}
+        title={"রাইডার"}
         url={"/food-shop/menu"}
-        icon={
-          <MdOutlineRestaurantMenu className="text-[25px] mb-[3px]  bg-white" />
-        }
+        icon={<FaMotorcycle className="text-[25px] mb-[3px]  bg-white" />}
       />
       <Link
         to={"/food-shop/profile"}
@@ -49,8 +48,8 @@ const SuperAdminBottomNavber = () => {
         }`}
       >
         <div className="flex flex-col items-center bg-white ">
-          <FaUser className="text-[22px] mb-[3px]  bg-white" />
-          <h2 className="text-[14px] bg-white">প্রোফাইল</h2>
+          <IoMdMenu className="text-[22px] mb-[3px]  bg-white" />
+          <h2 className="text-[14px] bg-white">মেনু</h2>
         </div>
       </Link>
     </div>

@@ -23,21 +23,21 @@ const SuperAdminBottomNavber = () => {
       {/* Customer Navlist  Start*/}
       <HomeBottomNavList
         title={"হোম"}
-        url={"/food-shop"}
+        url={"/super-admin"}
         icon={<HiHome className="text-[25px] mb-[3px]  bg-white" />}
       />
       <HomeBottomNavList
         title={"রেস্তোরাঁ"}
-        url={"/food-shop/orders"}
+        url={"/super-admin/all-foods-shops"}
         icon={<HiClipboardList className="text-[22px] mb-[3px]0 bg-white" />}
       />
       <HomeBottomNavList
         title={"রাইডার"}
-        url={"/food-shop/menu"}
+        url={"/super-admin/all-riders"}
         icon={<FaMotorcycle className="text-[25px] mb-[3px]  bg-white" />}
       />
       <Link
-        to={"/food-shop/profile"}
+        to={"/super-admin/menu"}
         className={` ${
           pathname === "/rider/profile" ||
           pathname === "/contactus" ||

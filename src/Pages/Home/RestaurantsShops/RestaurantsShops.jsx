@@ -7,6 +7,7 @@ import "swiper/css";
 import { Autoplay, FreeMode } from "swiper/modules";
 import { Link } from "react-router";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import { FaStar } from "react-icons/fa";
 
 const RestaurantsShops = () => {
   return (
@@ -22,7 +23,7 @@ const RestaurantsShops = () => {
       <div className="mt-[20px]">
         <Swiper
           slidesPerView={4} // একসাথে কয়টা দেখাবে
-          spaceBetween={20}
+          spaceBetween={15}
           loop={true} // infinite loop
           freeMode={true} // smooth marquee effect
           speed={4000} // speed control
@@ -36,18 +37,24 @@ const RestaurantsShops = () => {
           {[...Array(10)].map((_, i) => (
             <SwiperSlide key={i}>
               <Link to={"/shope-profile/1"}>
-                {" "}
                 <div className="flex flex-col items-center">
-                  <div className="h-[70px] w-[70px] rounded-full border-[3px] border-white">
+                  <div className="h-[60px] w-[60px] flex items-center justify-center rounded-full   bg-white shadow-md p-[10px]">
                     <img
                       className="h-full w-full rounded-full"
                       src="https://i.postimg.cc/bJqXjHd5/FB-IMG-1757409260966.jpg"
                       alt="logo"
                     />
                   </div>
-                  <h2 className="font-semibold mt-[10px] text-[13px] whitespace-nowrap">
+                  <p className="text-[12px] flex items-center gap-[4px] mt-[10px]">
+                    <FaStar className="text-[12px] text-yellow-400" /> 5.0
+                  </p>
+                  <h2 className="font-semibold  text-[12px] whitespace-nowrap text-gray-700">
                     Barakah Mart
                   </h2>
+                  <p className=" font-normal text-gray-600 text-[10px]">
+                    <span className="main_color font-bold ">10 </span>
+                    আইটেম
+                  </p>
                 </div>
               </Link>
             </SwiperSlide>

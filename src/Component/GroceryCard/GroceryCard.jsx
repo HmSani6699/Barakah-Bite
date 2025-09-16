@@ -1,15 +1,25 @@
 import { Link } from "react-router";
 import notImage from "../../../public/images/notimage.svg";
 
-const GroceryCard = ({ item }) => {
+const GroceryCard = ({ item, style_clss, url }) => {
   return (
-    <Link to={"/grocery_shop_card"}>
-      <div className="bg-white flex flex-col items-center">
-        <div className="h-[100px] w-full   object-cover ">
-          {item?.url ? (
-            <img className="h-full w-full " src={item?.url} alt="logo" />
+    <Link to={url}>
+      <div
+        className={` ${style_clss?.bg} ${style_clss?.rounded}  ${style_clss?.padding} flex flex-col items-center`}
+      >
+        <div className={`${style_clss?.height} w-full   object-cover `}>
+          {item?.img ? (
+            <img
+              className={`h-full w-full ${style_clss?.rounded} `}
+              src={item?.img}
+              alt="logo"
+            />
           ) : (
-            <img className="h-full w-full " src={notImage} alt="logo" />
+            <img
+              className={`h-full w-full ${style_clss?.rounded} `}
+              src={notImage}
+              alt="logo"
+            />
           )}
         </div>
         <div className=" text-center  mt-[8px]">

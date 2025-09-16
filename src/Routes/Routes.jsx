@@ -13,7 +13,7 @@ import ContactUs from "../Pages/Home/ContactUs/ContactUs";
 import ShopeProfile from "../Component/ShopeProfile/ShopeProfile";
 import AllPopularItem from "../Pages/Home/PopularItem/AllPopularItem";
 import AllGroseryShope from "../Pages/Home/GroseryShop/AllGroseryShope";
-import GroceryShopCaed from "../Component/GroceryShopCaed/GroceryShopCaed";
+import GroceryShopCaed from "../Component/GroceryCategoryCard/GroceryCategoryCard";
 import RiderLayout from "../Layout/RiderLayout/RiderLayout";
 import Rider from "../Dashboard/Rider/Rider";
 import RiderOrders from "../Dashboard/Rider/RiderOrders/RiderOrders";
@@ -29,6 +29,8 @@ import SuperAdmin from "../Dashboard/SuperAdmin/SuperAdmin";
 import MenuPage from "../Dashboard/SuperAdmin/MenuPage/MenuPage";
 import AllFoodsShops from "../Dashboard/SuperAdmin/AllFoodsShops/AllFoodsShops";
 import AllRiders from "../Dashboard/SuperAdmin/AllRiders/AllRiders";
+import GroceryCategoryCard from "../Component/GroceryCategoryCard/GroceryCategoryCard";
+import GroceryItemCard from "../Component/GroceryCategoryCard/GroceryItemCard";
 
 const router = createBrowserRouter([
   {
@@ -92,8 +94,12 @@ const router = createBrowserRouter([
         element: <AllGroseryShope />,
       },
       {
-        path: "/grocery_shop_card",
-        element: <GroceryShopCaed />,
+        path: "/grocery_category_card",
+        element: <GroceryCategoryCard />,
+      },
+      {
+        path: "/grocery_item_card/:category",
+        element: <GroceryItemCard />,
       },
     ],
   },

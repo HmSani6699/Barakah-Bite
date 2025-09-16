@@ -13,42 +13,42 @@ import { Link } from "react-router";
 const allItems = [
   {
     title: "রান্নার উপকরণ",
-    url: "https://i.postimg.cc/0jC2VnwK/cooking.webp",
+    img: "https://i.postimg.cc/0jC2VnwK/cooking.webp",
     items: "10",
   },
   {
     title: "শাক-সবজি",
-    url: "https://i.postimg.cc/m2qK0MyP/fresh-vegetables.webp",
+    img: "https://i.postimg.cc/m2qK0MyP/fresh-vegetables.webp",
     items: "10",
   },
   {
     title: "মাছ ও মাংস",
-    url: "https://i.postimg.cc/VvsdQ21W/meat-fish.webp",
+    img: "https://i.postimg.cc/VvsdQ21W/meat-fish.webp",
     items: "10",
   },
   {
     title: "তাজা ফল",
-    url: "https://i.postimg.cc/CMcB0Mty/fresh-fruits.webp",
+    img: "https://i.postimg.cc/CMcB0Mty/fresh-fruits.webp",
     items: "10",
   },
   {
     title: "সস ও আচার",
-    url: "https://i.postimg.cc/5txc3Jmg/sauces-pickles.webp",
+    img: "https://i.postimg.cc/5txc3Jmg/sauces-pickles.webp",
     items: "10",
   },
   {
     title: "দুধজাত ও ডিম",
-    url: "https://i.postimg.cc/634N70cx/dairy-eggs.webp",
+    img: "https://i.postimg.cc/634N70cx/dairy-eggs.webp",
     items: "10",
   },
   {
     title: "পানীয় ও জুস",
-    url: "https://i.postimg.cc/k5Fb0QK9/beverages.webp",
+    img: "https://i.postimg.cc/k5Fb0QK9/beverages.webp",
     items: "10",
   },
   {
     title: "নানান খাবার",
-    url: "https://i.postimg.cc/pX6YCJY6/snacks.webp",
+    img: "https://i.postimg.cc/pX6YCJY6/snacks.webp",
     items: "10",
   },
 ];
@@ -79,25 +79,43 @@ const GroseryShop = () => {
         <SwiperSlide>
           <div className="grid grid-cols-3 gap-[10px]  rounded-[15px]  mt-[20px]">
             {allItems &&
-              allItems
-                ?.slice(0, 6)
-                .map((item, i) => <GroceryCard item={item} />)}
+              allItems?.slice(0, 6).map((item, i) => (
+                <GroceryCard
+                  style_clss={{
+                    heigh: "h-[100px]",
+                  }}
+                  item={item}
+                  url={"/grocery_category_card"}
+                />
+              ))}
           </div>
         </SwiperSlide>
         <SwiperSlide>
           <div className="grid grid-cols-3 gap-[10px]  rounded-[15px]  mt-[20px]">
             {allItems &&
-              allItems
-                ?.slice(0, 6)
-                .map((item, i) => <GroceryCard item={item} />)}
+              allItems?.slice(0, 6).map((item, i) => (
+                <GroceryCard
+                  style_clss={{
+                    heigh: "h-[100px]",
+                  }}
+                  item={item}
+                  url={"/grocery_category_card"}
+                />
+              ))}
           </div>
         </SwiperSlide>
         <SwiperSlide>
           <div className="grid grid-cols-3 gap-[10px]  rounded-[15px]  mt-[20px]">
             {allItems &&
-              allItems
-                ?.slice(0, 6)
-                .map((item, i) => <GroceryCard item={item} />)}
+              allItems?.slice(0, 6).map((item, i) => (
+                <GroceryCard
+                  style_clss={{
+                    heigh: "h-[100px]",
+                  }}
+                  item={item}
+                  url={"/grocery_category_card"}
+                />
+              ))}
           </div>
         </SwiperSlide>
       </Swiper>

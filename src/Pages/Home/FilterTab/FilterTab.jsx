@@ -1,37 +1,81 @@
+import { useState } from "react";
 import FoodCard from "../../../Component/FoodCard/FoodCard";
 
 const FilterTab = ({ setIsFullImageOpen }) => {
+  const [isTabeButton, setIsTabeButton] = useState("সকল");
+  const allTabBtn = ["সকল", "বিরিয়ানি", "বার্গার", "নুডুলস", "পিৎজা", "পানীয়"];
+
+  const allFoods = [
+    {
+      title: "বিরিয়ানি",
+      img: "https://i.postimg.cc/zXBTG8qp/Biriyani1.jpg",
+      price: "150",
+      cutPrice: "180",
+    },
+    {
+      title: "পিৎজা",
+      img: "https://images.deliveryhero.io/image/fd-bd/LH/cu0zf-listing.jpg",
+      price: "190",
+      cutPrice: "200",
+    },
+
+    {
+      title: "বার্গার",
+      img: "https://images.deliveryhero.io/image/fd-bd/products/9010848.jpg",
+      price: "150",
+      cutPrice: "180",
+    },
+    {
+      title: "বিরিয়ানি",
+      img: "https://i.postimg.cc/zXBTG8qp/Biriyani1.jpg",
+      price: "150",
+      cutPrice: "180",
+    },
+    {
+      title: "পিৎজা",
+      img: "https://images.deliveryhero.io/image/fd-bd/LH/cu0zf-listing.jpg",
+      price: "190",
+      cutPrice: "180",
+    },
+  ];
+
   return (
     <div>
-      {" "}
-      <div className="px-[15px] flex items-center gap-[20px] overflow-auto scrollbar-hide pb-[15px] mt-[30px]">
-        <button className="main_bg_color text-white border-[1px] border-gray-300 py-[6px] px-[20px]  rounded-full shadow-sm">
-          সকল
-        </button>
-        <button className="bg-white border-[1px] border-gray-300 py-[6px] px-[20px]  rounded-full shadow-sm">
-          বিরিয়ানি
-        </button>
-        <button className="bg-white border-[1px] border-gray-300 py-[6px] px-[20px]  rounded-full shadow-sm">
-          বার্গার{" "}
-        </button>
-        <button className="bg-white border-[1px] border-gray-300 py-[6px] px-[20px]  rounded-full shadow-sm">
-          নুডুলস{" "}
-        </button>
-        <button className="bg-white border-[1px] border-gray-300 py-[6px] px-[20px]  rounded-full shadow-sm">
-          পিৎজা{" "}
-        </button>
-        <button className="bg-white border-[1px] border-gray-300 py-[6px] px-[20px]  rounded-full shadow-sm">
-          পানীয়{" "}
-        </button>
-      </div>
-      <div className="px-[15px] mt-[20px] flex items-center gap-[20px] overflow-auto scrollbar-hide mb-[20px]">
-        <FoodCard setIsFullImageOpen={setIsFullImageOpen} height="h-[150px]" />
-        <FoodCard setIsFullImageOpen={setIsFullImageOpen} height="h-[150px]" />
-        <FoodCard setIsFullImageOpen={setIsFullImageOpen} height="h-[150px]" />
-        <FoodCard setIsFullImageOpen={setIsFullImageOpen} height="h-[150px]" />
-        <FoodCard setIsFullImageOpen={setIsFullImageOpen} height="h-[150px]" />
-        <FoodCard setIsFullImageOpen={setIsFullImageOpen} height="h-[150px]" />
-      </div>
+      {allTabBtn ? (
+        <div className="px-[15px] flex items-center gap-[20px] overflow-auto scrollbar-hide pb-[15px]">
+          {allTabBtn?.map((item, i) => (
+            <button
+              key={i}
+              className={` ${
+                isTabeButton === item
+                  ? "main_bg_color text-white"
+                  : " bg-white text_black_color"
+              }     border-[1px] border-gray-300 py-[6px] px-[20px]  rounded-full shadow-sm`}
+              onClick={() => setIsTabeButton(item)}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+      ) : (
+        <p>NO Item Found !</p>
+      )}
+
+      {allFoods ? (
+        <div className="px-[15px] mt-[20px] flex items-center gap-[20px] overflow-auto scrollbar-hide mb-[20px]">
+          {allFoods?.map((item, i) => (
+            <FoodCard
+              setIsFullImageOpen={setIsFullImageOpen}
+              height="h-[150px]"
+              item={item}
+            />
+          ))}
+        </div>
+      ) : (
+        <div>
+          <h1>Item Not Found !</h1>
+        </div>
+      )}
     </div>
   );
 };

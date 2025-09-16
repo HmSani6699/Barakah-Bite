@@ -1,12 +1,19 @@
-import { FaUser } from "react-icons/fa";
+import { FaRegUser, FaUser } from "react-icons/fa";
 import { HiClipboardList, HiHome, HiShoppingCart } from "react-icons/hi";
 import "./Navber.css";
 import { Link, useLocation } from "react-router";
 import HomeBottomNavList from "../../Component/Navlist/HomeBottomNavList";
+import { TbHome } from "react-icons/tb";
+import { CiGrid41 } from "react-icons/ci";
+import { PiShoppingCart } from "react-icons/pi";
+import shopCard from "../../../public/images/card.svg";
+import homeIcon from "../../../public/images/home.svg";
 
 const HomeBottomNavber = () => {
   const { pathname } = useLocation();
-  console.log(pathname);
+
+  // check করলাম dynamic route কিনা
+  const isShopProfile = pathname.startsWith("/shope-profile/");
 
   return (
     <div
@@ -15,7 +22,8 @@ const HomeBottomNavber = () => {
         pathname === "/success" ||
         pathname === "/aboutus" ||
         pathname === "/login" ||
-        pathname === "/signup"
+        pathname === "/signup" ||
+        isShopProfile
           ? "hidden"
           : "block"
       }`}
@@ -24,18 +32,20 @@ const HomeBottomNavber = () => {
       <HomeBottomNavList
         title={"হোম"}
         url={"/"}
-        icon={<HiHome className="text-[25px] mb-[3px]  bg-white" />}
+        icon={<img src={homeIcon} alt="card" />}
       />
       <HomeBottomNavList
-        title={"অর্ডারস"}
+        title={"ক্যাটাগরি"}
         url={"/myorders"}
-        icon={<HiClipboardList className="text-[22px] mb-[3px]0 bg-white" />}
+        // icon={<HiClipboardList className="text-[22px] mb-[3px]0 bg-white" />}
+        icon={<CiGrid41 className="text-[25px] mb-[3px] bg-white" />}
       />
       <HomeBottomNavList
         title={"কার্ড"}
         url={"/card"}
-        icon={<HiShoppingCart className="text-[25px] mb-[3px]  bg-white" />}
+        icon={<img src={shopCard} alt="card" />}
       />
+
       <Link
         to={"/profile"}
         className={` ${
@@ -48,7 +58,7 @@ const HomeBottomNavber = () => {
         }`}
       >
         <div className="flex flex-col items-center bg-white ">
-          <FaUser className="text-[22px] mb-[3px]  bg-white" />
+          <FaRegUser className="text-[22px] mb-[3px]  bg-white" />
           <h2 className="text-[14px] bg-white">প্রোফাইল</h2>
         </div>
       </Link>

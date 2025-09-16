@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router";
 
-const HomeBottomNavList = ({ title, url, icon }) => {
+const HomeBottomNavList = ({ title, url, icon, img }) => {
   const { pathname } = useLocation();
   return (
     <Link
@@ -8,7 +8,7 @@ const HomeBottomNavList = ({ title, url, icon }) => {
       className={` ${pathname === url ? "text-[#ff6347]" : "text-gray-500"}`}
     >
       <div className="flex flex-col items-center bg-white ">
-        {icon}
+        {icon ? icon : img}
         <h2 className="text-[14px] bg-white"> {title}</h2>
       </div>
     </Link>

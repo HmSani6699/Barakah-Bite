@@ -3,7 +3,7 @@ import SearchInputField from "../../Component/SearchInputField/SearchInputField"
 
 const HomeTopNavber = () => {
   return (
-    <div className="p-[15px] ">
+    <div className="px-[15px] pt-[15px] ">
       {/* Navber part start */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-[10px] ">

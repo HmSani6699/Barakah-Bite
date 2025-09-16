@@ -14,6 +14,10 @@ body {
   color: #ff6347;
 }
 
+.text_black_color {
+  color: #171717;
+}
+
 /* global.css বা index.css এ রাখবেন */
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari */
@@ -28,7 +32,7 @@ body {
   position: relative;
   bottom: 0px !important;
   text-align: center;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 /* all bullets (dot) */
@@ -49,6 +53,16 @@ body {
   border-radius: 10px;
   opacity: 1;
   background: #ff5733; /* তোমার main_color */
+}
+
+.custom-pagination1 .swiper-pagination-bullet {
+  background: #ff5733; /* তোমার main_color */
+  opacity: 0.5;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin: 0 4px !important;
+  transition: all 0.3s ease;
 }
 
 .top_header_shadow {

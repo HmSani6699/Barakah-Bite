@@ -5,15 +5,20 @@ import RestaurantsShops from "../RestaurantsShops/RestaurantsShops";
 import HomeTopNavber from "../../Navber/HomeTopNavber";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { MdNotifications } from "react-icons/md";
+import SearchInputField from "../../../Component/SearchInputField/SearchInputField";
+import Banner from "../Banner/Banner";
 
 const Home = () => {
   return (
-    <div className="max-w-[1200px] mx-auto relative">
+    <div className="max-w-[1200px] mx-auto relative ">
       <>
         <HomeTopNavber />
-        <RestaurantsShops />
+        <Banner />
+
         <FilterTab />
         <GroseryShop />
+        <RestaurantsShops />
         <PopularItem />
       </>
     </div>

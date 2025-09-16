@@ -10,17 +10,61 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import { Link } from "react-router";
 
+const allItems = [
+  {
+    title: "রান্নার উপকরণ",
+    url: "https://i.postimg.cc/0jC2VnwK/cooking.webp",
+    items: "10",
+  },
+  {
+    title: "শাক-সবজি",
+    url: "https://i.postimg.cc/m2qK0MyP/fresh-vegetables.webp",
+    items: "10",
+  },
+  {
+    title: "মাছ ও মাংস",
+    url: "https://i.postimg.cc/VvsdQ21W/meat-fish.webp",
+    items: "10",
+  },
+  {
+    title: "তাজা ফল",
+    url: "https://i.postimg.cc/CMcB0Mty/fresh-fruits.webp",
+    items: "10",
+  },
+  {
+    title: "সস ও আচার",
+    url: "https://i.postimg.cc/5txc3Jmg/sauces-pickles.webp",
+    items: "10",
+  },
+  {
+    title: "দুধজাত ও ডিম",
+    url: "https://i.postimg.cc/634N70cx/dairy-eggs.webp",
+    items: "10",
+  },
+  {
+    title: "পানীয় ও জুস",
+    url: "https://i.postimg.cc/k5Fb0QK9/beverages.webp",
+    items: "10",
+  },
+  {
+    title: "নানান খাবার",
+    url: "https://i.postimg.cc/pX6YCJY6/snacks.webp",
+    items: "10",
+  },
+];
+
 const GroseryShop = () => {
   return (
-    <div className="px-[15px] mt-[50px] ">
-      <div className="flex items-center justify-between">
-        <h2 className="text-[20px] font-bold ">নিত্যপ্রয়োজনীয় বাজার</h2>
+    <div className=" mt-[35px] bg-white px-[20px] py-[20px]">
+      <div className="flex items-center justify-between bg-white ">
+        <h2 className="text-[18px] font-bold text_black_color">
+          নিত্যপ্রয়োজনীয় বাজার
+        </h2>
 
         <Link to={"/all_grocery_shop"}>
-          {" "}
-          <button className="flex  items-center gap-[10px] main_color">
+          <button className="flex  items-center gap-[10px] main_color ">
             আরো দেখুন <MdKeyboardDoubleArrowRight />
-          </button>{" "}
+          </button>
         </Link>
       </div>
       {/*  */}
@@ -30,56 +74,30 @@ const GroseryShop = () => {
           clickable: true,
         }}
         modules={[Pagination]}
-        className="mySwiper custom-pagination"
+        className="mySwiper custom-pagination "
       >
         <SwiperSlide>
-          <div className="grid grid-cols-3 gap-[20px] bg-white rounded-[15px] p-[20px] mt-[20px]">
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
+          <div className="grid grid-cols-3 gap-[10px]  rounded-[15px]  mt-[20px]">
+            {allItems &&
+              allItems
+                ?.slice(0, 6)
+                .map((item, i) => <GroceryCard item={item} />)}
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="grid grid-cols-3 gap-[20px] bg-white rounded-[15px] p-[20px] mt-[20px]">
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
+          <div className="grid grid-cols-3 gap-[10px]  rounded-[15px]  mt-[20px]">
+            {allItems &&
+              allItems
+                ?.slice(0, 6)
+                .map((item, i) => <GroceryCard item={item} />)}
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="grid grid-cols-3 gap-[20px] bg-white rounded-[15px] p-[20px] mt-[20px]">
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="grid grid-cols-3 gap-[20px] bg-white rounded-[15px] p-[20px] mt-[20px]">
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="grid grid-cols-3 gap-[20px] bg-white rounded-[15px] p-[20px] mt-[20px]">
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
-            <GroceryCard />
+          <div className="grid grid-cols-3 gap-[10px]  rounded-[15px]  mt-[20px]">
+            {allItems &&
+              allItems
+                ?.slice(0, 6)
+                .map((item, i) => <GroceryCard item={item} />)}
           </div>
         </SwiperSlide>
       </Swiper>

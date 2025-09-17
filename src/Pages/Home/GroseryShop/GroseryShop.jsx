@@ -55,7 +55,7 @@ const allItems = [
 
 const GroseryShop = () => {
   return (
-    <div className=" mt-[35px] bg-white px-[20px] py-[20px]">
+    <div className="  bg-white px-[20px] py-[20px]">
       <div className="flex items-center justify-between bg-white ">
         <h2 className="text-[18px] font-bold text_black_color">
           নিত্যপ্রয়োজনীয় বাজার
@@ -77,7 +77,7 @@ const GroseryShop = () => {
         className="mySwiper custom-pagination "
       >
         <SwiperSlide>
-          <div className="grid grid-cols-3 gap-[10px]  rounded-[15px]  mt-[20px]">
+          <div className="grid grid-cols-3 gap-[10px]  rounded-[15px]  mt-[16px]">
             {allItems &&
               allItems?.slice(0, 6).map((item, i) => (
                 <GroceryCard

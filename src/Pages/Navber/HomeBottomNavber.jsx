@@ -32,7 +32,7 @@ const HomeBottomNavber = () => {
       <HomeBottomNavList
         title={"হোম"}
         url={"/"}
-        icon={<img src={homeIcon} alt="card" />}
+        icon={<img className="mb-[3px]" src={homeIcon} alt="card" />}
       />
       <HomeBottomNavList
         title={"ক্যাটাগরি"}
@@ -43,7 +43,7 @@ const HomeBottomNavber = () => {
       <HomeBottomNavList
         title={"কার্ড"}
         url={"/card"}
-        icon={<img src={shopCard} alt="card" />}
+        icon={<img className="mb-[3px] w-[25px]" src={shopCard} alt="card" />}
       />
 
       <Link
@@ -58,7 +58,7 @@ const HomeBottomNavber = () => {
         }`}
       >
         <div className="flex flex-col items-center bg-white ">
-          <FaRegUser className="text-[22px] mb-[3px]  bg-white" />
+          <FaRegUser className="text-[22px] mb-[4px]  bg-white" />
           <h2 className="text-[14px] bg-white">প্রোফাইল</h2>
         </div>
       </Link>

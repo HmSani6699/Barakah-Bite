@@ -12,7 +12,7 @@ const HomeTopNavber = () => {
           <input
             type="text"
             className="bg-white outline-none rounded-full  w-full  h-full pl-[6px] py-[8px]"
-            placeholder="খাবার বা দোকানের নাম দিয়ে খুঁজুন"
+            placeholder="খাবার বা দোকানের নাম দিয়ে "
           />
         </div>
         <button className="bg-[#ff6347] text-white text-[12px] px-[15px] py-[5px] rounded-full ">

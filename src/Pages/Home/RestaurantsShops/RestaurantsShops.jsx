@@ -11,7 +11,7 @@ import { FaStar } from "react-icons/fa";
 
 const RestaurantsShops = () => {
   return (
-    <div className="bg-white my-[30px] py-[20px]">
+    <div className="bg-white my-[16px] py-[20px]">
       <div className="px-[20px] flex items-center justify-between">
         <h2 className="text-[18px] font-bold  ">রেস্টুরেন্ট এন্ড শপসমূহ</h2>
 

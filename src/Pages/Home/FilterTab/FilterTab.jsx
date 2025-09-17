@@ -62,7 +62,7 @@ const FilterTab = ({ setIsFullImageOpen }) => {
       )}
 
       {allFoods ? (
-        <div className="px-[15px]  flex items-center gap-[16px] overflow-auto scrollbar-hide mb-[20px]">
+        <div className="px-[15px]  flex items-center gap-[16px] overflow-auto scrollbar-hide mb-[16px]">
           {allFoods?.map((item, i) => (
             <FoodCard
               setIsFullImageOpen={setIsFullImageOpen}

@@ -7,7 +7,7 @@ const FoodCard = ({ height, item }) => {
 
   return (
     <div>
-      <div className="bg-white rounded-[15px] min-w-[290px] relative">
+      <div className="bg-white rounded-[15px] min-w-[240px] relative">
         <div className="absolute top-[20px] left-0 bg-[#ff6347] text-[12px] text-white px-[10px] py-[5px] rounded-r-[10px] shadow-md">
           10 % OFF
         </div>
@@ -26,11 +26,11 @@ const FoodCard = ({ height, item }) => {
         </div>
 
         {/* boday */}
-        <div className="px-[15px] bg-white rounded-b-[15px] w-full">
-          <h2 className="bg-white text-[20px] font-bold pt-[15px] text-[#4f4a4a]">
+        <div className=" bg-white rounded-b-[15px] w-full p-[10px]">
+          <h2 className="bg-white text-[18px] font-bold  text-[#4f4a4a]">
             {item?.title}
           </h2>
-          <div className="flex items-center gap-[8px] bg-white mt-[6px]">
+          <div className="flex items-center gap-[4px] bg-white ">
             <div className="h-[30px] w-[30px] rounded-full  border-[3px] border-white">
               <img
                 className="h-full w-full rounded-full"
@@ -39,7 +39,7 @@ const FoodCard = ({ height, item }) => {
               />
             </div>
             <div className="flex items-center gap-[10px] bg-white">
-              <h2 className="text-[16px]  bg-white whitespace-nowrap text-gray-500">
+              <h2 className="text-[14px]  bg-white whitespace-nowrap text-gray-500">
                 Barakah Mart
               </h2>
               <div className="flex items-center bg-white gap-[10px]">
@@ -51,21 +51,21 @@ const FoodCard = ({ height, item }) => {
             </div>
           </div>
 
-          <div className="flex items-center justify-between bg-white pb-[15px] rounded-b-[15px] pt-[8px] w-full">
+          <div className="flex items-center justify-between bg-white rounded-b-[15px] pt-[8px] w-full">
             <div className="flex items-center gap-[10px] bg-white">
-              <h2 className="bg-white font-extrabold p-0 text-gray-500 line-through text-[20px]">
+              <h2 className="bg-white font-extrabold p-0 text-gray-500 line-through text-[18px]">
                 <span className=" font-extrabold  bg-white p-0">৳</span>{" "}
                 {item?.cutPrice}
               </h2>
 
-              <h2 className="bg-white font-extrabold p-0 main_color text-[20px]">
+              <h2 className="bg-white font-extrabold p-0 main_color text-[18px]">
                 <span className="font-extrabold  bg-white p-0">৳</span>{" "}
                 {item?.price}
               </h2>
             </div>
             <button
-              className={`main_bg_color text-white border-[1px] border-gray-300 py-[6px] px-[30px] 
-        rounded-[8px] shadow-sm mt-[6px]`}
+              className={`main_bg_color text-white  py-[5px] px-[30px] 
+        rounded-[8px] shadow-sm `}
             >
               Add
             </button>

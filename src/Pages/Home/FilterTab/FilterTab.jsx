@@ -42,7 +42,7 @@ const FilterTab = ({ setIsFullImageOpen }) => {
   return (
     <div>
       {allTabBtn ? (
-        <div className="px-[15px] flex items-center gap-[20px] overflow-auto scrollbar-hide pb-[15px]">
+        <div className="px-[15px] flex items-center gap-[10px] overflow-auto scrollbar-hide my-[16px]">
           {allTabBtn?.map((item, i) => (
             <button
               key={i}
@@ -50,7 +50,7 @@ const FilterTab = ({ setIsFullImageOpen }) => {
                 isTabeButton === item
                   ? "main_bg_color text-white"
                   : " bg-white text_black_color"
-              }     border-[1px] border-gray-300 py-[6px] px-[20px]  rounded-full shadow-sm`}
+              }      border-gray-300 py-[6px] px-[15px]  rounded-[8px] shadow-sm`}
               onClick={() => setIsTabeButton(item)}
             >
               {item}
@@ -62,7 +62,7 @@ const FilterTab = ({ setIsFullImageOpen }) => {
       )}
 
       {allFoods ? (
-        <div className="px-[15px] mt-[20px] flex items-center gap-[20px] overflow-auto scrollbar-hide mb-[20px]">
+        <div className="px-[15px]  flex items-center gap-[20px] overflow-auto scrollbar-hide mb-[20px]">
           {allFoods?.map((item, i) => (
             <FoodCard
               setIsFullImageOpen={setIsFullImageOpen}

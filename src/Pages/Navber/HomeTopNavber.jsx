@@ -1,36 +1,24 @@
 import { MdNotifications } from "react-icons/md";
 import SearchInputField from "../../Component/SearchInputField/SearchInputField";
+import { ImSearch } from "react-icons/im";
 
 const HomeTopNavber = () => {
   return (
-    <div className="px-[15px] pt-[15px] ">
-      {/* Navber part start */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-[10px] ">
-          <div className="h-[60px] w-[60px] rounded-full  border-[3px] border-white">
-            <img
-              className="h-full w-full rounded-full"
-              src="https://i.postimg.cc/bJqXjHd5/FB-IMG-1757409260966.jpg"
-              alt="logo"
-            />
-          </div>
-          <h2 className="text-[20px] font-bold">Barakah Mart</h2>
-        </div>
+    <div className=" top_header_shadow bg-white px-[20px] py-[16px] fixed w-full top-0 z-[200]">
+      <div className="flex items-center justify-between border rounded-full pl-[10px] pr-[4px]">
+        <div className="flex items-center ">
+          <ImSearch className="text-[20px] text-gray-500 bg-white" />
 
-        <div className="relative">
-          <MdNotifications className="text-[25px]" />
-          <p className="h-[15px] w-[15px] bg-[#ff6347] rounded-full text-[10px] flex items-center justify-center text-white relative -top-[30px] -right-[12px]">
-            3
-          </p>
+          <input
+            type="text"
+            className="bg-white outline-none rounded-full  w-full  h-full pl-[6px] py-[8px]"
+            placeholder="খাবার বা দোকানের নাম দিয়ে খুঁজুন"
+          />
         </div>
+        <button className="bg-[#ff6347] text-white text-[12px] px-[15px] py-[5px] rounded-full ">
+          খুঁজুন
+        </button>
       </div>
-      {/* Navber part end */}
-
-      {/* Search part start */}
-      <div className="mt-[20px] ">
-        <SearchInputField />
-      </div>
-      {/* Search part end */}
     </div>
   );
 };

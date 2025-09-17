@@ -42,7 +42,7 @@ const PopularItem = () => {
         <h2 className="text-[18px] font-bold text_black_color">
           জনপ্রিয় খাবার
         </h2>
-        <Link to={"/all_populer_item"}>
+        <Link to={"/all-popular-items"}>
           <button className="flex  items-center gap-[10px] main_color">
             আরো দেখুন <MdKeyboardDoubleArrowRight />
           </button>

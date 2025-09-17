@@ -42,22 +42,22 @@ const CheckOut = () => {
     <div className="">
       <Link to={"/"}>
         <div className="bg-white h-[65px]  flex items-center gap-[15px] px-[15px] top_header_shadow">
-          <FaArrowLeft className="bg-white text-[20px]" />
-          <h2 className="bg-white font-bold text-[18px] text-[#171717]">
+          <FaArrowLeft className="bg-white text-[20px] text-[#6b7280]" />
+          <h2 className="bg-white font-bold text-[16px] text-[#6b7280]">
             আমার কার্ট
           </h2>
         </div>
       </Link>
       {/*  */}
       <div className="px-[15px]">
-        <div className=" mt-[20px]">
+        <div className=" mt-[16px]">
           <Card />
         </div>
 
         {/* Address */}
 
         {address ? (
-          <div className="flex items-center gap-[10px] mt-[20px]">
+          <div className="flex items-center gap-[10px] mt-[16px]">
             <div
               className={`flex items-center justify-between bg-white p-[20px] rounded-[10px]  border border-[#ff6347] w-[80%]`}
             >
@@ -84,16 +84,16 @@ const CheckOut = () => {
         ) : (
           <Link to={"/address"}>
             {" "}
-            <div className="flex items-center gap-[10px] rounded-[15px] bg-[#ffffff80]  mt-[20px] p-[20px] border-[1px] border-dashed border-[#ff6347]">
+            <div className="flex items-center gap-[10px] rounded-[15px] bg-[#ffffff80]  mt-[16px] p-[16px] border-[1px] border-dashed border-[#ff6347]">
               <FaLocationDot className="text-[20px] text-[#ff6347] bg-[#ffffff80]" />
-              <p className="bg-[#ffffff80] text-gray-400">
+              <p className="bg-[#ffffff19] text-gray-400">
                 ডেলিভারি ঠিকানা যোগ করুন
               </p>
             </div>
           </Link>
         )}
 
-        <div className="bg-[#ffffff80]  rounded-[15px] mt-[20px] p-[20px]">
+        <div className="bg-[#ffffff80]  rounded-[15px] mt-[16px] p-[20px]">
           <h2 className="font-bold mb-[10px] bg-[#ffffff80]">বিল বিবরণী</h2>
           <div className="flex items-center justify-between mb-[8px] bg-[#ffffff80]">
             <p className="text-[14px]  bg-[#ffffff80]">সাব-টোটাল</p>
@@ -125,7 +125,7 @@ const CheckOut = () => {
         </div>
 
         {/*  */}
-        <div className="w-full max-w-md bg-white rounded-lg shadow p-[20px] mt-[20px] ">
+        <div className="w-full max-w-md bg-white rounded-lg shadow p-[20px] mt-[16px] ">
           {options.map((option) => (
             <div key={option.id} className="space-y-2 ">
               <label

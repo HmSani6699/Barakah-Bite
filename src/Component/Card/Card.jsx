@@ -6,7 +6,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 
 const Card = () => {
   return (
-    <div className="flex items-center justify-between bg-[#ffffff]  rounded-[15px] p-[20px]">
+    <div className="flex items-center justify-between bg-[#ffffff]  rounded-[15px] p-[16px]">
       <div className=" flex items-center gap-[10px] bg-[#ffffff]">
         <div className="h-[65px] w-[65px] rounded-[15px]  border-[3px] border-[#eff1f1] ">
           <img

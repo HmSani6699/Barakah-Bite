@@ -87,11 +87,11 @@ const router = createBrowserRouter([
         element: <ShopeProfile />,
       },
       {
-        path: "/all_populer_item",
+        path: "/all-popular-items",
         element: <AllPopularItem />,
       },
       {
-        path: "/all_grocery_shop",
+        path: "/all-categories",
         element: <AllGroseryShope />,
       },
       {

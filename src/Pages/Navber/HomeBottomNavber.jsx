@@ -14,16 +14,21 @@ const HomeBottomNavber = () => {
 
   // check করলাম dynamic route কিনা
   const isShopProfile = pathname.startsWith("/shope-profile/");
+  const isShopProfile1 = pathname.startsWith("/grocery-itms/");
 
   return (
     <div
-      className={`bg-white fixed bottom-0 w-full  flex items-center justify-around text-gray-500 top_shadow py-[10px] z-[100] ${
+      className={`bg-white fixed bottom-0 w-full  flex items-center justify-around text-gray-500 top_shadow py-[10px] z-[100] md:hidden ${
         pathname === "/card" ||
+        pathname === "/all-categories" ||
+        pathname === "/grocery-itms" ||
+        pathname === "/all-popular-items" ||
         pathname === "/success" ||
         pathname === "/aboutus" ||
         pathname === "/login" ||
         pathname === "/signup" ||
-        isShopProfile
+        isShopProfile ||
+        isShopProfile1
           ? "hidden"
           : "block"
       }`}

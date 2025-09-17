@@ -57,20 +57,22 @@ const GroceryCategoryCard = () => {
   ];
 
   return (
-    <div className="mb-[120px]">
-      <Link to={"/"}>
-        <div className="bg-white h-[65px]  flex items-center gap-[15px] px-[15px] top_header_shadow">
-          <FaArrowLeft className="bg-white text-[20px]" />
-          <h2 className="bg-white font-bold text-[20px]">Barakha Mart</h2>
-        </div>
-      </Link>
+    <div className="mb-[16px]">
+      <div className="bg-white h-[65px]   px-[15px] top_header_shadow flex items-center justify-between">
+        <Link to={"/"} className="flex items-center gap-[15px]">
+          <FaArrowLeft className="bg-white text-[20px] text-[#6b7280]" />
+          <h2 className="bg-white font-bold text-[16px] text-[#6b7280]">
+            Barakha Mart
+          </h2>
+        </Link>
+      </div>
 
-      <h2 className=" font-bold text-[20px] mt-[20px] text-center">
+      <h2 className=" font-bold text-[20px] mt-[16px] text-center">
         রান্নার উপকরণ
       </h2>
       <p className="text-[#ff6347] text-[12px] text-center"> ( 10 আইটেম )</p>
 
-      <div className="mt-[20px] px-[15px]">
+      <div className="mt-[16px] px-[15px]">
         <SearchInputField />
       </div>
 
@@ -78,7 +80,7 @@ const GroceryCategoryCard = () => {
 
       <div>
         {allTabButton ? (
-          <div className="px-[15px] flex items-center gap-[20px] overflow-auto scrollbar-hide  mt-[20px]">
+          <div className="px-[15px] flex items-center gap-[16px] overflow-auto scrollbar-hide  mt-[16px]">
             {allTabButton?.map((item, i) => (
               <button
                 key={i}
@@ -86,7 +88,7 @@ const GroceryCategoryCard = () => {
                   isTabeButton === item
                     ? "main_bg_color text-white"
                     : " bg-white text_black_color"
-                }     border-[1px] border-gray-300 py-[6px] px-[20px]  rounded-full shadow-sm whitespace-nowrap`}
+                }     border-[1px] border-gray-300 py-[6px] px-[20px]  rounded-[8px] shadow-sm whitespace-nowrap`}
                 onClick={() => setIsTabeButton(item)}
               >
                 {item}
@@ -98,7 +100,7 @@ const GroceryCategoryCard = () => {
         )}
 
         {/* card */}
-        <div className="grid grid-cols-2 gap-[20px]  rounded-[15px] p-[20px] ">
+        <div className="grid grid-cols-2 gap-[16px]  rounded-[15px] p-[16px] ">
           {allItems?.map((item) => (
             <GroceryCard
               style_clss={{

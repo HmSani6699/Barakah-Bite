@@ -3,6 +3,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { Link } from "react-router";
 import GroceryCard from "../GroceryCard/GroceryCard";
 import { useState } from "react";
+import { LiaShoppingCartSolid } from "react-icons/lia";
 
 const GroceryItemCard = () => {
   const [isTabeButton, setIsTabeButton] = useState("চাউল");
@@ -57,22 +58,23 @@ const GroceryItemCard = () => {
   ];
 
   return (
-    <div className="mb-[120px]">
-      <Link to={"/"}>
-        <div className="bg-white h-[65px]  flex items-center gap-[15px] px-[15px] top_header_shadow">
-          <FaArrowLeft className="bg-white text-[20px]" />
-          <h2 className="bg-white text-[#171717] font-semibold text-[18px]">
+    <div className="mb-[16px]">
+      <div className="bg-white h-[65px]   px-[15px] top_header_shadow flex items-center justify-between">
+        <Link to={"/grocery-itms"} className="flex items-center gap-[15px]">
+          <FaArrowLeft className="bg-white text-[20px] text-[#6b7280]" />
+          <h2 className="bg-white font-bold text-[16px] text-[#6b7280]">
             Barakha Mart
           </h2>
-        </div>
-      </Link>
+        </Link>
+        <LiaShoppingCartSolid className="bg-white text-[35px] text-[#6b7280]" />
+      </div>
 
-      <h2 className=" font-bold text-[20px] mt-[20px] text-center text-[#171717]">
+      <h2 className=" font-bold text-[20px] mt-[16px] text-center text-[#171717]">
         চাউল
       </h2>
       <p className="text-[#ff6347] text-[12px] text-center"> ( 10 আইটেম )</p>
 
-      <div className="mt-[20px] px-[15px]">
+      <div className="mt-[16px] px-[15px]">
         <SearchInputField />
       </div>
 
@@ -80,7 +82,7 @@ const GroceryItemCard = () => {
 
       <div>
         {allTabButton ? (
-          <div className="px-[15px] flex items-center gap-[20px] overflow-auto scrollbar-hide  mt-[20px]">
+          <div className="px-[15px] flex items-center gap-[16px] overflow-auto scrollbar-hide  mt-[20px]">
             {allTabButton?.map((item, i) => (
               <button
                 key={i}
@@ -88,7 +90,7 @@ const GroceryItemCard = () => {
                   isTabeButton === item
                     ? "main_bg_color text-white"
                     : " bg-white text_black_color"
-                }     border-[1px] border-gray-300 py-[6px] px-[20px]  rounded-full shadow-sm whitespace-nowrap`}
+                }      py-[6px] px-[20px]  rounded-[8px] shadow-sm whitespace-nowrap`}
                 onClick={() => setIsTabeButton(item)}
               >
                 {item}
@@ -100,14 +102,17 @@ const GroceryItemCard = () => {
         )}
 
         {/* card */}
-        <div className="grid grid-cols-2 gap-[20px]  rounded-[15px] p-[20px] ">
+        <div className="grid grid-cols-2 gap-[16px]  rounded-[15px] p-[20px] ">
           {allItems?.map((item) => (
-            <div className="bg-white rounded-[15px]  relative">
-              <div className="absolute top-[15px] left-0 bg-[#ff6347] text-[12px] text-white px-[10px] py-[5px] rounded-r-[10px]">
+            <div className="bg-white rounded-[10px]  relative">
+              <div className="absolute top-[20px] left-0 bg-[#ff6347] text-[10px] text-white px-[10px] py-[5px] rounded-r-[10px]">
                 10 % OFF
               </div>
+              <div className="absolute top-[50px] left-0 bg-[#1e9947] text-[10px] text-white px-[10px] py-[5px] rounded-r-[10px]">
+                Solt out
+              </div>
               <div
-                className={`h-[150px] bg-white rounded-t-[15px] w-full object-cover`}
+                className={`h-[130px] bg-white rounded-t-[15px] w-full object-cover`}
               >
                 <img
                   className="h-full w-full bg-cover rounded-t-[15px]"
@@ -140,8 +145,8 @@ const GroceryItemCard = () => {
                     </h2>
                   </div>
                   <button
-                    className={`main_bg_color text-white border-[1px] border-gray-300 py-[4px] px-[30px] 
-                        rounded-[8px] shadow-sm  w-full text-[14px]`}
+                    className={`main_bg_color text-white  py-[4px] px-[30px] 
+                        rounded-[6px] shadow-sm  w-full text-[14px]`}
                   >
                     Add
                   </button>

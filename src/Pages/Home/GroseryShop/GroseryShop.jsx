@@ -61,7 +61,7 @@ const GroseryShop = () => {
           নিত্যপ্রয়োজনীয় বাজার
         </h2>
 
-        <Link to={"/all_grocery_shop"}>
+        <Link to={"/all-categories"}>
           <button className="flex  items-center gap-[10px] main_color ">
             আরো দেখুন <MdKeyboardDoubleArrowRight />
           </button>

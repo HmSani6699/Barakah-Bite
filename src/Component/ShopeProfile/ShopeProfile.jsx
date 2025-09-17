@@ -5,8 +5,11 @@ import SearchInputField from "../SearchInputField/SearchInputField";
 import { HiShoppingCart } from "react-icons/hi";
 import { LiaShoppingCartSolid } from "react-icons/lia";
 import { MdVerified } from "react-icons/md";
+import { useState } from "react";
 
 const ShopeProfile = () => {
+  const [isTabeButton, setIsTabeButton] = useState("সকল");
+  const allTabBtn = ["সকল", "বিরিয়ানি", "বার্গার", "নুডুলস", "পিৎজা", "পানীয়"];
   const allFoods = [
     {
       title: "বিরিয়ানি",
@@ -74,13 +77,13 @@ const ShopeProfile = () => {
             Barakha Mart
           </h2>
 
-          <MdVerified className="text-blue-600 text-[30px]" />
+          <MdVerified className="text-blue-600 text-[20px]" />
 
           <button className="py-[5px] px-[20px] rounded-[8px] bg-[#ff6347] text-white">
             Follow
           </button>
         </div>
-        <p>10 followers</p>
+        <p className="text-gray-600">10 followers</p>
         <hr className="mt-[20px]" />
       </div>
 
@@ -90,26 +93,25 @@ const ShopeProfile = () => {
 
       {/*  */}
       <div>
-        <div className="px-[15px] flex items-center gap-[20px] overflow-auto scrollbar-hide pb-[15px] mt-[30px]">
-          <button className="main_bg_color text-white border-[1px] border-gray-300 py-[6px] px-[20px]  rounded-full shadow-sm">
-            সকল
-          </button>
-          <button className="bg-white border-[1px] border-gray-300 py-[6px] px-[20px]  rounded-full shadow-sm">
-            বিরিয়ানি
-          </button>
-          <button className="bg-white border-[1px] border-gray-300 py-[6px] px-[20px]  rounded-full shadow-sm">
-            বার্গার{" "}
-          </button>
-          <button className="bg-white border-[1px] border-gray-300 py-[6px] px-[20px]  rounded-full shadow-sm">
-            নুডুলস{" "}
-          </button>
-          <button className="bg-white border-[1px] border-gray-300 py-[6px] px-[20px]  rounded-full shadow-sm">
-            পিৎজা{" "}
-          </button>
-          <button className="bg-white border-[1px] border-gray-300 py-[6px] px-[20px]  rounded-full shadow-sm">
-            পানীয়{" "}
-          </button>
-        </div>
+        {allTabBtn ? (
+          <div className="px-[15px] flex items-center gap-[10px] overflow-auto scrollbar-hide my-[16px]">
+            {allTabBtn?.map((item, i) => (
+              <button
+                key={i}
+                className={` ${
+                  isTabeButton === item
+                    ? "main_bg_color text-white"
+                    : " bg-white text_black_color"
+                }      border-gray-300 py-[6px] px-[15px]  rounded-[8px] shadow-sm`}
+                onClick={() => setIsTabeButton(item)}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <p>NO Item Found !</p>
+        )}
 
         {allFoods ? (
           <div className="px-[15px] mt-[20px] flex flex-col gap-[20px] mb-[20px]">

@@ -32,6 +32,7 @@ import AllRiders from "../Dashboard/SuperAdmin/AllRiders/AllRiders";
 import GroceryCategoryCard from "../Component/GroceryCategoryCard/GroceryCategoryCard";
 import GroceryItemCard from "../Component/GroceryCategoryCard/GroceryItemCard";
 import Cetegories from "../Pages/Home/Cetegories/Cetegories";
+import TrackOrder from "../Component/TrackOrder/TrackOrder";
 
 const router = createBrowserRouter([
   {
@@ -55,8 +56,8 @@ const router = createBrowserRouter([
         element: <MyOrders />,
       },
       {
-        path: "/myorderstracking/:id",
-        element: <CustomerOrderTracking />,
+        path: "/tracking-order",
+        element: <TrackOrder />,
       },
       {
         path: "/card",

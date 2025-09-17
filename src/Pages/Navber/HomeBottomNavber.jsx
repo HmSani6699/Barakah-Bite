@@ -23,6 +23,7 @@ const HomeBottomNavber = () => {
         pathname === "/all-categories" ||
         pathname === "/grocery-itms" ||
         pathname === "/all-popular-items" ||
+        pathname === "/tracking-order" ||
         pathname === "/success" ||
         pathname === "/aboutus" ||
         pathname === "/login" ||

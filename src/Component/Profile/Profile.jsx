@@ -343,14 +343,14 @@ const Profile = () => {
             icon={
               <RiFileList2Line className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
             }
-            url={"/myorders"}
+            url={"/tracking-order"}
           />
           <ProfileNaveList
             title={"ট্র্যাক অর্ডার"}
             icon={
               <BsBoxSeam className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
             }
-            url={"/myorders"}
+            url={"/tracking-order"}
           />
           <ProfileNaveList
             title={"আমার ঠিকানা"}
@@ -359,7 +359,7 @@ const Profile = () => {
             }
             url={"/address"}
           />
-          <ProfileNaveList
+          {/* <ProfileNaveList
             title={"আমার রিভিউ"}
             icon={
               <FaRegStar className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
@@ -372,7 +372,7 @@ const Profile = () => {
               <CgLock className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
             }
             url={"/address"}
-          />
+          /> */}
 
           {user && (
             <div

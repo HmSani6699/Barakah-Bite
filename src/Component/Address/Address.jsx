@@ -103,8 +103,11 @@ const Address = () => {
     <div>
       <Link to={"/"}>
         <div className="bg-white h-[65px]  flex items-center gap-[15px] px-[15px] top_header_shadow">
-          <FaArrowLeft className="bg-white text-[20px]" />
-          <h2 className="bg-white font-bold text-[20px]">আমার ঠিকানা</h2>
+          <FaArrowLeft className="bg-white text-[20px] text-[#6b7280]" />
+
+          <h2 className="bg-white font-bold text-[16px] text-[#6b7280]">
+            আমার ঠিকানা
+          </h2>
         </div>
       </Link>
       <div className="px-[15px]">

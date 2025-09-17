@@ -74,7 +74,8 @@ const OrderSuccess = () => {
         </div>
         <div className="flex flex-col gap-[20px] mt-[30px] w-full">
           <Link
-            to={"/myorderstracking/1"}
+            to={"/tracking-order"}
+            state={{ id: "1" }}
             className="main_bg_color text-white rounded-full py-[10px] px-[20px] w-full inline-block text-center"
           >
             অর্ডার ট্র্যাক করুন

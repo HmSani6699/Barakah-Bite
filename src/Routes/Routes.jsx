@@ -33,6 +33,7 @@ import GroceryCategoryCard from "../Component/GroceryCategoryCard/GroceryCategor
 import GroceryItemCard from "../Component/GroceryCategoryCard/GroceryItemCard";
 import Cetegories from "../Pages/Home/Cetegories/Cetegories";
 import TrackOrder from "../Component/TrackOrder/TrackOrder";
+import Developer from "../Developer/Developer";
 
 const router = createBrowserRouter([
   {
@@ -110,6 +111,10 @@ const router = createBrowserRouter([
       {
         path: "/categories/item/:category",
         element: <GroceryItemCard />,
+      },
+      {
+        path: "/developer",
+        element: <Developer />,
       },
     ],
   },

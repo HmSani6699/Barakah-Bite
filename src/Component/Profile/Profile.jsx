@@ -213,7 +213,7 @@ import { FcGoogle } from "react-icons/fc";
 import InputField from "../InputField/InputField";
 import { CiGrid41 } from "react-icons/ci";
 import { BsBoxSeam } from "react-icons/bs";
-import { IoLocationOutline } from "react-icons/io5";
+import { IoCodeSlash, IoLocationOutline } from "react-icons/io5";
 import { CgLock } from "react-icons/cg";
 import { RiFileList2Line } from "react-icons/ri";
 
@@ -235,27 +235,6 @@ const Profile = () => {
 
   const [number, setNumber] = useState("01996359111");
   const [password, setPassword] = useState("customer");
-
-  const handleLogin = () => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-      localStorage.removeItem("user");
-    }
-    localStorage.setItem(
-      "user",
-      JSON.stringify({ phone: number, role: password })
-    );
-
-    if (password === "customer") {
-      navigate("/");
-    } else if (password === "rider") {
-      navigate("/rider");
-    } else if (password === "foodShop") {
-      navigate("/food-shop");
-    } else if (password === "superAdmin") {
-      navigate("/super-admin");
-    }
-  };
 
   return (
     <div className="px-[20px] mt-[16px] mb-[100px]">
@@ -331,13 +310,13 @@ const Profile = () => {
 
       {user?.role === "customer" && (
         <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mb-[16px]">
-          <ProfileNaveList
+          {/* <ProfileNaveList
             title={"ড্যাশবোর্ড"}
             icon={
               <CiGrid41 className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
             }
             url={"/myorders"}
-          />
+          /> */}
           <ProfileNaveList
             title={"আমার অর্ডারসমূহ"}
             icon={
@@ -404,6 +383,13 @@ const Profile = () => {
             <FaHeadset className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
           }
           url={"/contactus"}
+        />
+        <ProfileNaveList
+          title={"ডেভেলপার"}
+          icon={
+            <IoCodeSlash className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+          }
+          url={"/developer"}
         />
       </div>
     </div>

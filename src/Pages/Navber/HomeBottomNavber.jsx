@@ -1,13 +1,13 @@
 import { FaRegUser, FaUser } from "react-icons/fa";
-import { HiClipboardList, HiHome, HiShoppingCart } from "react-icons/hi";
+
 import "./Navber.css";
 import { Link, useLocation } from "react-router";
 import HomeBottomNavList from "../../Component/Navlist/HomeBottomNavList";
-import { TbHome } from "react-icons/tb";
+
 import { CiGrid41 } from "react-icons/ci";
-import { PiShoppingCart } from "react-icons/pi";
 import shopCard from "../../../public/images/card.svg";
 import homeIcon from "../../../public/images/home.svg";
+import homeIconActibe from "../../../public/images/homeIconActibe.svg";
 
 const HomeBottomNavber = () => {
   const { pathname } = useLocation();
@@ -26,6 +26,7 @@ const HomeBottomNavber = () => {
         pathname === "/tracking-order" ||
         pathname === "/success" ||
         pathname === "/aboutus" ||
+        pathname === "/developer" ||
         pathname === "/login" ||
         pathname === "/signup" ||
         isShopProfile ||
@@ -35,11 +36,26 @@ const HomeBottomNavber = () => {
       }`}
     >
       {/* Customer Navlist  Start*/}
-      <HomeBottomNavList
+      {/* <HomeBottomNavList
         title={"হোম"}
         url={"/"}
         icon={<img className="mb-[3px]" src={homeIcon} alt="card" />}
-      />
+      /> */}
+
+      <Link
+        to={"/"}
+        className={` ${pathname === "/" ? "text-[#ff6347]" : "text-gray-500"}`}
+      >
+        <div className="flex flex-col items-center bg-white ">
+          {pathname === "/" ? (
+            <img className="mb-[3px]" src={homeIconActibe} alt="card" />
+          ) : (
+            <img className="mb-[3px]" src={homeIcon} alt="card" />
+          )}
+          <h2 className="text-[14px] bg-white">হোম</h2>
+        </div>
+      </Link>
+
       <HomeBottomNavList
         title={"ক্যাটাগরি"}
         url={"/categories"}

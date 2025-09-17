@@ -61,11 +61,15 @@ const GroceryItemCard = () => {
       <Link to={"/"}>
         <div className="bg-white h-[65px]  flex items-center gap-[15px] px-[15px] top_header_shadow">
           <FaArrowLeft className="bg-white text-[20px]" />
-          <h2 className="bg-white font-bold text-[20px]">Barakha Mart</h2>
+          <h2 className="bg-white text-[#171717] font-semibold text-[18px]">
+            Barakha Mart
+          </h2>
         </div>
       </Link>
 
-      <h2 className=" font-bold text-[20px] mt-[20px] text-center">চাউল</h2>
+      <h2 className=" font-bold text-[20px] mt-[20px] text-center text-[#171717]">
+        চাউল
+      </h2>
       <p className="text-[#ff6347] text-[12px] text-center"> ( 10 আইটেম )</p>
 
       <div className="mt-[20px] px-[15px]">

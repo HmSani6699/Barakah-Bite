@@ -43,7 +43,9 @@ const CheckOut = () => {
       <Link to={"/"}>
         <div className="bg-white h-[65px]  flex items-center gap-[15px] px-[15px] top_header_shadow">
           <FaArrowLeft className="bg-white text-[20px]" />
-          <h2 className="bg-white font-bold text-[20px]">আমার কার্ট</h2>
+          <h2 className="bg-white font-bold text-[18px] text-[#171717]">
+            আমার কার্ট
+          </h2>
         </div>
       </Link>
       {/*  */}
@@ -157,14 +159,14 @@ const CheckOut = () => {
 
               {/* Extra bubble for Cash on Delivery */}
               {option.id === "cod" && selected === "cod" ? (
-                <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md mx-[20px] p-[20px] text-gray-600 text-sm ">
+                <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md  p-[20px] text-gray-600 text-sm ">
                   <div className="absolute -top-2 left-[20px] w-[30px] h-[30px] bg-[#f3f3f3]  border-gray-200 rotate-45"></div>
                   <h2 className="relative z-[20]">
                     ডেলিভারির সময় নগদ অর্থ প্রদান করুন।
                   </h2>
                 </div>
               ) : option.id === "bkash" && selected === "bkash" ? (
-                <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md mx-[20px] p-[20px] text-gray-600 text-sm ">
+                <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md  p-[20px] text-gray-600 text-sm ">
                   <div className="absolute -top-2 left-[20px] w-[30px] h-[30px] bg-[#f3f3f3]  border-gray-200 rotate-45"></div>
                   <h2 className="text-center font-bold mb-[15px] relative z-10">
                     আপনাকে 230 টাকা পাঠাতে হবে ।
@@ -208,7 +210,7 @@ const CheckOut = () => {
                   </div>
                 </div>
               ) : option.id === "nagad" && selected === "nagad" ? (
-                <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md mx-[20px] p-[20px] text-gray-600 text-sm ">
+                <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md  p-[20px] text-gray-600 text-sm ">
                   <div className="absolute -top-2 left-[20px] w-[30px] h-[30px] bg-[#f3f3f3]  border-gray-200 rotate-45"></div>
                   <h2 className="text-center font-bold mb-[15px] relative z-10">
                     আপনাকে 230 টাকা পাঠাতে হবে ।
@@ -252,7 +254,7 @@ const CheckOut = () => {
                   </div>
                 </div>
               ) : option.id === "rocket" && selected === "rocket" ? (
-                <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md mx-[20px] p-[20px] text-gray-600 text-sm ">
+                <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md  p-[20px] text-gray-600 text-sm ">
                   <div className="absolute -top-2 left-[20px] w-[30px] h-[30px] bg-[#f3f3f3]  border-gray-200 rotate-45"></div>
                   <h2 className="text-center font-bold mb-[15px] relative z-10">
                     আপনাকে 230 টাকা পাঠাতে হবে ।

@@ -85,7 +85,7 @@ const GroseryShop = () => {
                     heigh: "h-[100px]",
                   }}
                   item={item}
-                  url={"/grocery_category_card"}
+                  url={"/grocery-itms"}
                 />
               ))}
           </div>
@@ -99,7 +99,7 @@ const GroseryShop = () => {
                     heigh: "h-[100px]",
                   }}
                   item={item}
-                  url={"/grocery_category_card"}
+                  url={"/grocery-itms"}
                 />
               ))}
           </div>
@@ -113,7 +113,7 @@ const GroseryShop = () => {
                     heigh: "h-[100px]",
                   }}
                   item={item}
-                  url={"/grocery_category_card"}
+                  url={"/grocery-itms"}
                 />
               ))}
           </div>

@@ -12,13 +12,13 @@ const GroceryCategoryCard = () => {
       title: "চাউল",
       img: "https://i.postimg.cc/MGcDnyd1/rice.webp",
       items: "10",
-      url: "/grocery_item_card/চাউল",
+      url: "/grocery-itms/চাউল",
     },
     {
       title: "লবণ ও চিনি",
       img: "https://i.postimg.cc/RFBHvf8S/salt-sugar.webp",
       items: "10",
-      url: "/grocery_item_card/লবণ ও চিনি",
+      url: "/grocery-itms/লবণ ও চিনি",
     },
     {
       title: "ডাল বা মসুর ডাল",

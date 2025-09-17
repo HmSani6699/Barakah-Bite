@@ -31,6 +31,7 @@ import AllFoodsShops from "../Dashboard/SuperAdmin/AllFoodsShops/AllFoodsShops";
 import AllRiders from "../Dashboard/SuperAdmin/AllRiders/AllRiders";
 import GroceryCategoryCard from "../Component/GroceryCategoryCard/GroceryCategoryCard";
 import GroceryItemCard from "../Component/GroceryCategoryCard/GroceryItemCard";
+import Cetegories from "../Pages/Home/Cetegories/Cetegories";
 
 const router = createBrowserRouter([
   {
@@ -94,11 +95,19 @@ const router = createBrowserRouter([
         element: <AllGroseryShope />,
       },
       {
-        path: "/grocery_category_card",
+        path: "/grocery-itms",
         element: <GroceryCategoryCard />,
       },
       {
-        path: "/grocery_item_card/:category",
+        path: "/grocery-itms/:category",
+        element: <GroceryItemCard />,
+      },
+      {
+        path: "/categories",
+        element: <Cetegories />,
+      },
+      {
+        path: "/categories/item/:category",
         element: <GroceryItemCard />,
       },
     ],

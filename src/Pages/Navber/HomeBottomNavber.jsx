@@ -36,7 +36,7 @@ const HomeBottomNavber = () => {
       />
       <HomeBottomNavList
         title={"ক্যাটাগরি"}
-        url={"/myorders"}
+        url={"/categories"}
         // icon={<HiClipboardList className="text-[22px] mb-[3px]0 bg-white" />}
         icon={<CiGrid41 className="text-[25px] mb-[3px] bg-white" />}
       />

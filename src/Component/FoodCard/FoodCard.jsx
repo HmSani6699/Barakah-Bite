@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
+import { useCart } from "../CartContext/CartContext";
 
-const FoodCard = ({ height, item }) => {
+const FoodCard = ({ height, item, haldleAddToCard }) => {
   const [isFullImageOpen, setIsFullImageOpen] = useState(false);
+  const { addToCart } = useCart();
 
   return (
     <div>
@@ -28,7 +30,7 @@ const FoodCard = ({ height, item }) => {
         {/* boday */}
         <div className=" bg-white rounded-b-[15px] w-full p-[10px]">
           <h2 className="bg-white text-[18px] font-bold  text-[#4f4a4a]">
-            {item?.title}
+            {item?.name}
           </h2>
           <div className="flex items-center gap-[4px] bg-white ">
             <div className="h-[30px] w-[30px] rounded-full  border-[3px] border-white">
@@ -54,16 +56,21 @@ const FoodCard = ({ height, item }) => {
           <div className="flex items-center justify-between bg-white rounded-b-[15px] pt-[8px] w-full">
             <div className="flex items-center gap-[10px] bg-white">
               <h2 className="bg-white font-extrabold p-0 text-gray-500 line-through text-[18px]">
-                <span className=" font-extrabold  bg-white p-0">৳</span>{" "}
-                {item?.cutPrice}
+                {item?.variants?.[0]?.cutPrice && (
+                  <div>
+                    <span className=" font-extrabold  bg-white p-0">৳</span>{" "}
+                    {item?.variants?.[0]?.cutPrice}
+                  </div>
+                )}
               </h2>
 
               <h2 className="bg-white font-extrabold p-0 main_color text-[18px]">
                 <span className="font-extrabold  bg-white p-0">৳</span>{" "}
-                {item?.price}
+                {item?.variants?.[0]?.price}
               </h2>
             </div>
             <button
+              onClick={() => addToCart(item)}
               className={`main_bg_color text-white  py-[5px] px-[30px] 
         rounded-[8px] shadow-sm `}
             >

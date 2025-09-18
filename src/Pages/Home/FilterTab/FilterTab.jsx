@@ -1,41 +1,149 @@
 import { useState } from "react";
 import FoodCard from "../../../Component/FoodCard/FoodCard";
 
-const FilterTab = ({ setIsFullImageOpen }) => {
+const FilterTab = ({ setIsFullImageOpen, haldleAddToCard }) => {
   const [isTabeButton, setIsTabeButton] = useState("সকল");
   const allTabBtn = ["সকল", "বিরিয়ানি", "বার্গার", "নুডুলস", "পিৎজা", "পানীয়"];
 
+  // const allFoods = [
+  //   {
+  //     title: "বিরিয়ানি",
+  //     img: "https://i.postimg.cc/zXBTG8qp/Biriyani1.jpg",
+  //     price: "150",
+  //     cutPrice: "180",
+  //   },
+  //   {
+  //     title: "পিৎজা",
+  //     img: "https://images.deliveryhero.io/image/fd-bd/LH/cu0zf-listing.jpg",
+  //     price: "190",
+  //     cutPrice: "200",
+  //   },
+
+  //   {
+  //     title: "বার্গার",
+  //     img: "https://images.deliveryhero.io/image/fd-bd/products/9010848.jpg",
+  //     price: "150",
+  //     cutPrice: "180",
+  //   },
+  //   {
+  //     title: "বিরিয়ানি",
+  //     img: "https://i.postimg.cc/zXBTG8qp/Biriyani1.jpg",
+  //     price: "150",
+  //     cutPrice: "180",
+  //   },
+  //   {
+  //     title: "পিৎজা",
+  //     img: "https://images.deliveryhero.io/image/fd-bd/LH/cu0zf-listing.jpg",
+  //     price: "190",
+  //     cutPrice: "180",
+  //   },
+  // ];
+
   const allFoods = [
     {
-      title: "বিরিয়ানি",
-      img: "https://i.postimg.cc/zXBTG8qp/Biriyani1.jpg",
-      price: "150",
-      cutPrice: "180",
-    },
-    {
-      title: "পিৎজা",
-      img: "https://images.deliveryhero.io/image/fd-bd/LH/cu0zf-listing.jpg",
-      price: "190",
-      cutPrice: "200",
-    },
+      id: "prod001",
+      name: "বিরিয়ানি",
+      category: "Grocery",
+      defaultUnit: "litre",
+      variants: [
+        {
+          id: "v1",
+          label: "1 Litre",
+          unit: "litre",
+          price: 220,
+          cutPrice: 250,
+          discount: "10 tk",
+          qty_step: 1,
+          stock: 50,
+        },
+        {
+          id: "v2",
+          label: "500 ml",
+          unit: "ml",
+          price: 120,
+          qty_step: 1,
+          stock: 100,
+        },
+      ],
 
-    {
-      title: "বার্গার",
-      img: "https://images.deliveryhero.io/image/fd-bd/products/9010848.jpg",
-      price: "150",
-      cutPrice: "180",
-    },
-    {
-      title: "বিরিয়ানি",
       img: "https://i.postimg.cc/zXBTG8qp/Biriyani1.jpg",
-      price: "150",
-      cutPrice: "180",
     },
     {
-      title: "পিৎজা",
-      img: "https://images.deliveryhero.io/image/fd-bd/LH/cu0zf-listing.jpg",
-      price: "190",
-      cutPrice: "180",
+      id: "prod002",
+      name: "বার্গার",
+      category: "Grocery",
+      defaultUnit: "kg",
+      variants: [
+        {
+          id: "v1",
+          label: "1 kg",
+          unit: "kg",
+          price: 40,
+          qty_step: 1,
+          cutPrice: 250,
+          discount: "10%",
+          stock: 200,
+        },
+        {
+          id: "v2",
+          label: "500 g",
+          unit: "g",
+          price: 25,
+          qty_step: 1,
+          stock: 150,
+        },
+      ],
+      img: "https://i.postimg.cc/zXBTG8qp/Biriyani1.jpg",
+    },
+    {
+      id: "prod003",
+      name: "নুডুলস",
+      category: "Food",
+      defaultUnit: "piece",
+      variants: [
+        {
+          id: "small",
+          label: "Sm (6 inch)",
+          unit: "piece",
+          price: 450,
+          qty_step: 1,
+          stock: 20,
+        },
+        {
+          id: "lg",
+          label: "Lg(12 inch)",
+          unit: "piece",
+          price: 800,
+          qty_step: 1,
+          stock: 10,
+        },
+      ],
+      img: "https://i.postimg.cc/zXBTG8qp/Biriyani1.jpg",
+    },
+    {
+      id: "prod004",
+      name: "পিৎজা",
+      category: "Food",
+      defaultUnit: "piece",
+      variants: [
+        {
+          id: "v1",
+          label: "Single Patty",
+          unit: "piece",
+          price: 150,
+          qty_step: 1,
+          stock: 30,
+        },
+        {
+          id: "v2",
+          label: "Double Patty",
+          unit: "piece",
+          price: 250,
+          qty_step: 1,
+          stock: 15,
+        },
+      ],
+      img: "https://i.postimg.cc/zXBTG8qp/Biriyani1.jpg",
     },
   ];
 
@@ -68,6 +176,7 @@ const FilterTab = ({ setIsFullImageOpen }) => {
               setIsFullImageOpen={setIsFullImageOpen}
               height="h-[140px]"
               item={item}
+              haldleAddToCard={haldleAddToCard}
             />
           ))}
         </div>

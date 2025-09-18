@@ -1,11 +1,15 @@
 import { Outlet, useLocation } from "react-router";
 import HomeBottomNavber from "../../Pages/Navber/HomeBottomNavber";
+import { useEffect, useState } from "react";
+import { CartProvider } from "../../Component/CartContext/CartContext";
 
 const MainLayout = () => {
   return (
     <div>
-      <Outlet />
-      <HomeBottomNavber />
+      <CartProvider>
+        <Outlet />
+        <HomeBottomNavber />
+      </CartProvider>
     </div>
   );
 };

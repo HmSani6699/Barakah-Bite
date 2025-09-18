@@ -2,19 +2,11 @@ import React, { useEffect, useState } from "react";
 import { FaArrowLeft, FaLocationDot, FaPlus } from "react-icons/fa6";
 import { IoMdCloseCircle } from "react-icons/io";
 import { TbMapPinSearch, TbMapSearch } from "react-icons/tb";
-import { Link, useLocation } from "react-router";
+import { Link } from "react-router";
 import InputField from "../InputField/InputField";
 import TextareaField from "../TextareaField/TextareaField";
 import { v4 as uuidv4 } from "uuid";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import {
-  getAllAddresses,
-  getDeliveryAddress,
-  removeAllAddresses,
-  removeDeliveryAddress,
-  saveAllAddresses,
-  saveDeliveryAddress,
-} from "../../helper/addressHelper";
 
 const Address = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -25,70 +17,96 @@ const Address = () => {
   const [note, setNote] = useState("Vallo note");
   const [isIndex, setIsIndex] = useState("");
 
-  const location = useLocation();
-  const checkout = location.state;
+  const id = uuidv4();
 
   const [allAddress, setAllAddress] = useState([]);
-  // Load on mount
-  useEffect(() => {
-    const address = getAllAddresses();
-    const deliveryAddress = getDeliveryAddress();
-    setAllAddress(address);
-    setIsIndex(deliveryAddress?.id);
-  }, []);
 
-  // Add Address
   const handleAddAddress = () => {
-    const newAddress = {
+    const allDeliveryAddress = {
       name,
       number,
       hous,
       area,
       note,
-      id: uuidv4(),
+      id,
       date: new Date().toISOString().split("T")[0],
     };
 
-    const all = getAllAddresses();
-    const updated = [...all, newAddress];
+    const getOldAddress = localStorage.getItem("allDeliveryAddress");
+    if (getOldAddress) {
+      const parseOldAddress = JSON.parse(getOldAddress);
+      const newAddress = [...parseOldAddress, allDeliveryAddress];
+      localStorage.setItem("allDeliveryAddress", JSON.stringify(newAddress));
 
-    saveAllAddresses(updated);
-    saveDeliveryAddress(newAddress);
-
-    setAllAddress(updated);
-    setIsFormOpen(false);
-  };
-
-  // Select delivery address
-  const handleDeliveryAddress = (item) => {
-    saveDeliveryAddress(item);
-    setIsIndex(item.id);
-  };
-
-  // Delete address
-  const handleDeleteAddress = (id) => {
-    const all = getAllAddresses();
-    const filtered = all.filter((item) => item.id !== id);
-
-    if (filtered.length === 0) {
-      removeAllAddresses();
-      removeDeliveryAddress();
+      // set state
+      const address = JSON.parse(localStorage.getItem("allDeliveryAddress"));
+      setAllAddress(address);
+      setIsFormOpen(false);
     } else {
-      saveAllAddresses(filtered);
+      localStorage.setItem(
+        "allDeliveryAddress",
+        JSON.stringify([allDeliveryAddress])
+      );
 
-      // যদি ডিলিট হওয়া address = current হয়
-      const current = getDeliveryAddress();
-      if (current?.id === id) {
-        removeDeliveryAddress();
-      }
+      localStorage.setItem(
+        "deliveryAddress",
+        JSON.stringify(allDeliveryAddress)
+      );
+
+      // set state
+      const address = JSON.parse(localStorage.getItem("allDeliveryAddress"));
+      setAllAddress(address);
+      setIsFormOpen(false);
+    }
+  };
+
+  // Handle deleveri addre set localstoregae
+  const handleDeliveryAddress = (item) => {
+    const address = JSON.parse(localStorage.getItem("deliveryAddress"));
+    if (address) {
+      localStorage.removeItem("deliveryAddress");
+      localStorage.setItem("deliveryAddress", JSON.stringify(item));
+    } else {
+      localStorage.setItem("deliveryAddress", JSON.stringify(item));
     }
 
-    setAllAddress(filtered);
+    const deliveryAddress = JSON.parse(localStorage.getItem("deliveryAddress"));
+    setIsIndex(deliveryAddress?.id);
   };
+
+  // Delete Address
+
+  const handleDeleteAddress = (id) => {
+    const allAddress = JSON.parse(localStorage.getItem("allDeliveryAddress"));
+
+    const filterAddress = allAddress?.filter((item) => item?.id !== id);
+
+    localStorage.removeItem("allDeliveryAddress");
+
+    localStorage.setItem("allDeliveryAddress", JSON.stringify(filterAddress));
+
+    const updateAddress = JSON.parse(
+      localStorage.getItem("allDeliveryAddress")
+    );
+    setAllAddress(updateAddress);
+
+    if (allAddress.length === 0) {
+      localStorage.removeItem("deliveryAddress");
+    }
+  };
+
+  // load address
+  useEffect(() => {
+    const address = JSON.parse(localStorage.getItem("allDeliveryAddress"));
+
+    const deliveryAddress = JSON.parse(localStorage.getItem("deliveryAddress"));
+    setIsIndex(deliveryAddress?.id);
+    setAllAddress(address);
+  }, []);
 
   return (
     <div>
-      <Link to={checkout ? "/checkout" : "/profile"}>
+      <Link to={"/"}>
         <div className="bg-white h-[65px]  flex items-center gap-[15px] px-[15px] top_header_shadow">
           <FaArrowLeft className="bg-white text-[20px] text-[#6b7280]" />
 

@@ -16,7 +16,7 @@ const Banner = () => {
           dynamicBullets: true,
         }}
         autoplay={{
-          delay: 2500, // প্রতি 2.5 সেকেন্ডে auto slide হবে
+          delay: 4000, // প্রতি 2.5 সেকেন্ডে auto slide হবে
           disableOnInteraction: false,
         }}
         modules={[Pagination, Autoplay]}

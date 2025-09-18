@@ -62,6 +62,10 @@ const router = createBrowserRouter([
       },
       {
         path: "/card",
+        element: <Card />,
+      },
+      {
+        path: "/checkOut",
         element: <CheckOut />,
       },
       {

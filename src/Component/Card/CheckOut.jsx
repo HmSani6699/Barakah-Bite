@@ -1,12 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { FaArrowLeft, FaMoneyBillWave } from "react-icons/fa";
-import Card from "./Card";
 import { FaLocationDot, FaPlus } from "react-icons/fa6";
-import { Link } from "react-router";
+import { IoMdCloseCircle } from "react-icons/io";
+import { Link, useLocation } from "react-router";
+import InputField from "../InputField/InputField";
+import TextareaField from "../TextareaField/TextareaField";
+import SelectInputField from "../SelectInputField/SelectInputField";
+import { v4 as uuidv4 } from "uuid";
 
 const CheckOut = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const [selected, setSelected] = useState("cod");
   const [address, setAddress] = useState({});
+  const location = useLocation();
+  const grandTotal = location.state;
+
+  const [name, setName] = useState("MD Sadiq");
+  const [number, setNumber] = useState("01996359111");
+  const [area, setArea] = useState("সোনারগাঁও");
+  const [gram, setGram] = useState("পাকুন্ডা");
+  const [elaka, setElaka] = useState("পাকুন্ডা নাম পাড়া");
+  const [hous, setHous] = useState("1");
+  const [note, setNote] = useState("Vallo note");
 
   const options = [
     {
@@ -33,64 +48,91 @@ const CheckOut = () => {
   ];
 
   // set Addres
+
+  // Add Address
+  const handleAddAddress = () => {
+    const getDelivery = JSON.parse(localStorage.getItem("deliveryAddress"));
+
+    const newAddress = {
+      name,
+      number,
+      gram,
+      elaka,
+      hous,
+      area,
+      note,
+      id: uuidv4(),
+      date: new Date().toISOString().split("T")[0],
+    };
+
+    // get aitem
+    if (getDelivery) {
+      localStorage.removeItem("deliveryAddress");
+      localStorage.setItem("deliveryAddress", JSON.stringify(newAddress));
+      const getItem = localStorage.getItem("deliveryAddress");
+      setAddress(JSON.parse(getItem));
+      setIsFormOpen(false);
+    } else {
+      localStorage.setItem("deliveryAddress", JSON.stringify(newAddress));
+      const getItem = localStorage.getItem("deliveryAddress");
+      setAddress(JSON.parse(getItem));
+      setIsFormOpen(false);
+    }
+  };
+
   useEffect(() => {
-    const deliveryAddress = JSON.parse(localStorage.getItem("deliveryAddress"));
-    setAddress(deliveryAddress);
+    const getItem = localStorage.getItem("deliveryAddress");
+    setAddress(JSON.parse(getItem));
   }, []);
 
   return (
     <div className="">
-      <Link to={"/"}>
-        <div className="bg-white h-[65px]  flex items-center gap-[15px] px-[15px] top_header_shadow">
+      <Link to={"/card"}>
+        <div className="bg-white h-[65px]  flex items-center gap-[15px] px-[15px] top_header_shadow w-full">
           <FaArrowLeft className="bg-white text-[20px] text-[#6b7280]" />
           <h2 className="bg-white font-bold text-[16px] text-[#6b7280]">
-            আমার কার্ট
+            পেমেন্ট করুন
           </h2>
         </div>
       </Link>
       {/*  */}
       <div className="px-[15px]">
-        <div className=" mt-[16px]">
-          <Card />
-        </div>
-
         {/* Address */}
 
         {address ? (
           <div className="flex items-center gap-[10px] mt-[16px]">
             <div
-              className={`flex items-center justify-between bg-white p-[20px] rounded-[10px]  border border-[#ff6347] w-[80%]`}
+              className={`flex items-center justify-between bg-white  rounded-[10px] py-[8px] px-[10px]  border-dashed border border-[#ff6347] w-[80%]`}
             >
-              <div className="flex items-center gap-[20px]">
+              <div className="flex items-center gap-[10px]">
                 <FaLocationDot className="text-[#ff6347] text-[30px]" />
                 <div>
-                  <h2 className="font-bold text-[18px]">{address?.name}</h2>
+                  <h2 className="font-semibold text-[14px]">{address?.name}</h2>
 
-                  <h2 className="font-semibold text-gray-500">
-                    {address?.hous}, {address?.area}
+                  <h2 className="font-semibold text-gray-500 text-[12px]">
+                    {address?.elaka}, {address?.area}
                   </h2>
                 </div>
               </div>
             </div>
 
-            <Link
-              to={"/address"}
-              className=" bg-[#ff6347]  flex items-center flex-col h-full text-white py-[10px] rounded-[10px] w-[20%]"
+            <button
+              onClick={() => setIsFormOpen(true)}
+              className=" bg-[#ff6347]  flex items-center flex-col h-full text-white py-[5px] rounded-[8px] w-[20%]"
             >
               <FaPlus />
               <p className="text-[10px] mt-[10px]">নতুন ঠিকানা</p>
-            </Link>
+            </button>
           </div>
         ) : (
-          <Link to={"/address"}>
-            {" "}
+          <button onClick={() => setIsFormOpen(true)} className="w-full">
             <div className="flex items-center gap-[10px] rounded-[15px] bg-[#ffffff80]  mt-[16px] p-[16px] border-[1px] border-dashed border-[#ff6347]">
               <FaLocationDot className="text-[20px] text-[#ff6347] bg-[#ffffff80]" />
               <p className="bg-[#ffffff19] text-gray-400">
                 ডেলিভারি ঠিকানা যোগ করুন
               </p>
             </div>
-          </Link>
+          </button>
         )}
 
         <div className="bg-[#ffffff80]  rounded-[15px] mt-[16px] p-[20px]">
@@ -98,19 +140,20 @@ const CheckOut = () => {
           <div className="flex items-center justify-between mb-[8px] bg-[#ffffff80]">
             <p className="text-[14px]  bg-[#ffffff80]">সাব-টোটাল</p>
             <p className="bg-[#ffffff80]">
-              <span className="font-extrabold bg-[#ffffff80]">৳</span> 200
+              <span className="font-extrabold bg-[#ffffff80]">৳ </span>
+              {grandTotal ? grandTotal : "0"}
             </p>
           </div>
           <div className="flex items-center justify-between mb-[8px] bg-[#ffffff80]">
             <p className="text-[14px] ">ডেলিভারি চার্জ</p>
             <p className="bg-[#ffffff80]">
-              <span className="font-extrabold bg-[#ffffff80]">৳</span> 200
+              <span className="font-extrabold bg-[#ffffff80]">৳</span> {40}
             </p>
           </div>
           <div className="flex items-center justify-between mb-[8px] bg-[#ffffff80]">
             <p className="bg-[#ffffff80] text-[14px] ">ডিসকাউন্ট</p>
             <p className="bg-[#ffffff80]">
-              <span className="font-extrabold bg-[#ffffff80]">৳</span> 200
+              <span className="font-extrabold bg-[#ffffff80]">৳</span> 00
             </p>
           </div>
 
@@ -119,7 +162,8 @@ const CheckOut = () => {
               সর্বমোট
             </p>
             <p className="font-bold pt-[8px] bg-[#ffffff80]">
-              <span className="font-extrabold bg-[#ffffff80]">৳</span> 200
+              <span className="font-extrabold bg-[#ffffff80]">৳</span>{" "}
+              {grandTotal && grandTotal + 40}
             </p>
           </div>
         </div>
@@ -159,17 +203,17 @@ const CheckOut = () => {
 
               {/* Extra bubble for Cash on Delivery */}
               {option.id === "cod" && selected === "cod" ? (
-                <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md  p-[20px] text-gray-600 text-sm ">
+                <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md  p-[16px] text-gray-600 text-sm ">
                   <div className="absolute -top-2 left-[20px] w-[30px] h-[30px] bg-[#f3f3f3]  border-gray-200 rotate-45"></div>
                   <h2 className="relative z-[20]">
                     ডেলিভারির সময় নগদ অর্থ প্রদান করুন।
                   </h2>
                 </div>
               ) : option.id === "bkash" && selected === "bkash" ? (
-                <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md  p-[20px] text-gray-600 text-sm ">
+                <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md  p-[16px] text-gray-600 text-sm ">
                   <div className="absolute -top-2 left-[20px] w-[30px] h-[30px] bg-[#f3f3f3]  border-gray-200 rotate-45"></div>
                   <h2 className="text-center font-bold mb-[15px] relative z-10">
-                    আপনাকে 230 টাকা পাঠাতে হবে ।
+                    আপনাকে {grandTotal && grandTotal + 40} টাকা পাঠাতে হবে ।
                   </h2>
                   <h2 className="text-[12px] text-center mb-[10px]">
                     bKash দিয়ে পেমেন্ট করুন। টাকা পাঠানোর পর নিচে আপনার নাম্বার
@@ -210,10 +254,10 @@ const CheckOut = () => {
                   </div>
                 </div>
               ) : option.id === "nagad" && selected === "nagad" ? (
-                <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md  p-[20px] text-gray-600 text-sm ">
+                <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md  p-[16px] text-gray-600 text-sm ">
                   <div className="absolute -top-2 left-[20px] w-[30px] h-[30px] bg-[#f3f3f3]  border-gray-200 rotate-45"></div>
                   <h2 className="text-center font-bold mb-[15px] relative z-10">
-                    আপনাকে 230 টাকা পাঠাতে হবে ।
+                    আপনাকে {grandTotal && grandTotal + 40} টাকা পাঠাতে হবে ।
                   </h2>
                   <h2 className="text-[12px] text-center mb-[10px]">
                     Nagad দিয়ে পেমেন্ট করুন। টাকা পাঠানোর পর নিচে আপনার নাম্বার
@@ -254,10 +298,10 @@ const CheckOut = () => {
                   </div>
                 </div>
               ) : option.id === "rocket" && selected === "rocket" ? (
-                <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md  p-[20px] text-gray-600 text-sm ">
+                <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md  p-[16px] text-gray-600 text-sm ">
                   <div className="absolute -top-2 left-[20px] w-[30px] h-[30px] bg-[#f3f3f3]  border-gray-200 rotate-45"></div>
                   <h2 className="text-center font-bold mb-[15px] relative z-10">
-                    আপনাকে 230 টাকা পাঠাতে হবে ।
+                    আপনাকে {grandTotal && grandTotal + 40} টাকা পাঠাতে হবে ।
                   </h2>
                   <h2 className="text-[12px] text-center mb-[10px]">
                     Rocket দিয়ে পেমেন্ট করুন। টাকা পাঠানোর পর নিচে আপনার নাম্বার
@@ -305,14 +349,105 @@ const CheckOut = () => {
         </div>
 
         {/*  */}
-        <Link to={"/success"}>
-          <div className="mb-[30px]">
-            <button className="main_bg_color text-white border-[1px] border-gray-300 py-[8px] px-[20px]  w-full rounded-[8px] shadow-sm  mt-[30px]">
-              অর্ডার করুন
-            </button>
-          </div>
-        </Link>
+
+        {selected ? (
+          <Link to={"/success"}>
+            <div className="mb-[30px]">
+              <button
+                disabled={!address && true}
+                className={`${
+                  address
+                    ? "main_bg_color  text-white"
+                    : " bg-[#ff63478c] text-white cursor-not-allowed"
+                }  border-[1px] border-gray-300 py-[8px] px-[20px]  w-full rounded-[8px] shadow-sm  mt-[30px]`}
+              >
+                অর্ডার করুন
+              </button>
+            </div>
+          </Link>
+        ) : (
+          <p>df</p>
+        )}
       </div>
+
+      {isFormOpen && (
+        <div className="fixed inset-0 bg-[#000000d9] z-[200] flex items-start justify-center overflow-y-scroll h-screen w-full">
+          <div className="my-[40px]  mx-[15px] p-[20px] rounded-[10px] bg-white w-full">
+            <div className="flex items-end justify-end mb-[20px]">
+              <IoMdCloseCircle
+                onClick={() => setIsFormOpen(false)}
+                className="text-red-500 text-[30px] cursor-pointer"
+              />
+            </div>
+
+            {/* form */}
+            <div className="w-full">
+              <h2 className="text-center text-[20px] font-bold mb-[20px]">
+                নতুন ঠিকানা যোগ করুন
+              </h2>
+
+              <div className="flex flex-col gap-[20px]">
+                <InputField
+                  title={"আপনার নাম"}
+                  placeholder={"এখানে আপনার নাম লিখুন"}
+                  value={name}
+                  setValue={setName}
+                />{" "}
+                <InputField
+                  title={"কন্টাক্ট নম্বর"}
+                  placeholder={"আপনার মোবাইল নম্বর দিন"}
+                  value={number}
+                  setValue={setNumber}
+                />
+                <SelectInputField
+                  title="থানা"
+                  value={area}
+                  setValue={setArea}
+                  options={[
+                    { value: 1, label: "রূপগঞ্জ" },
+                    { value: 2, label: "আড়াইহাজার" },
+                    { value: 3, label: "সোনারগাঁ" },
+                  ]}
+                />
+                <InputField
+                  title={"গ্রাম"}
+                  placeholder={"গ্রাম এর নাম লিখুন"}
+                  value={gram}
+                  setValue={setGram}
+                />{" "}
+                <InputField
+                  title={"এলাকা / পাড়া"}
+                  placeholder={"এলাকার নাম লিখুন"}
+                  value={elaka}
+                  setValue={setElaka}
+                />
+                <InputField
+                  title={"বাসা/হোল্ডিং, রোড নং"}
+                  placeholder={"বাসা নং, রোড নং এবং পাড়ার নাম লিখুন"}
+                  value={hous}
+                  setValue={setHous}
+                />
+                <TextareaField
+                  title={"বিশেষ নোট (ঐচ্ছিক)"}
+                  placeholder={
+                    "ডেলিভারি সংক্রান্ত কোনো বিশেষ নির্দেশনা থাকলে এখানে লিখুন..."
+                  }
+                  bg={"bg-[#eff1f1]"}
+                  value={note}
+                  setValue={setNote}
+                />
+              </div>
+
+              <button
+                onClick={handleAddAddress}
+                className="mt-[30px] w-full bg-[#ff6347] text-white py-[10px] rounded-[10px]"
+              >
+                ঠিকানা সেভ করুন
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -109,9 +109,9 @@ const Menu = () => {
 
       {/*menu item */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {menuItems.map((item) => (
+        {menuItems.map((item, i) => (
           <div
-            key={item.id}
+            key={i}
             className="flex items-center justify-between bg-white p-[20px] rounded-[10px]"
           >
             <div className="flex items-center gap-[10px]">

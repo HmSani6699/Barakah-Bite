@@ -2,28 +2,27 @@ import React, { useState } from "react";
 import InputField from "../../Component/InputField/InputField";
 import { Link, useNavigate } from "react-router";
 import { FcGoogle } from "react-icons/fc";
+import axios from "axios";
 
 const Login = () => {
+  const baseUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
-  const [number, setNumber] = useState("01996359111");
+  const [phone, setPhone] = useState("01996359111");
   const [password, setPassword] = useState("customer");
 
-  const handleLogin = () => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-      localStorage.removeItem("user");
-    }
-    localStorage.setItem(
-      "user",
-      JSON.stringify({ phone: number, role: password })
-    );
+  const handleLogin = async () => {
+    const userBody = { phone, password };
 
-    if (password === "customer") {
-      navigate("/");
-    } else if (password === "rider") {
-      navigate("/rider");
-    } else if (password === "foodShope") {
-      navigate("/food-shop");
+    try {
+      const loginUser = await axios.post(baseUrl + "/login", userBody);
+      if (loginUser?.data?.sussecc) {
+        localStorage.setItem("user", JSON.stringify(loginUser?.data?.data));
+        if (loginUser?.data?.data?.role === "customer") {
+          navigate("/");
+        }
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -48,8 +47,8 @@ const Login = () => {
           <InputField
             title={"ফোন নাম্বার "}
             placeholder={"আপনার ফোন নাম্বার লিখুন"}
-            value={number}
-            setValue={setNumber}
+            value={phone}
+            setValue={setPhone}
           />
           <InputField
             title={"পাসওয়ার্ড "}

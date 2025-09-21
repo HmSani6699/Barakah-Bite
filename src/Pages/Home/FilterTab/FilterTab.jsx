@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FoodCard from "../../../Component/FoodCard/FoodCard";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,6 +9,7 @@ import "swiper/css/pagination";
 
 // import required modules
 import { Pagination } from "swiper/modules";
+import axios from "axios";
 
 const FilterTab = ({ setIsFullImageOpen, haldleAddToCard }) => {
   const [isTabeButton, setIsTabeButton] = useState("সকল");
@@ -155,6 +156,17 @@ const FilterTab = ({ setIsFullImageOpen, haldleAddToCard }) => {
       img: "https://i.postimg.cc/zXBTG8qp/Biriyani1.jpg",
     },
   ];
+
+  // Get all data
+
+  const handleGetallData = async () => {
+    const getAllData = await axios.get("http://localhost:3000/api/products");
+    console.log("=====>", getAllData);
+  };
+
+  useEffect(() => {
+    handleGetallData();
+  }, []);
 
   return (
     <div>

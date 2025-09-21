@@ -1,8 +1,33 @@
 import InputField from "../../Component/InputField/InputField";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { FcGoogle } from "react-icons/fc";
+import { useState } from "react";
+import axios from "axios";
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const baseUrl = import.meta.env.VITE_API_URL;
+  const [name, setName] = useState("Md Sadiq");
+  const [phone, setPhone] = useState("01996359111");
+  const [password, setPassword] = useState("12345678");
+
+  // Create new user
+  const handleSignup = async () => {
+    const userBody = { name, phone, password };
+
+    try {
+      const createNewUer = await axios.post(baseUrl + "/signup", userBody);
+      if (createNewUer?.data?.sussecc) {
+        localStorage.setItem("user", JSON.stringify(createNewUer?.data?.data));
+        if (createNewUer?.data?.data?.role === "customer") {
+          navigate("/");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex items-center justify-center h-screen px-[15px]">
       <div className="border-t-[4px] border-[#ff6347] rounded-[10px] bg-white shadow-md  w-full p-[20px]">
@@ -21,18 +46,30 @@ const Signup = () => {
 
         {/* form */}
         <div className="flex flex-col gap-[20px] mt-[30px]">
-          <InputField title={" আপনার নাম "} placeholder={"আপনার নাম লিখুন"} />
           <InputField
+            value={name}
+            setValue={setName}
+            title={" আপনার নাম "}
+            placeholder={"আপনার নাম লিখুন"}
+          />
+          <InputField
+            value={phone}
+            setValue={setPhone}
             title={"ফোন নাম্বার "}
             placeholder={"আপনার ফোন নাম্বার লিখুন"}
           />
           <InputField
+            value={password}
+            setValue={setPassword}
             title={"পাসওয়ার্ড "}
             placeholder={" আপনার পাসওয়ার্ড লিখুন"}
           />
         </div>
 
-        <button className="bg-[#ff6347] text-white w-full py-[10px] rounded-[10px] mt-[30px]">
+        <button
+          onClick={handleSignup}
+          className="bg-[#ff6347] text-white w-full py-[10px] rounded-[10px] mt-[30px]"
+        >
           অ্যাকাউন্ট তৈরি করুন
         </button>
         <h2 className="text-center mt-[20px]">অথবা</h2>

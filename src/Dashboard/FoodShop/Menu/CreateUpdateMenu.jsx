@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import InputField from "../../../Component/InputField/InputField";
 import SelectInputField from "../../../Component/SelectInputField/SelectInputField";
 import { IoMdCloseCircle } from "react-icons/io";
+import axios from "axios";
 
 const CreateUpdateMenu = ({ setOpenForm }) => {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [subCategory, setsubCategory] = useState("");
   const [defaultUnit, setDefaultUnit] = useState("");
+  const [img, setImage] = useState();
+
   const [unit, setUnit] = useState("");
   const [variants, setVariants] = useState([
     {
@@ -20,8 +23,6 @@ const CreateUpdateMenu = ({ setOpenForm }) => {
       stock: "",
     },
   ]);
-
-  const [image, setImage] = useState();
 
   // Add new variant
   const addVariant = () => {
@@ -51,16 +52,27 @@ const CreateUpdateMenu = ({ setOpenForm }) => {
     setVariants(updated);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const newItem = {
-      name: "New Product",
-      category: "Grocery",
-      defaultUnit: "litre",
+      name,
+      category,
+      subCategory,
+      defaultUnit,
       variants,
-      img: "https://via.placeholder.com/100",
+      img,
     };
     console.log("Submitted Item:", newItem);
-    setOpenForm(false);
+    // setOpenForm(false);
+
+    try {
+      const createProduct = await axios.post(
+        "http://localhost:3000/api/products",
+        newItem
+      );
+      console.log(createProduct);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Unit list
@@ -87,6 +99,7 @@ const CreateUpdateMenu = ({ setOpenForm }) => {
     { value: "sack", label: "বস্তা" },
     { value: "box", label: "বক্স" },
     { value: "carton", label: "কার্টুন" },
+    { value: "plate", label: "প্লেট" },
   ];
 
   return (
@@ -121,13 +134,13 @@ const CreateUpdateMenu = ({ setOpenForm }) => {
             value={category}
             setValue={setCategory}
             title="Main Category"
-            options={[{ value: "1", label: "Main Food" }]}
+            options={[{ value: 1, label: "Food" }]}
           />
           <SelectInputField
             value={subCategory}
             setValue={setsubCategory}
             title="Sub Category"
-            options={[{ value: "1", label: " Sub Food" }]}
+            options={[{ value: 1, label: " Street Food" }]}
           />
 
           {/* Default Unit */}
@@ -166,8 +179,10 @@ const CreateUpdateMenu = ({ setOpenForm }) => {
                   options={unitOptions}
                   title="Unit"
                   placeholder="e.g. litre, ml, pcs"
-                  setValue={setUnit}
-                  value={unit}
+                  value={variant.unit} // <-- this is the main fix
+                  setValue={(value) =>
+                    handleVariantChange(index, "unit", value)
+                  }
                 />
                 <VariantsInputField
                   title="Price"
@@ -223,7 +238,7 @@ const CreateUpdateMenu = ({ setOpenForm }) => {
 
           {/* Image URL */}
           <InputField
-            value={image}
+            value={img}
             setValue={setImage}
             title="Image URL"
             placeholder="Paste image link here"

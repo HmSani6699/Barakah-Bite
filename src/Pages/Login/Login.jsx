@@ -22,7 +22,7 @@ const Login = () => {
       navigate("/");
     } else if (password === "rider") {
       navigate("/rider");
-    } else if (password === "foodShop") {
+    } else if (password === "foodShope") {
       navigate("/food-shop");
     }
   };

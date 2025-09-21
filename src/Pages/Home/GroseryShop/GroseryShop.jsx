@@ -51,74 +51,155 @@ const allItems = [
     img: "https://i.postimg.cc/pX6YCJY6/snacks.webp",
     items: "10",
   },
+  {
+    title: "নানান খাবার",
+    img: "https://i.postimg.cc/pX6YCJY6/snacks.webp",
+    items: "10",
+  },
+  {
+    title: "নানান খাবার",
+    img: "https://i.postimg.cc/pX6YCJY6/snacks.webp",
+    items: "10",
+  },
+  {
+    title: "নানান খাবার",
+    img: "https://i.postimg.cc/pX6YCJY6/snacks.webp",
+    items: "10",
+  },
+  {
+    title: "নানান খাবার",
+    img: "https://i.postimg.cc/pX6YCJY6/snacks.webp",
+    items: "10",
+  },
+  {
+    title: "নানান খাবার",
+    img: "https://i.postimg.cc/pX6YCJY6/snacks.webp",
+    items: "10",
+  },
 ];
 
 const GroseryShop = () => {
   return (
-    <div className="  bg-white px-[20px] py-[20px]">
-      <div className="flex items-center justify-between bg-white ">
-        <h2 className="text-[18px] font-bold text_black_color">
+    <div className="  bg-white lg:bg-[#eff1f1] px-[20px] py-[20px]">
+      <div className="flex items-center justify-between  bg-white lg:bg-[#eff1f1] ">
+        <h2 className="text-[18px] font-bold text_black_color bg-white lg:bg-[#eff1f1]">
           নিত্যপ্রয়োজনীয় বাজার
         </h2>
 
         <Link to={"/all-categories"}>
-          <button className="flex  items-center gap-[10px] main_color ">
+          <button className="flex  items-center gap-[10px] main_color bg-white lg:bg-[#eff1f1]">
             আরো দেখুন <MdKeyboardDoubleArrowRight />
           </button>
         </Link>
       </div>
       {/*  */}
 
-      <Swiper
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Pagination]}
-        className="mySwiper custom-pagination "
-      >
-        <SwiperSlide>
-          <div className="grid grid-cols-3 gap-[10px]  rounded-[15px]  mt-[16px]">
-            {allItems &&
-              allItems?.slice(0, 6).map((item, i) => (
-                <GroceryCard
-                  style_clss={{
-                    heigh: "h-[100px]",
-                  }}
-                  item={item}
-                  url={"/grocery-itms"}
-                />
-              ))}
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="grid grid-cols-3 gap-[10px]  rounded-[15px]  mt-[20px]">
-            {allItems &&
-              allItems?.slice(0, 6).map((item, i) => (
-                <GroceryCard
-                  style_clss={{
-                    heigh: "h-[100px]",
-                  }}
-                  item={item}
-                  url={"/grocery-itms"}
-                />
-              ))}
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="grid grid-cols-3 gap-[10px]  rounded-[15px]  mt-[20px]">
-            {allItems &&
-              allItems?.slice(0, 6).map((item, i) => (
-                <GroceryCard
-                  style_clss={{
-                    heigh: "h-[100px]",
-                  }}
-                  item={item}
-                  url={"/grocery-itms"}
-                />
-              ))}
-          </div>
-        </SwiperSlide>
-      </Swiper>
+      <div className="lg:hidden block">
+        <Swiper
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination]}
+          className="mySwiper custom-pagination "
+        >
+          <SwiperSlide>
+            <div className="grid grid-cols-3 gap-[10px]  rounded-[15px]  mt-[16px]">
+              {allItems &&
+                allItems?.slice(0, 6).map((item, i) => (
+                  <GroceryCard
+                    style_clss={{
+                      heigh: "h-[100px]",
+                    }}
+                    item={item}
+                    url={"/grocery-itms"}
+                  />
+                ))}
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="grid grid-cols-3 gap-[10px]  rounded-[15px]  mt-[20px]">
+              {allItems &&
+                allItems?.slice(0, 6).map((item, i) => (
+                  <GroceryCard
+                    style_clss={{
+                      heigh: "h-[100px]",
+                    }}
+                    item={item}
+                    url={"/grocery-itms"}
+                  />
+                ))}
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="grid grid-cols-3 gap-[10px]  rounded-[15px]  mt-[20px]">
+              {allItems &&
+                allItems?.slice(0, 6).map((item, i) => (
+                  <GroceryCard
+                    style_clss={{
+                      heigh: "h-[100px]",
+                    }}
+                    item={item}
+                    url={"/grocery-itms"}
+                  />
+                ))}
+            </div>
+          </SwiperSlide>
+        </Swiper>
+      </div>
+
+      {/* laptop device  */}
+      <div className="lg:block hidden">
+        <Swiper
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination]}
+          className="mySwiper custom-pagination "
+        >
+          <SwiperSlide>
+            <div className="grid grid-cols-4 gap-[10px]  rounded-[15px]  mt-[16px]">
+              {allItems &&
+                allItems?.slice(0, 8).map((item, i) => (
+                  <GroceryCard
+                    style_clss={{
+                      heigh: "h-[100px]",
+                    }}
+                    item={item}
+                    url={"/grocery-itms"}
+                  />
+                ))}
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="grid grid-cols-4 gap-[10px]  rounded-[15px]  mt-[16px]">
+              {allItems &&
+                allItems?.slice(0, 8).map((item, i) => (
+                  <GroceryCard
+                    style_clss={{
+                      heigh: "h-[100px]",
+                    }}
+                    item={item}
+                    url={"/grocery-itms"}
+                  />
+                ))}
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="grid grid-cols-4 gap-[10px]  rounded-[15px]  mt-[16px]">
+              {allItems &&
+                allItems?.slice(0, 8).map((item, i) => (
+                  <GroceryCard
+                    style_clss={{
+                      heigh: "h-[100px]",
+                    }}
+                    item={item}
+                    url={"/grocery-itms"}
+                  />
+                ))}
+            </div>
+          </SwiperSlide>
+        </Swiper>
+      </div>
     </div>
   );
 };

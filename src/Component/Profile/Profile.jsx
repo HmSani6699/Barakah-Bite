@@ -308,7 +308,129 @@ const Profile = () => {
         </div>
       )}
 
+      {/* Customer */}
       {user?.role === "customer" && (
+        <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mb-[16px]">
+          {/* <ProfileNaveList
+            title={"ড্যাশবোর্ড"}
+            icon={
+              <CiGrid41 className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+            }
+            url={"/myorders"}
+          /> */}
+          <ProfileNaveList
+            title={"আমার অর্ডারসমূহ"}
+            icon={
+              <RiFileList2Line className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+            }
+            url={"/tracking-order"}
+          />
+          <ProfileNaveList
+            title={"ট্র্যাক অর্ডার"}
+            icon={
+              <BsBoxSeam className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+            }
+            url={"/tracking-order"}
+          />
+          <ProfileNaveList
+            title={"আমার ঠিকানা"}
+            icon={
+              <IoLocationOutline className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+            }
+            url={"/address"}
+          />
+          {/* <ProfileNaveList
+            title={"আমার রিভিউ"}
+            icon={
+              <FaRegStar className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+            }
+            url={"/address"}
+          />
+          <ProfileNaveList
+            title={"পাসওয়ার্ড পরিবর্তন করুন"}
+            icon={
+              <CgLock className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+            }
+            url={"/address"}
+          /> */}
+
+          {user && (
+            <div
+              onClick={handleLogOut}
+              className="w-full flex items-center justify-between cursor-pointer"
+            >
+              <div className="flex items-center gap-[15px]">
+                <FiLogOut className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+                <p className="text-gray-600">লগআউট</p>
+              </div>
+              <IoIosArrowForward />
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Rider */}
+      {user?.role === "rider" && (
+        <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mb-[16px]">
+          {/* <ProfileNaveList
+            title={"ড্যাশবোর্ড"}
+            icon={
+              <CiGrid41 className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+            }
+            url={"/myorders"}
+          /> */}
+          <ProfileNaveList
+            title={"আমার অর্ডারসমূহ"}
+            icon={
+              <RiFileList2Line className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+            }
+            url={"/tracking-order"}
+          />
+          <ProfileNaveList
+            title={"ট্র্যাক অর্ডার"}
+            icon={
+              <BsBoxSeam className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+            }
+            url={"/tracking-order"}
+          />
+          <ProfileNaveList
+            title={"আমার ঠিকানা"}
+            icon={
+              <IoLocationOutline className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+            }
+            url={"/address"}
+          />
+          {/* <ProfileNaveList
+            title={"আমার রিভিউ"}
+            icon={
+              <FaRegStar className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+            }
+            url={"/address"}
+          />
+          <ProfileNaveList
+            title={"পাসওয়ার্ড পরিবর্তন করুন"}
+            icon={
+              <CgLock className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+            }
+            url={"/address"}
+          /> */}
+
+          {user && (
+            <div
+              onClick={handleLogOut}
+              className="w-full flex items-center justify-between cursor-pointer"
+            >
+              <div className="flex items-center gap-[15px]">
+                <FiLogOut className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+                <p className="text-gray-600">লগআউট</p>
+              </div>
+              <IoIosArrowForward />
+            </div>
+          )}
+        </div>
+      )}
+      {/* Food Shop */}
+      {user?.role === "foodShope" && (
         <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mb-[16px]">
           {/* <ProfileNaveList
             title={"ড্যাশবোর্ড"}

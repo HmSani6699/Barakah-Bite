@@ -1,6 +1,15 @@
 import { useState } from "react";
 import FoodCard from "../../../Component/FoodCard/FoodCard";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+
+// import required modules
+import { Pagination } from "swiper/modules";
+
 const FilterTab = ({ setIsFullImageOpen, haldleAddToCard }) => {
   const [isTabeButton, setIsTabeButton] = useState("সকল");
   const allTabBtn = ["সকল", "বিরিয়ানি", "বার্গার", "নুডুলস", "পিৎজা", "পানীয়"];
@@ -150,7 +159,7 @@ const FilterTab = ({ setIsFullImageOpen, haldleAddToCard }) => {
   return (
     <div>
       {allTabBtn ? (
-        <div className="px-[15px] flex items-center gap-[10px] overflow-auto scrollbar-hide my-[16px]">
+        <div className="px-[15px]  flex items-center gap-[10px] overflow-auto scrollbar-hide my-[16px] lg:my-[30px]">
           {allTabBtn?.map((item, i) => (
             <button
               key={i}
@@ -169,22 +178,40 @@ const FilterTab = ({ setIsFullImageOpen, haldleAddToCard }) => {
         <p>NO Item Found !</p>
       )}
 
-      {allFoods ? (
-        <div className="px-[15px]  flex items-center gap-[16px] overflow-auto scrollbar-hide mb-[16px]">
-          {allFoods?.map((item, i) => (
-            <FoodCard
-              setIsFullImageOpen={setIsFullImageOpen}
-              height="h-[140px]"
-              item={item}
-              haldleAddToCard={haldleAddToCard}
-            />
+      <div className="lg:hidden block">
+        {allFoods ? (
+          <div className="px-[15px]  flex items-center gap-[16px] overflow-auto scrollbar-hide mb-[16px]">
+            {allFoods?.map((item, i) => (
+              <FoodCard
+                setIsFullImageOpen={setIsFullImageOpen}
+                height="h-[140px]"
+                item={item}
+                haldleAddToCard={haldleAddToCard}
+              />
+            ))}
+          </div>
+        ) : (
+          <div>
+            <h1>Item Not Found !</h1>
+          </div>
+        )}
+      </div>
+
+      {/* PC Device */}
+      <div className="lg:block hidden px-[15px]">
+        <Swiper slidesPerView={3} spaceBetween={20} className="mySwiper">
+          {allFoods.map((item, i) => (
+            <SwiperSlide key={i}>
+              <FoodCard
+                // setIsFullImageOpen={setIsFullImageOpen}
+                height="h-[140px]"
+                item={item}
+                // haldleAddToCard={haldleAddToCard}
+              />
+            </SwiperSlide>
           ))}
-        </div>
-      ) : (
-        <div>
-          <h1>Item Not Found !</h1>
-        </div>
-      )}
+        </Swiper>
+      </div>
     </div>
   );
 };

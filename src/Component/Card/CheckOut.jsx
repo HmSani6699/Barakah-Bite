@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { FaArrowLeft, FaMoneyBillWave } from "react-icons/fa";
 import { FaLocationDot, FaPlus } from "react-icons/fa6";
 import { IoMdCloseCircle } from "react-icons/io";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import InputField from "../InputField/InputField";
 import TextareaField from "../TextareaField/TextareaField";
 import SelectInputField from "../SelectInputField/SelectInputField";
 import { v4 as uuidv4 } from "uuid";
+import { useCart } from "../CartContext/CartContext";
 
 const CheckOut = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -14,7 +15,7 @@ const CheckOut = () => {
   const [address, setAddress] = useState({});
   const location = useLocation();
   const grandTotal = location.state;
-
+  const navigation = useNavigate();
   const [name, setName] = useState("MD Sadiq");
   const [number, setNumber] = useState("01996359111");
   const [area, setArea] = useState("সোনারগাঁও");
@@ -22,6 +23,7 @@ const CheckOut = () => {
   const [elaka, setElaka] = useState("পাকুন্ডা নাম পাড়া");
   const [hous, setHous] = useState("1");
   const [note, setNote] = useState("Vallo note");
+  const { removeAllItem } = useCart();
 
   const options = [
     {
@@ -84,6 +86,12 @@ const CheckOut = () => {
     const getItem = localStorage.getItem("deliveryAddress");
     setAddress(JSON.parse(getItem));
   }, []);
+
+  // Handle order
+  const handleOrder = () => {
+    removeAllItem();
+    navigation("/success");
+  };
 
   return (
     <div className="">
@@ -351,20 +359,19 @@ const CheckOut = () => {
         {/*  */}
 
         {selected ? (
-          <Link to={"/success"}>
-            <div className="mb-[30px]">
-              <button
-                disabled={!address && true}
-                className={`${
-                  address
-                    ? "main_bg_color  text-white"
-                    : " bg-[#ff63478c] text-white cursor-not-allowed"
-                }  border-[1px] border-gray-300 py-[8px] px-[20px]  w-full rounded-[8px] shadow-sm  mt-[30px]`}
-              >
-                অর্ডার করুন
-              </button>
-            </div>
-          </Link>
+          <div className="mb-[30px]">
+            <button
+              onClick={() => handleOrder()}
+              disabled={!address && true}
+              className={`${
+                address
+                  ? "main_bg_color  text-white"
+                  : " bg-[#ff63478c] text-white cursor-not-allowed"
+              }  border-[1px] border-gray-300 py-[8px] px-[20px]  w-full rounded-[8px] shadow-sm  mt-[30px]`}
+            >
+              অর্ডার করুন
+            </button>
+          </div>
         ) : (
           <p>df</p>
         )}

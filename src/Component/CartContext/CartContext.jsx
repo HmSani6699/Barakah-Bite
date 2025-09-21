@@ -171,6 +171,11 @@ export const CartProvider = ({ children }) => {
       }
     });
   };
+  // Remove item
+  const removeAllItem = () => {
+    localStorage.removeItem("card");
+    saveToStorage([]);
+  };
 
   // Total count (quantity ভিত্তিক)
   const totalCardCount = cartItems?.reduce(
@@ -183,9 +188,10 @@ export const CartProvider = ({ children }) => {
       value={{
         cartItems,
         addToCart,
+        removeAllItem,
         removeItem,
         updateCart, // ✅ নতুন ফাংশন
-        totalCardCount,
+        totalCardCount: totalCardCount > 0 ? totalCardCount : 0,
       }}
     >
       {children}

@@ -37,7 +37,7 @@ const PopularItem = () => {
     },
   ];
   return (
-    <div className="mb-[90px] mt-[16px]">
+    <div className="mb-[90px] lg:mb-[20px] mt-[16px] lg:mt-[20px]">
       <div className="flex items-center justify-between  px-[15px]">
         <h2 className="text-[18px] font-bold text_black_color">
           জনপ্রিয় খাবার

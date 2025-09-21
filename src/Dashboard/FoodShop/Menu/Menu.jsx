@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { TbEdit } from "react-icons/tb";
+import InputField from "../../../Component/InputField/InputField";
+import { IoMdCloseCircle } from "react-icons/io";
+import SelectInputField from "../../../Component/SelectInputField/SelectInputField";
+import CreateUpdateMenu from "./CreateUpdateMenu";
 
 const Menu = () => {
+  const [openForm, setOpenForm] = useState(false);
   const menuItems = [
     {
       id: 1,
@@ -86,12 +91,16 @@ const Menu = () => {
       image: "/rasgulla-sweet.jpg",
     },
   ];
+
   return (
     <div className="px-[15px] mb-[100px] mt-[20px]">
       <div className="flex items-center justify-between mb-[20px]">
         <h2 className="text-[20px] font-bold">মেনু ম্যানেজমেন্ট</h2>
         <div className="flex gap-2">
-          <button className="flex items-center gap-[10px] bg-[#ff6347] text-white px-[15px] py-[8px] rounded-[6px]">
+          <button
+            onClick={() => setOpenForm(true)}
+            className="flex items-center gap-[10px] bg-[#ff6347] text-white px-[15px] py-[8px] rounded-[6px]"
+          >
             <FaPlus className="h-4 w-4 mr-2" />
             নতুন আইটেম
           </button>
@@ -137,6 +146,9 @@ const Menu = () => {
           </div>
         ))}
       </div>
+
+      {/* Form  */}
+      {openForm && <CreateUpdateMenu setOpenForm={setOpenForm} />}
     </div>
   );
 };

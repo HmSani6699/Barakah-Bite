@@ -14,7 +14,6 @@ const Menu = () => {
   const [loading, setLoading] = useState(false);
   const [openForm, setOpenForm] = useState(false);
   const [opeView, setOpeView] = useState(false);
-  const [isOn, setIsOn] = useState(false);
   const [viewData, setViewData] = useState();
   const [updateData, setUpdateData] = useState();
   const [viewForm, setViewForm] = useState();
@@ -59,6 +58,7 @@ const Menu = () => {
     handleGetProduct();
   }, [setData]);
 
+  // Delete product
   const handleDelete = async (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -90,6 +90,40 @@ const Menu = () => {
         }
       }
     });
+  };
+
+  // Handle active or inactive
+  const handleActiveInactive = async (item) => {
+    let setStatus;
+
+    console.log(item);
+
+    if (item?.status === "active") {
+      setStatus = {
+        status: "inactive",
+      };
+    } else if (item?.status === "inactive") {
+      setStatus = {
+        status: "active",
+      };
+    }
+
+    try {
+      let response = await axios.put(
+        baseUrl + `/products/${item?._id}`,
+        setStatus
+      );
+      Swal.fire("Updated!", "Product updated successfully!", "success");
+
+      handleGetProduct();
+    } catch (error) {
+      console.error(error);
+      Swal.fire(
+        "Error!",
+        error?.response?.data?.message || "Something went wrong!",
+        "error"
+      );
+    }
   };
 
   return (
@@ -153,29 +187,35 @@ const Menu = () => {
 
                     <div className="flex flex-col items-center">
                       <button
-                        onClick={() => setIsOn(!isOn)}
-                        className={`relative flex items-center w-16 h-8 rounded-full transition-colors duration-300  mb-[20px]
-        ${isOn ? "bg-green-500" : "bg-gray-300"}`}
+                        onClick={() => handleActiveInactive(item)}
+                        className={`relative flex items-center w-16 h-8 rounded-full transition-colors duration-300 mb-[20px] 
+    ${item?.status === "active" ? "bg-green-500" : "bg-gray-300"}`}
                       >
+                        {/* ON label */}
                         <span
-                          className={`absolute left-1 text-xs font-bold transition-all duration-300
-          ${isOn ? "text-white opacity-100" : "opacity-0"}`}
+                          className={`absolute left-2 text-xs font-bold transition-opacity duration-300 
+      ${item?.status === "active" ? "text-white opacity-100" : "opacity-0"}`}
                         >
                           ON
                         </span>
+
+                        {/* OFF label */}
                         <span
-                          className={`absolute right-1 text-xs font-bold transition-all duration-300
-          ${!isOn ? "text-gray-600 opacity-100" : "opacity-0"}`}
+                          className={`absolute right-2 text-xs font-bold transition-opacity duration-300 
+      ${
+        item?.status === "inactive" ? "text-gray-600 opacity-100" : "opacity-0"
+      }`}
                         >
                           OFF
                         </span>
 
                         {/* Circle */}
                         <span
-                          className={`w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-300
-          ${isOn ? "translate-x-8" : "translate-x-0"}`}
+                          className={`w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-300 
+      ${item?.status === "active" ? "translate-x-8" : "translate-x-0"}`}
                         />
                       </button>
+
                       <div className="flex gap-[20px] ">
                         <button onClick={() => handleView(item)}>
                           <MdOutlineRemoveRedEye className="text-[25px]" />

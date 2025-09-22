@@ -233,8 +233,7 @@ const Profile = () => {
     navigate("/");
   };
 
-  const [number, setNumber] = useState("01996359111");
-  const [password, setPassword] = useState("customer");
+  console.log(user);
 
   return (
     <div className="px-[20px] mt-[16px] mb-[100px]">
@@ -282,10 +281,10 @@ const Profile = () => {
             </div>
           </div>
           <div className="mt-[30px] text-center">
-            <h2 className="text-[20px] font-bold">Md Sadiq Sadi</h2>
+            <h2 className="text-[20px] font-bold">{user?.name}</h2>
 
             {user?.role === "customer" ? (
-              <p className="text-gray-500">sadiq@gmail.com</p>
+              <p className="text-gray-500">{user?.phone}</p>
             ) : user?.role === "rider" ? (
               <div>
                 <div className="flex items-center justify-center my-[6px]">
@@ -430,7 +429,7 @@ const Profile = () => {
         </div>
       )}
       {/* Food Shop */}
-      {user?.role === "foodShope" && (
+      {user?.role === "seller" && (
         <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mb-[16px]">
           {/* <ProfileNaveList
             title={"ড্যাশবোর্ড"}
@@ -440,7 +439,7 @@ const Profile = () => {
             url={"/myorders"}
           /> */}
           <ProfileNaveList
-            title={"আমার অর্ডারসমূহ"}
+            title={" অর্ডারসমূহ"}
             icon={
               <RiFileList2Line className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
             }

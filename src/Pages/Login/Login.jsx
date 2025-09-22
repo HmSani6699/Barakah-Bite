@@ -8,7 +8,7 @@ const Login = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const [phone, setPhone] = useState("01996359111");
-  const [password, setPassword] = useState("customer");
+  const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
     const userBody = { phone, password };
@@ -19,6 +19,8 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(loginUser?.data?.data));
         if (loginUser?.data?.data?.role === "customer") {
           navigate("/");
+        } else if (loginUser?.data?.data?.role === "seller") {
+          navigate("/food-shop");
         }
       }
     } catch (error) {

@@ -1,26 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputField from "../../../Component/InputField/InputField";
 import SelectInputField from "../../../Component/SelectInputField/SelectInputField";
 import { IoMdCloseCircle } from "react-icons/io";
 import axios from "axios";
+import Swal from "sweetalert2";
 
-const CreateUpdateMenu = ({ setOpenForm }) => {
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
-  const [subCategory, setsubCategory] = useState("");
-  const [defaultUnit, setDefaultUnit] = useState("");
-  const [img, setImage] = useState();
-
-  const [unit, setUnit] = useState("");
+const CreateUpdateMenu = ({
+  updateData,
+  setOpenForm,
+  handleGetProduct,
+  viewForm,
+}) => {
+  const baseUrl = import.meta.env.VITE_API_URL;
+  const [name, setName] = useState("Pizza");
+  const [category, setCategory] = useState("Food");
+  const [subCategory, setsubCategory] = useState("Fast Food");
+  const [defaultUnit, setDefaultUnit] = useState("Plate");
+  const [img, setImage] = useState(
+    "https://images.deliveryhero.io/image/fd-bd/LH/cu0zf-listing.jpg"
+  );
   const [variants, setVariants] = useState([
     {
-      label: "",
-      unit: "",
-      price: "",
-      cutPrice: "",
-      discount: "",
-      qty_step: "",
-      stock: "",
+      label: "1 plate",
+      unit: "plate",
+      price: "200",
+      cutPrice: "250",
+      discount: "50",
+      qty_step: "1",
+      stock: "50",
     },
   ]);
 
@@ -52,7 +59,8 @@ const CreateUpdateMenu = ({ setOpenForm }) => {
     setVariants(updated);
   };
 
-  const handleSubmit = async () => {
+  const handleCreateUpdate = async () => {
+    const getUser = JSON.parse(localStorage.getItem("user"));
     const newItem = {
       name,
       category,
@@ -60,18 +68,37 @@ const CreateUpdateMenu = ({ setOpenForm }) => {
       defaultUnit,
       variants,
       img,
+      phone: getUser?.phone,
     };
-    console.log("Submitted Item:", newItem);
-    // setOpenForm(false);
 
     try {
-      const createProduct = await axios.post(
-        "http://localhost:3000/api/products",
-        newItem
-      );
-      console.log(createProduct);
+      let response;
+
+      if (viewForm === "create") {
+        // Create product
+        response = await axios.post(baseUrl + "/products", newItem);
+        Swal.fire("Success!", "Product created successfully!", "success");
+      } else {
+        // Update product
+        response = await axios.put(
+          baseUrl + `/products/${updateData?._id}`,
+          newItem
+        );
+        Swal.fire("Updated!", "Product updated successfully!", "success");
+      }
+
+      console.log(response.data);
+
+      setOpenForm(false);
+      handleGetProduct();
     } catch (error) {
-      console.log(error);
+      console.error(error);
+
+      Swal.fire(
+        "Error!",
+        error?.response?.data?.message || "Something went wrong!",
+        "error"
+      );
     }
   };
 
@@ -102,6 +129,34 @@ const CreateUpdateMenu = ({ setOpenForm }) => {
     { value: "plate", label: "প্লেট" },
   ];
 
+  console.log(updateData);
+
+  // old value set
+  useEffect(() => {
+    if (updateData) {
+      setName(updateData.name || "");
+      setCategory(updateData.category || "");
+      setsubCategory(updateData.subCategory || "");
+      setDefaultUnit(updateData.defaultUnit || "");
+      setVariants(
+        updateData.variants && updateData.variants.length > 0
+          ? updateData.variants
+          : [
+              {
+                label: "",
+                unit: "",
+                price: "",
+                cutPrice: "",
+                discount: "",
+                qty_step: "",
+                stock: "",
+              },
+            ]
+      );
+      setImage(updateData.img || null);
+    }
+  }, [updateData]);
+
   return (
     <div className="fixed inset-0 bg-[#000000d9] z-[200] flex items-center justify-center">
       <div
@@ -117,7 +172,10 @@ const CreateUpdateMenu = ({ setOpenForm }) => {
         </div>
 
         {/* Form Title */}
-        <h2 className="text-xl font-bold mb-4">Add New Item</h2>
+        <h2 className="text-xl font-bold mb-4">
+          {" "}
+          {viewForm === "create" ? "Add New Item" : "Update Item"}{" "}
+        </h2>
 
         {/* Form fields */}
         <div className="space-y-4">
@@ -244,13 +302,21 @@ const CreateUpdateMenu = ({ setOpenForm }) => {
             placeholder="Paste image link here"
           />
 
-          {/* Submit button */}
-          <button
-            onClick={() => handleSubmit()}
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
-          >
-            Add Item
-          </button>
+          {viewForm === "create" ? (
+            <button
+              onClick={() => handleCreateUpdate()}
+              className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+            >
+              Add Item
+            </button>
+          ) : (
+            <button
+              onClick={() => handleCreateUpdate()}
+              className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+            >
+              Update Item
+            </button>
+          )}
         </div>
       </div>
     </div>

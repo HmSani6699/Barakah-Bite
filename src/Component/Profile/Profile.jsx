@@ -216,21 +216,13 @@ import { BsBoxSeam } from "react-icons/bs";
 import { IoCodeSlash, IoLocationOutline } from "react-icons/io5";
 import { CgLock } from "react-icons/cg";
 import { RiFileList2Line } from "react-icons/ri";
+import { useAuth } from "../../Context/AuthContext";
 
 const Profile = () => {
-  const navigate = useNavigate();
-  const [user, setUser] = useState("");
-
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-      setUser(user);
-    }
-  }, []);
+  const { user, logout } = useAuth();
 
   const handleLogOut = () => {
-    localStorage.removeItem("user");
-    navigate("/");
+    logout();
   };
 
   console.log(user);

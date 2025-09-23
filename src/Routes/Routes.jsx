@@ -34,6 +34,7 @@ import GroceryItemCard from "../Component/GroceryCategoryCard/GroceryItemCard";
 import Cetegories from "../Pages/Home/Cetegories/Cetegories";
 import TrackOrder from "../Component/TrackOrder/TrackOrder";
 import Developer from "../Developer/Developer";
+import ProtectedRoute from "./ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -52,30 +53,19 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <Signup />,
       },
+
       {
-        path: "/myorders",
-        element: <MyOrders />,
+        element: <ProtectedRoute allowedRoles={["customer"]} />,
+        children: [
+          { path: "/myorders", element: <MyOrders /> },
+          { path: "/tracking-order", element: <TrackOrder /> },
+          { path: "/checkOut", element: <CheckOut /> },
+          { path: "/success", element: <OrderSuccess /> },
+        ],
       },
-      {
-        path: "/tracking-order",
-        element: <TrackOrder />,
-      },
-      {
-        path: "/card",
-        element: <Card />,
-      },
-      {
-        path: "/checkOut",
-        element: <CheckOut />,
-      },
-      {
-        path: "/success",
-        element: <OrderSuccess />,
-      },
-      {
-        path: "/address",
-        element: <Address />,
-      },
+      { path: "/address", element: <Address /> },
+      { path: "/card", element: <Card /> },
+      { path: "/profile", element: <Profile /> },
       {
         path: "/aboutus",
         element: <AboutUs />,
@@ -84,10 +74,7 @@ const router = createBrowserRouter([
         path: "/contactus",
         element: <ContactUs />,
       },
-      {
-        path: "/profile",
-        element: <Profile />,
-      },
+
       {
         path: "/shope-profile/:id",
         element: <ShopeProfile />,
@@ -125,7 +112,11 @@ const router = createBrowserRouter([
   // Rider Route //
   {
     path: "/rider",
-    element: <RiderLayout />,
+    element: (
+      <ProtectedRoute allowedRoles={["rider"]}>
+        <RiderLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "/rider",
@@ -148,7 +139,11 @@ const router = createBrowserRouter([
   // Food and Shop Route //
   {
     path: "/food-shop",
-    element: <FoodShopLayout />,
+    element: (
+      <ProtectedRoute allowedRoles={["seller"]}>
+        <FoodShopLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "/food-shop",
@@ -168,10 +163,15 @@ const router = createBrowserRouter([
       },
     ],
   },
+
   // Super Admin Route //
   {
     path: "/super-admin",
-    element: <SuperAdminLayout />,
+    element: (
+      <ProtectedRoute allowedRoles={["admin"]}>
+        <SuperAdminLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "/super-admin",

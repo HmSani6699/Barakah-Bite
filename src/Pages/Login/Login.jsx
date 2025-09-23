@@ -3,9 +3,11 @@ import InputField from "../../Component/InputField/InputField";
 import { Link, useNavigate } from "react-router";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
+import { useAuth } from "../../Context/AuthContext";
 
 const Login = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [phone, setPhone] = useState("01996359111");
   const [password, setPassword] = useState("");
@@ -17,10 +19,15 @@ const Login = () => {
       const loginUser = await axios.post(baseUrl + "/login", userBody);
       if (loginUser?.data?.sussecc) {
         localStorage.setItem("user", JSON.stringify(loginUser?.data?.data));
+        login(loginUser?.data?.data);
         if (loginUser?.data?.data?.role === "customer") {
           navigate("/");
         } else if (loginUser?.data?.data?.role === "seller") {
           navigate("/food-shop");
+        } else if (loginUser?.data?.data?.role === "rider") {
+          navigate("/rider");
+        } else if (loginUser?.data?.data?.role === "admin") {
+          navigate("/super-admin");
         }
       }
     } catch (error) {

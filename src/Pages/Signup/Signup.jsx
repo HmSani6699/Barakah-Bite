@@ -21,6 +21,12 @@ const Signup = () => {
         localStorage.setItem("user", JSON.stringify(createNewUer?.data?.data));
         if (createNewUer?.data?.data?.role === "customer") {
           navigate("/");
+        } else if (createNewUer?.data?.data?.role === "seller") {
+          navigate("/seller");
+        } else if (createNewUer?.data?.data?.role === "rider") {
+          navigate("/rider");
+        } else if (createNewUer?.data?.data?.role === "admin") {
+          navigate("/super-admin");
         }
       }
     } catch (error) {

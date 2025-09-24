@@ -19,23 +19,13 @@ const MainCategory = () => {
 
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
-  const [status, setStatus] = useState("");
 
-  const [error, setError] = useState({
-    name: "",
-    image: "",
-    status: "",
-  });
-
-  // Get all category
   const handleGetAllCategory = async () => {
     setLoading(true);
     try {
       const res = await axios.get(baseUrl + "/mainCategoryes");
-
       if (res?.data?.success) {
         setAllCategory(res?.data?.data);
-        setLoading(false);
       }
     } catch (error) {
       Swal.fire(
@@ -43,6 +33,7 @@ const MainCategory = () => {
         error?.response?.data?.message || "Something went wrong!",
         "error"
       );
+    } finally {
       setLoading(false);
     }
   };
@@ -51,10 +42,7 @@ const MainCategory = () => {
     handleGetAllCategory();
   }, []);
 
-  // handle create
-  const handleCreate = async (type) => {
-    setOpenForm(true);
-
+  const handleCreate = async () => {
     try {
       const res = await axios.post(baseUrl + "/mainCategoryes", {
         name,
@@ -69,8 +57,6 @@ const MainCategory = () => {
         Swal.fire("Success!", "Category created successfully!", "success");
       }
     } catch (error) {
-      console.error(error);
-
       Swal.fire(
         "Error!",
         error?.response?.data?.message || "Something went wrong!",
@@ -79,7 +65,6 @@ const MainCategory = () => {
     }
   };
 
-  // HAndle update
   const handleUpdate = async () => {
     try {
       const res = await axios.put(
@@ -95,11 +80,9 @@ const MainCategory = () => {
         setOpenForm(false);
         setName("");
         setImage("");
-        Swal.fire("Success!", "Category update successfully!", "success");
+        Swal.fire("Success!", "Category updated successfully!", "success");
       }
     } catch (error) {
-      console.error(error);
-
       Swal.fire(
         "Error!",
         error?.response?.data?.message || "Something went wrong!",
@@ -108,7 +91,6 @@ const MainCategory = () => {
     }
   };
 
-  // HAndle update
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -122,16 +104,13 @@ const MainCategory = () => {
       if (result.isConfirmed) {
         try {
           await axios.delete(baseUrl + `/mainCategoryes/${id}`);
-
           handleGetAllCategory();
-
           Swal.fire({
             title: "Deleted!",
             text: "Your item has been deleted.",
             icon: "success",
           });
         } catch (error) {
-          console.error(error);
           Swal.fire({
             title: "Error!",
             text: "Something went wrong while deleting.",
@@ -142,7 +121,6 @@ const MainCategory = () => {
     });
   };
 
-  // Update filed default value
   useEffect(() => {
     if (updateData) {
       setName(updateData?.name);
@@ -153,38 +131,46 @@ const MainCategory = () => {
   return (
     <div className="p-[16px] relative">
       <div className="flex items-center justify-between mb-[20px]">
-        <h2 className="text-[20px] font-bold">Main মেনু </h2>
+        <h2 className="text-[20px] font-bold">Main Catecory</h2>
         <div className="flex gap-2">
           <button
             onClick={() => {
               setviewFormType("create");
               setOpenForm(true);
+              setName("");
+              setImage("");
             }}
             className="flex items-center gap-[10px] bg-[#ff6347] text-white px-[15px] py-[8px] rounded-[6px]"
           >
             <FaPlus className="h-4 w-4 mr-2" />
-            নতুন Menu
+            New Category
           </button>
         </div>
       </div>
 
-      {!loading && allCategory?.length > 0 ? (
+      {/* ✅ LOADING SPINNER */}
+      {loading ? (
+        <Loading />
+      ) : allCategory?.length > 0 ? (
+        // ✅ CATEGORY TABLE
         <div className="bg-white p-[16px]">
-          <table className=" w-full">
-            <thead className="bg-gray-300 ">
-              <th className="text-left pl-[30px] py-[16px]">ID</th>
-              <th className="text-center py-[16px]">Name</th>
-              <th className="py-[16px]">Action</th>
+          <table className="w-full">
+            <thead className="bg-gray-300">
+              <tr>
+                <th className="text-left pl-[30px] py-[16px]">ID</th>
+                <th className="text-center py-[16px]">Name</th>
+                <th className="py-[16px]">Action</th>
+              </tr>
             </thead>
             <tbody>
-              {allCategory?.map((item, i) => (
+              {allCategory.map((item, i) => (
                 <tr key={i} className="w-full">
                   <td className="px-[30px] py-[20px]">{i + 1}</td>
                   <td className="px-[30px] py-[20px] text-center">
                     {item?.name}
                   </td>
                   <td className="px-[30px] py-[20px]">
-                    <div className="flex gap-[20px] w-full items-center justify-center">
+                    <div className="flex gap-[20px] items-center justify-center">
                       <button
                         onClick={() => {
                           setviewFormType("update");
@@ -205,22 +191,18 @@ const MainCategory = () => {
           </table>
         </div>
       ) : (
-        <div className="text-center my-[30px] ">
-          <RiFileList2Line className="text-[120px]  text-[#a7a6a6] inline-block" />
+        // ✅ NO DATA UI
+        <div className="text-center my-[30px]">
+          <RiFileList2Line className="text-[120px] text-[#a7a6a6] inline-block" />
           <h2 className="mt-[20px]">কোনো Category এখনো যোগ করা হয়নি।</h2>
         </div>
       )}
 
-      {loading && <Loading />}
-
-      {/* create update form  */}
+      {/* ✅ CREATE/UPDATE FORM MODAL */}
       {openForm && (
         <div className="fixed inset-0 bg-[#000000d9] z-[200] flex items-center justify-center">
-          <div
-            className="bg-white w-full max-w-[600px] mx-[16px] rounded-lg shadow-lg 
-                  max-h-[90vh] overflow-y-auto p-[20px]"
-          >
-            <div className="flex items-end justify-end mb-[20px] sticky top-0  z-10">
+          <div className="bg-white w-full max-w-[600px] mx-[16px] rounded-lg shadow-lg max-h-[90vh] overflow-y-auto p-[20px]">
+            <div className="flex justify-end mb-[20px] sticky top-0 z-10">
               <IoMdCloseCircle
                 onClick={() => setOpenForm(false)}
                 className="text-red-500 text-[30px] cursor-pointer"
@@ -239,24 +221,14 @@ const MainCategory = () => {
                 setValue={setName}
               />
               <InputField title={"Image"} value={image} setValue={setImage} />
-              {/* <InputField title={"Status"}  /> */}
             </div>
 
-            {viewFormType === "create" ? (
-              <button
-                onClick={handleCreate}
-                className="mt-[20px] flex items-center gap-[10px] bg-[#ff6347] text-white px-[15px] py-[8px] rounded-[6px]"
-              >
-                Add Category
-              </button>
-            ) : (
-              <button
-                onClick={handleUpdate}
-                className="mt-[20px] flex items-center gap-[10px] bg-[#ff6347] text-white px-[15px] py-[8px] rounded-[6px]"
-              >
-                Update Category
-              </button>
-            )}
+            <button
+              onClick={viewFormType === "create" ? handleCreate : handleUpdate}
+              className="mt-[20px] flex items-center gap-[10px] bg-[#ff6347] text-white px-[15px] py-[8px] rounded-[6px]"
+            >
+              {viewFormType === "create" ? "Add Category" : "Update Category"}
+            </button>
           </div>
         </div>
       )}

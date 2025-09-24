@@ -2,13 +2,15 @@ import { FaHeadset, FaInfoCircle, FaUser } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { IoIosArrowForward } from "react-icons/io";
 import ProfileNaveList from "../../../Component/Profile/ProfileNaveList";
+import { useAuth } from "../../../Context/AuthContext";
 import { useNavigate } from "react-router";
 
 const MenuPage = () => {
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogOut = () => {
-    localStorage.removeItem("user");
+    logout();
     navigate("/");
   };
 
@@ -30,19 +32,33 @@ const MenuPage = () => {
       {/* About Company */}
       <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mt-[20px]">
         <ProfileNaveList
-          title={"গ্রাহক"}
+          title={"Main category"}
           icon={
             <FaUser className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
           }
-          url={"/aboutus"}
+          url={"/super-admin/main-category"}
         />
         <ProfileNaveList
+          title={"Sub category"}
+          icon={
+            <FaUser className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+          }
+          url={"/super-admin/sub-category"}
+        />
+        <ProfileNaveList
+          title={"Product category"}
+          icon={
+            <FaUser className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+          }
+          url={"/super-admin/product-category"}
+        />
+        {/* <ProfileNaveList
           title={"যোগাযোগ"}
           icon={
             <FaHeadset className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
           }
           url={"/contactus"}
-        />
+        /> */}
 
         <div
           onClick={handleLogOut}
@@ -57,7 +73,7 @@ const MenuPage = () => {
       </div>
 
       {/* About Company */}
-      <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mt-[20px]">
+      {/* <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mt-[20px]">
         <ProfileNaveList
           title={"আমাদের সম্পর্কে"}
           icon={
@@ -83,7 +99,7 @@ const MenuPage = () => {
           </div>
           <IoIosArrowForward />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

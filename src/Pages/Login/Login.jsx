@@ -10,7 +10,8 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [phone, setPhone] = useState("01996359111");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("12345");
+  const from = location.state?.from || "/";
 
   const handleLogin = async () => {
     const userBody = { phone, password };
@@ -21,7 +22,7 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(loginUser?.data?.data));
         login(loginUser?.data?.data);
         if (loginUser?.data?.data?.role === "customer") {
-          navigate("/");
+          navigate(from);
         } else if (loginUser?.data?.data?.role === "seller") {
           navigate("/food-shop");
         } else if (loginUser?.data?.data?.role === "rider") {

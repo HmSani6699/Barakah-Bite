@@ -35,6 +35,10 @@ import Cetegories from "../Pages/Home/Cetegories/Cetegories";
 import TrackOrder from "../Component/TrackOrder/TrackOrder";
 import Developer from "../Developer/Developer";
 import ProtectedRoute from "./ProtectedRoute";
+import SuperAdminBottomNavber from "../Pages/Navber/SuperAdminBottomNavber";
+import MainCategory from "../Dashboard/SuperAdmin/Category/MainCategory/MainCategory";
+import SubCategory from "../Dashboard/SuperAdmin/Category/SubCategory/SubCategory";
+import ProductCategory from "../Dashboard/SuperAdmin/Category/ProductCategory/ProductCategory";
 
 const router = createBrowserRouter([
   {
@@ -54,15 +58,11 @@ const router = createBrowserRouter([
         element: <Signup />,
       },
 
-      {
-        element: <ProtectedRoute allowedRoles={["customer"]} />,
-        children: [
-          { path: "/myorders", element: <MyOrders /> },
-          { path: "/tracking-order", element: <TrackOrder /> },
-          { path: "/checkOut", element: <CheckOut /> },
-          { path: "/success", element: <OrderSuccess /> },
-        ],
-      },
+      { path: "/myorders", element: <MyOrders /> },
+      { path: "/tracking-order", element: <TrackOrder /> },
+      { path: "/checkOut", element: <CheckOut /> },
+      { path: "/success", element: <OrderSuccess /> },
+
       { path: "/address", element: <Address /> },
       { path: "/card", element: <Card /> },
       { path: "/profile", element: <Profile /> },
@@ -188,6 +188,18 @@ const router = createBrowserRouter([
       {
         path: "/super-admin/menu",
         element: <MenuPage />,
+      },
+      {
+        path: "/super-admin/main-category",
+        element: <MainCategory />,
+      },
+      {
+        path: "/super-admin/sub-category",
+        element: <SubCategory />,
+      },
+      {
+        path: "/super-admin/product-category",
+        element: <ProductCategory />,
       },
     ],
   },

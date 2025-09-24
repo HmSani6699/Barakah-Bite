@@ -225,8 +225,6 @@ const Profile = () => {
     logout();
   };
 
-  console.log(user);
-
   return (
     <div className="px-[20px] mt-[16px] mb-[100px]">
       {!user && (
@@ -314,7 +312,7 @@ const Profile = () => {
             icon={
               <RiFileList2Line className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
             }
-            url={"/tracking-order"}
+            url={"/myorders"}
           />
           <ProfileNaveList
             title={"ট্র্যাক অর্ডার"}

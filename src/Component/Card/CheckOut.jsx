@@ -8,6 +8,7 @@ import TextareaField from "../TextareaField/TextareaField";
 import SelectInputField from "../SelectInputField/SelectInputField";
 import { v4 as uuidv4 } from "uuid";
 import { useCart } from "../CartContext/CartContext";
+import Swal from "sweetalert2";
 
 const CheckOut = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -89,8 +90,42 @@ const CheckOut = () => {
 
   // Handle order
   const handleOrder = () => {
-    removeAllItem();
-    navigation("/success");
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (user) {
+      removeAllItem();
+      navigation("/success");
+    } else {
+      Swal.fire({
+        title: "<strong>অনুগ্রহ করে <u>লগইন</u> করুন</strong>",
+        icon: "warning",
+        html: `
+    অর্ডার সম্পন্ন করতে হলে আপনাকে প্রথমে লগইন করতে হবে।<br><br>
+    দয়া করে লগইন করুন অথবা একটি নতুন একাউন্ট তৈরি করুন।
+  `,
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText: `
+    <i class="fa fa-sign-in-alt"></i> লগইন
+  `,
+        confirmButtonAriaLabel: "লগইন",
+        cancelButtonText: `
+    <i class="fa fa-user-plus"></i> সাইন আপ
+  `,
+        cancelButtonAriaLabel: "সাইন আপ",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigation("/login", {
+            state: { from: "/checkOut" },
+          });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          navigation("/signup", {
+            state: { from: "/checkOut" },
+          });
+        }
+      });
+    }
   };
 
   return (

@@ -195,6 +195,7 @@ const FilterTab = ({ setIsFullImageOpen, haldleAddToCard }) => {
           <div className="px-[15px]  flex items-center gap-[16px] overflow-auto scrollbar-hide mb-[16px]">
             {allFoods?.map((item, i) => (
               <FoodCard
+                key={i}
                 setIsFullImageOpen={setIsFullImageOpen}
                 height="h-[140px]"
                 item={item}

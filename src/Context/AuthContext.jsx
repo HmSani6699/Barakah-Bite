@@ -22,6 +22,7 @@ const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user"); // optional
+    window.location.href = "/";
   };
 
   return (

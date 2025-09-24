@@ -25,7 +25,7 @@ const SelectInputField = ({
         value={value}
         onChange={(e) => setValue(e.target.value)}
       >
-        <option value="">Select</option>
+        <option value="">-- Select --</option>
         {options.map((opt) => (
           <option key={opt.value} value={opt.value}>
             {opt.label}

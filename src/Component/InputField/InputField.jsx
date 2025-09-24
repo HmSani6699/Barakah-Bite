@@ -18,12 +18,11 @@ const InputField = ({
         )}
       </p>
       <input
-        required
         type={type ? type : "text"}
         className={`bg-[#eff1f1] outline-none rounded-[10px] py-[10px] w-full px-[20px] ${
           errorMessage && "border-red-500 border"
         }`}
-        placeholder={placeholder}
+        placeholder={placeholder ? placeholder : title}
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />

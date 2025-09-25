@@ -4,6 +4,7 @@ import SelectInputField from "../../../Component/SelectInputField/SelectInputFie
 import { IoMdCloseCircle } from "react-icons/io";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useAuth } from "../../../Context/AuthContext";
 
 const CreateUpdateMenu = ({
   updateData,
@@ -11,10 +12,16 @@ const CreateUpdateMenu = ({
   handleGetProduct,
   viewForm,
 }) => {
+  const { user } = useAuth();
   const baseUrl = import.meta.env.VITE_API_URL;
+  const [loading, setLoading] = useState(false);
+  const [mainCategoryOption, setMainCategoryOption] = useState();
+  const [productCategoryOption, setProductCategoryOption] = useState();
+  const [subCategoryOption, setSubCategoryOption] = useState();
   const [name, setName] = useState("Pizza");
-  const [category, setCategory] = useState("Food");
-  const [subCategory, setsubCategory] = useState("Fast Food");
+  const [category, setCategory] = useState();
+  const [subCategory, setsubCategory] = useState();
+  const [productCategory, setProductCategory] = useState();
   const [defaultUnit, setDefaultUnit] = useState("Plate");
   const [img, setImage] = useState(
     "https://images.deliveryhero.io/image/fd-bd/LH/cu0zf-listing.jpg"
@@ -65,6 +72,7 @@ const CreateUpdateMenu = ({
       name,
       category,
       subCategory,
+      productCategory,
       defaultUnit,
       variants,
       img,
@@ -129,8 +137,6 @@ const CreateUpdateMenu = ({
     { value: "plate", label: "প্লেট" },
   ];
 
-  console.log(updateData);
-
   // old value set
   useEffect(() => {
     if (updateData) {
@@ -156,6 +162,107 @@ const CreateUpdateMenu = ({
       setImage(updateData.img || null);
     }
   }, [updateData]);
+
+  // Sub category
+
+  // Load main category
+  const handleGetMainCategory = async () => {
+    setLoading(true);
+
+    try {
+      const res = await axios.get(baseUrl + "/mainCategoryes");
+      if (res?.data?.success) {
+        const mainOptions = res?.data?.data?.map((item) => ({
+          label: item.name,
+          value: item._id,
+        }));
+
+        setMainCategoryOption(mainOptions);
+      }
+    } catch (error) {
+      Swal.fire(
+        "Error!",
+        error?.response?.data?.message || "Something went wrong!",
+        "error"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    handleGetMainCategory();
+  }, []);
+
+  // Load sub category
+  const handleGetSubCategory = async () => {
+    setLoading(true);
+
+    try {
+      const res = await axios.get(
+        `${baseUrl}/subCategoryesByMainCategoryId/${category}`
+      );
+
+      if (res?.data?.success) {
+        const subOptions = res?.data?.data?.map((item) => ({
+          label: item.name,
+          value: item._id,
+        }));
+
+        setSubCategoryOption(subOptions);
+      }
+    } catch (error) {
+      Swal.fire(
+        "Error!",
+        error?.response?.data?.message || "Something went wrong!",
+        "error"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // get sub category
+  useEffect(() => {
+    if (category) {
+      handleGetSubCategory();
+    }
+  }, [category]);
+
+  // Load main category
+  const handleProductSubCategory = async () => {
+    setLoading(true);
+
+    try {
+      const res = await axios.get(
+        `${baseUrl}/productCategoryesByMainCategoryIdSubcategoryId/${category}/${subCategory}`
+      );
+
+      if (res?.data?.success) {
+        const ProductOptions = res?.data?.data?.map((item) => ({
+          label: item.name,
+          value: item._id,
+        }));
+
+        setProductCategoryOption(ProductOptions);
+      }
+    } catch (error) {
+      Swal.fire(
+        "Error!",
+        error?.response?.data?.message || "Something went wrong!",
+        "error"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // get sub category
+  useEffect(() => {
+    if (subCategory) {
+      handleProductSubCategory();
+    }
+  }, [subCategory]);
 
   return (
     <div className="fixed inset-0 bg-[#000000d9] z-[200] flex items-center justify-center">
@@ -192,14 +299,26 @@ const CreateUpdateMenu = ({
             value={category}
             setValue={setCategory}
             title="Main Category"
-            options={[{ value: 1, label: "Food" }]}
+            options={mainCategoryOption}
           />
-          <SelectInputField
-            value={subCategory}
-            setValue={setsubCategory}
-            title="Sub Category"
-            options={[{ value: 1, label: " Street Food" }]}
-          />
+
+          {subCategoryOption && (
+            <SelectInputField
+              value={subCategory}
+              setValue={setsubCategory}
+              title="Sub Category"
+              options={subCategoryOption}
+            />
+          )}
+
+          {productCategoryOption && (
+            <SelectInputField
+              value={productCategory}
+              setValue={setProductCategory}
+              title="Product Category"
+              options={productCategoryOption}
+            />
+          )}
 
           {/* Default Unit */}
           <SelectInputField

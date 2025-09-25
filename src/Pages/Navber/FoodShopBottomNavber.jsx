@@ -1,13 +1,12 @@
 import { FaUser } from "react-icons/fa";
-import { HiClipboardList, HiHome, HiShoppingCart } from "react-icons/hi";
+import { HiClipboardList, HiHome } from "react-icons/hi";
 import "./Navber.css";
 import { Link, useLocation } from "react-router";
 import HomeBottomNavList from "../../Component/Navlist/HomeBottomNavList";
-import { MdAttachMoney, MdOutlineRestaurantMenu } from "react-icons/md";
+import { MdOutlineRestaurantMenu } from "react-icons/md";
 
 const FoodShopBottomNavber = () => {
   const { pathname } = useLocation();
-  console.log(pathname);
 
   return (
     <div

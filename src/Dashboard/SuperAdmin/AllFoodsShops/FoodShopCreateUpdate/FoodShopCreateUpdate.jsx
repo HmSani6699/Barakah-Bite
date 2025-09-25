@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoMdCloseCircle } from "react-icons/io";
 import InputField from "../../../../Component/InputField/InputField";
 import SelectInputField from "../../../../Component/SelectInputField/SelectInputField";
@@ -7,7 +7,12 @@ import FileInputField from "../../../../Component/FileInputField/FileInputField"
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const FoodShopCreateUpdate = ({ viewForm, setOpenForm, handleGetShop }) => {
+const FoodShopCreateUpdate = ({
+  viewForm,
+  setOpenForm,
+  handleGetShop,
+  updateData,
+}) => {
   const baseUrl = import.meta.env.VITE_API_URL;
   const [ownerName, setOwnerName] = useState("Md Sadiq");
   const [ownerPhone, setOwnerPhone] = useState("01996359111");
@@ -35,6 +40,8 @@ const FoodShopCreateUpdate = ({ viewForm, setOpenForm, handleGetShop }) => {
   const [errors, setErrors] = useState({});
   const validateForm = () => {
     const newErrors = {};
+
+    console.log(sharePricing);
 
     // Phone number regex for Bangladeshi format
     const phoneRegex = /^01[3-9]\d{8}$/;
@@ -105,23 +112,23 @@ const FoodShopCreateUpdate = ({ viewForm, setOpenForm, handleGetShop }) => {
     }
 
     // Share pricing validation
-    if (!sharePricing.tier1.trim()) {
+    if (!sharePricing.tier1) {
       newErrors.tier1 = "Tier 1 price is required";
     }
 
-    if (!sharePricing.tier2.trim()) {
+    if (!sharePricing.tier2) {
       newErrors.tier2 = "Tier 2 price is required";
     }
 
-    if (!sharePricing.tier3.trim()) {
+    if (!sharePricing.tier3) {
       newErrors.tier3 = "Tier 3 price is required";
     }
 
-    if (!sharePricing.tier4.trim()) {
+    if (!sharePricing.tier4) {
       newErrors.tier4 = "Tier 4 price is required";
     }
 
-    if (!sharePricing.tier5.trim()) {
+    if (!sharePricing.tier5) {
       newErrors.tier5 = "Tier 5 price is required";
     }
 
@@ -132,6 +139,8 @@ const FoodShopCreateUpdate = ({ viewForm, setOpenForm, handleGetShop }) => {
 
   // Create update
   const handleCreateUpdate = async () => {
+    console.log(errors);
+
     if (!validateForm()) {
       // validation failed, stop submission
       return;
@@ -150,11 +159,11 @@ const FoodShopCreateUpdate = ({ viewForm, setOpenForm, handleGetShop }) => {
       status,
       description,
       sharePricing: {
-        "0-150": sharePricing.tier1,
-        "151-300": sharePricing.tier2,
-        "301-500": sharePricing.tier3,
-        "501-750": sharePricing.tier4,
-        "751-1000": sharePricing.tier5,
+        tier1: sharePricing.tier1,
+        tier2: sharePricing.tier2,
+        tier3: sharePricing.tier3,
+        tier4: sharePricing.tier4,
+        tier5: sharePricing.tier5,
       },
     };
 
@@ -168,8 +177,8 @@ const FoodShopCreateUpdate = ({ viewForm, setOpenForm, handleGetShop }) => {
       } else {
         // Update Shop
         response = await axios.put(
-          baseUrl + `/products/${updateData?._id}`,
-          newItem
+          baseUrl + `/shops/${updateData?._id}`,
+          postData
         );
         Swal.fire("Updated!", "Product updated successfully!", "success");
       }
@@ -180,7 +189,7 @@ const FoodShopCreateUpdate = ({ viewForm, setOpenForm, handleGetShop }) => {
       console.error(error);
       Swal.fire(
         "Error!",
-        error?.response?.data?.message || "Something went wrong!",
+        error?.response?.data?.error || "Something went wrong!",
         "error"
       );
     }
@@ -218,6 +227,20 @@ const FoodShopCreateUpdate = ({ viewForm, setOpenForm, handleGetShop }) => {
       range: "751 - 1000",
     },
   ];
+
+  useEffect(() => {
+    if (updateData) {
+      setName(updateData.name || "");
+      setAddress(updateData.address || "");
+      setDescription(updateData.description || "");
+      setPhone(updateData.phone || "");
+      setOwnerName(updateData?.owner?.name || "");
+      setShopType(updateData.shopType || "");
+      setSharePricing(updateData.sharePricing || {});
+      setLogo(updateData.logo || "");
+      setCoverImage(updateData.coverImage || "");
+    }
+  }, [updateData]);
 
   return (
     <div className="fixed inset-0 bg-[#000000d9] z-[200] flex items-center justify-center">
@@ -258,7 +281,7 @@ const FoodShopCreateUpdate = ({ viewForm, setOpenForm, handleGetShop }) => {
                 title="Owner phone"
                 placeholder="Enter owner phone"
                 required={true}
-                errorMessage={errors.phone}
+                errorMessage={errors.ownerPhone}
                 type="number"
               />
               <InputField
@@ -280,8 +303,8 @@ const FoodShopCreateUpdate = ({ viewForm, setOpenForm, handleGetShop }) => {
                 setValue={setShopType}
                 title="Shop Type"
                 options={[
-                  { value: 1, label: "Restaurant" },
-                  { value: 2, label: "Grocery" },
+                  { value: "Restaurant", label: "Restaurant" },
+                  { value: "Grocery", label: "Grocery" },
                 ]}
                 required={true}
                 errorMessage={errors.shopType}
@@ -316,9 +339,9 @@ const FoodShopCreateUpdate = ({ viewForm, setOpenForm, handleGetShop }) => {
                 setValue={setStatus}
                 title="Shop Status"
                 options={[
-                  { value: 1, label: "pending" },
-                  { value: 2, label: "approved" },
-                  { value: 3, label: "blocked" },
+                  { value: "pending", label: "pending" },
+                  { value: "approved", label: "approved" },
+                  { value: "blocked", label: "blocked" },
                 ]}
                 required={true}
                 errorMessage={errors.status}

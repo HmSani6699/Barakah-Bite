@@ -12,7 +12,7 @@ const AllFoodsShops = () => {
   const [openForm, setOpenForm] = useState(false);
   const [viewForm, setViewForm] = useState("create");
   const [viewShop, setViewShop] = useState(false);
-  const [viewShopData, setViewShopData] = useState({});
+  const [viewShopData, setViewShopData] = useState(null);
   const [data, setData] = useState([]);
 
   // Handle view shop
@@ -84,6 +84,8 @@ const AllFoodsShops = () => {
           setOpenForm={setOpenForm}
           viewForm={viewForm}
           setViewForm={setViewForm}
+          handleGetShop={handleGetShop}
+          updateData={viewShopData}
         />
       )}
       {viewShop && (

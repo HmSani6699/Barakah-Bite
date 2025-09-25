@@ -52,6 +52,13 @@ const MenuPage = () => {
           }
           url={"/super-admin/product-category"}
         />
+        <ProfileNaveList
+          title={"Unit"}
+          icon={
+            <FaUser className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+          }
+          url={"/super-admin/unit"}
+        />
         {/* <ProfileNaveList
           title={"যোগাযোগ"}
           icon={

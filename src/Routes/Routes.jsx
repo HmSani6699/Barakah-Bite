@@ -39,6 +39,7 @@ import SuperAdminBottomNavber from "../Pages/Navber/SuperAdminBottomNavber";
 import MainCategory from "../Dashboard/SuperAdmin/Category/MainCategory/MainCategory";
 import SubCategory from "../Dashboard/SuperAdmin/Category/SubCategory/SubCategory";
 import ProductCategory from "../Dashboard/SuperAdmin/Category/ProductCategory/ProductCategory";
+import Unite from "../Dashboard/SuperAdmin/Unit/Unite";
 
 const router = createBrowserRouter([
   {
@@ -200,6 +201,10 @@ const router = createBrowserRouter([
       {
         path: "/super-admin/product-category",
         element: <ProductCategory />,
+      },
+      {
+        path: "/super-admin/unit",
+        element: <Unite />,
       },
     ],
   },

@@ -8,7 +8,6 @@ import { IoMdMenu } from "react-icons/io";
 
 const SuperAdminBottomNavber = () => {
   const { pathname } = useLocation();
-  console.log(pathname);
 
   return (
     <div

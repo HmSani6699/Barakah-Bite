@@ -18,6 +18,8 @@ const CreateUpdateMenu = ({
   const [mainCategoryOption, setMainCategoryOption] = useState();
   const [productCategoryOption, setProductCategoryOption] = useState();
   const [subCategoryOption, setSubCategoryOption] = useState();
+  const [unitOption, setUnitOption] = useState();
+
   const [name, setName] = useState("Pizza");
   const [category, setCategory] = useState();
   const [subCategory, setsubCategory] = useState();
@@ -239,12 +241,12 @@ const CreateUpdateMenu = ({
       );
 
       if (res?.data?.success) {
-        const ProductOptions = res?.data?.data?.map((item) => ({
+        const productOptions = res?.data?.data?.map((item) => ({
           label: item.name,
           value: item._id,
         }));
 
-        setProductCategoryOption(ProductOptions);
+        setProductCategoryOption(productOptions);
       }
     } catch (error) {
       Swal.fire(
@@ -263,6 +265,41 @@ const CreateUpdateMenu = ({
       handleProductSubCategory();
     }
   }, [subCategory]);
+
+  // Load Unut category
+  const handleUnit = async () => {
+    setLoading(true);
+
+    try {
+      const res = await axios.get(
+        `${baseUrl}/units/${category}/${subCategory}/${productCategory}`
+      );
+
+      if (res?.data?.success) {
+        const unitptions = res?.data?.data?.map((item) => ({
+          label: item.name,
+          value: item._id,
+        }));
+
+        setUnitOption(unitptions);
+      }
+    } catch (error) {
+      Swal.fire(
+        "Error!",
+        error?.response?.data?.message || "Something went wrong!",
+        "error"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // get sub category
+  useEffect(() => {
+    if (productCategory) {
+      handleUnit();
+    }
+  }, [productCategory]);
 
   return (
     <div className="fixed inset-0 bg-[#000000d9] z-[200] flex items-center justify-center">
@@ -287,12 +324,6 @@ const CreateUpdateMenu = ({
         {/* Form fields */}
         <div className="space-y-4">
           {/* Name */}
-          <InputField
-            value={name}
-            setValue={setName}
-            title="Name"
-            placeholder="Enter product name"
-          />
 
           {/* Category */}
           <SelectInputField
@@ -320,9 +351,16 @@ const CreateUpdateMenu = ({
             />
           )}
 
+          <InputField
+            value={name}
+            setValue={setName}
+            title="Name"
+            placeholder="Enter product name"
+          />
+
           {/* Default Unit */}
           <SelectInputField
-            options={unitOptions}
+            options={unitOption}
             setValue={setDefaultUnit}
             value={defaultUnit}
             title="Default Unit"
@@ -353,7 +391,7 @@ const CreateUpdateMenu = ({
                   }
                 />
                 <SelectInputField
-                  options={unitOptions}
+                  options={unitOption}
                   title="Unit"
                   placeholder="e.g. litre, ml, pcs"
                   value={variant.unit} // <-- this is the main fix

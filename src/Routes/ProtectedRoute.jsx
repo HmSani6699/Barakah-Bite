@@ -11,6 +11,8 @@ const roleRedirectMap = {
 const ProtectedRoute = ({ allowedRoles, children }) => {
   const { user } = useAuth();
 
+  console.log(user, "dskjfsdlkjo3iu5oi");
+
   if (!user) {
     return <Navigate to="/" replace />;
   }

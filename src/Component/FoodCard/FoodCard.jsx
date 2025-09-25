@@ -3,19 +3,33 @@ import { FaStar } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
 import { useCart } from "../CartContext/CartContext";
 
-const FoodCard = ({ height, item, haldleAddToCard }) => {
+const FoodCard = ({ height, item }) => {
   const [isFullImageOpen, setIsFullImageOpen] = useState(false);
   const { addToCart } = useCart();
 
+  function calculateDiscountPercentageFromDiscount(price, discountAmount) {
+    if (!price || !discountAmount || price === 0) return 0;
+
+    const discount = (discountAmount / price) * 100;
+    return Math.round(discount);
+  }
+
   return (
-    <div>
-      <div className="bg-white rounded-[15px] min-w-[240px] relative">
-        <div className="absolute top-[20px] left-0 bg-[#ff6347] text-[12px] text-white px-[10px] py-[5px] rounded-r-[10px] shadow-md">
-          10 % OFF
-        </div>
-        <div className="absolute top-[60px] left-0 bg-[#1c8645] text-[12px] text-white px-[10px] py-[5px] rounded-r-[10px] shadow-md">
+    <div className="border">
+      <div className="bg-white rounded-[15px] min-w-[240px] relative border">
+        {item?.variants?.[0]?.price && item?.variants?.[0]?.discount ? (
+          <div className="absolute top-[20px] left-0 bg-[#ff6347] text-[12px] text-white px-[10px] py-[5px] rounded-r-[10px] shadow-md">
+            {calculateDiscountPercentageFromDiscount(
+              item?.variants[0]?.price,
+              item?.variants[0]?.discount
+            )}
+            % OFF
+          </div>
+        ) : null}
+
+        {/* <div className="absolute top-[60px] left-0 bg-[#1c8645] text-[12px] text-white px-[10px] py-[5px] rounded-r-[10px] shadow-md">
           Sold Out
-        </div>
+        </div> */}
         <div
           onClick={() => setIsFullImageOpen(true)}
           className={`${height} bg-white rounded-t-[15px] w-full object-cover`}
@@ -30,7 +44,8 @@ const FoodCard = ({ height, item, haldleAddToCard }) => {
         {/* boday */}
         <div className=" bg-white rounded-b-[15px] w-full p-[10px]">
           <h2 className="bg-white text-[18px] font-bold  text-[#4f4a4a]">
-            {item?.name}
+            {item?.name}{" "}
+            <span className="text-[10px]">({item?.variants?.[0]?.label})</span>
           </h2>
           <div className="flex items-center gap-[4px] bg-white ">
             <div className="h-[30px] w-[30px] rounded-full  border-[3px] border-white">
@@ -42,7 +57,7 @@ const FoodCard = ({ height, item, haldleAddToCard }) => {
             </div>
             <div className="flex items-center gap-[10px] bg-white">
               <h2 className="text-[14px]  bg-white whitespace-nowrap text-gray-500">
-                Barakah Mart
+                {item?.shop?.name}
               </h2>
               <div className="flex items-center bg-white gap-[10px]">
                 <p>

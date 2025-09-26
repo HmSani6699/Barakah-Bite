@@ -8,15 +8,19 @@ import { IoMdCloseCircle } from "react-icons/io";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Loading from "../../../../Component/Loading/Loading";
+import FileInputField from "../../../../Component/FileInputField/FileInputField";
+import noImage from "../../../../../public/images/notimage.svg";
 
 const MainCategory = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
+  const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
   const [loading, setLoading] = useState(false);
   const [openForm, setOpenForm] = useState(false);
   const [viewFormType, setviewFormType] = useState("");
   const [allCategory, setAllCategory] = useState([]);
   const [updateData, setUpdateData] = useState({});
 
+  const [preview, setPreview] = useState(null);
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
 
@@ -43,11 +47,19 @@ const MainCategory = () => {
   }, []);
 
   const handleCreate = async () => {
+    // console.log({ name, image });
+
     try {
-      const res = await axios.post(baseUrl + "/mainCategoryes", {
-        name,
-        icon: image,
-      });
+      const res = await axios.post(
+        baseUrl + "/mainCategoryes",
+        {
+          name,
+          icon: image,
+        },
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
       if (res?.data?.success) {
         handleGetAllCategory();
@@ -128,6 +140,8 @@ const MainCategory = () => {
     }
   }, [updateData]);
 
+  console.log(preview);
+
   return (
     <div className="p-[16px] relative">
       <div className="flex items-center justify-between mb-[20px]">
@@ -158,6 +172,7 @@ const MainCategory = () => {
             <thead className="bg-gray-300">
               <tr>
                 <th className="text-left pl-[30px] py-[16px]">ID</th>
+                <th className="text-left pl-[30px] py-[16px]">Icon</th>
                 <th className="text-center py-[16px]">Name</th>
                 <th className="py-[16px]">Action</th>
               </tr>
@@ -166,6 +181,21 @@ const MainCategory = () => {
               {allCategory.map((item, i) => (
                 <tr key={i} className="w-full">
                   <td className="px-[30px] py-[20px]">{i + 1}</td>
+                  <td className="px-[30px] py-[20px]">
+                    {item?.icon ? (
+                      <img
+                        className="h-[50px] w-[50px] rounded-full"
+                        src={`${baseImageUrl}/${item?.icon}`}
+                        alt="icon"
+                      />
+                    ) : (
+                      <img
+                        className="h-[50px] w-[50px] rounded-full"
+                        src={noImage}
+                        alt="icon"
+                      />
+                    )}
+                  </td>
                   <td className="px-[30px] py-[20px] text-center">
                     {item?.name}
                   </td>
@@ -220,7 +250,42 @@ const MainCategory = () => {
                 value={name}
                 setValue={setName}
               />
-              <InputField title={"Image"} value={image} setValue={setImage} />
+              {/* <InputField title={"Image"} value={image} setValue={setImage} /> */}
+
+              {!preview ? (
+                <div>
+                  <FileInputField
+                    title={"image"}
+                    value={image}
+                    setValue={setImage}
+                    size={"Height-40px Width-50px"}
+                    setPreview={setPreview}
+                  />
+                </div>
+              ) : (
+                <div>
+                  <div className="flex items-center justify-center border-2 border-dashed p-[16px] border-[#ff6347] rounded-[10px]">
+                    <div className="h-[160px] ">
+                      <img
+                        className=" h-full w-[100px]"
+                        src={preview && preview}
+                        alt="preview"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex items-end justify-end ">
+                    <button
+                      onClick={() => {
+                        setPreview("");
+                        setImage("");
+                      }}
+                      className="bg-[#ff6347] text-white mt-[16px] py-[8px] px-[20px] rounded-[8px]"
+                    >
+                      Canchel
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
 
             <button

@@ -1,10 +1,22 @@
 import React from "react";
 import { MdCloudUpload } from "react-icons/md";
 
-const FileInputField = ({ title, value, setValue, required, errorMessage }) => {
+const FileInputField = ({
+  title,
+  value,
+  setValue,
+  required,
+  errorMessage,
+  size,
+  setPreview,
+}) => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setValue(file);
+
+    // Browser এর জন্য preview link বানানো
+    const objectUrl = URL.createObjectURL(file);
+    setPreview(objectUrl);
   };
 
   return (
@@ -27,6 +39,7 @@ const FileInputField = ({ title, value, setValue, required, errorMessage }) => {
             </span>{" "}
             or drag and drop
           </p>
+          <p>{size && size}</p>
           <p className="text-xs text-gray-400">PNG, JPG, PDF, etc.</p>
         </div>
         <input type="file" className="hidden" onChange={handleFileChange} />

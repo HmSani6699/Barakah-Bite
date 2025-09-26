@@ -4,6 +4,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import ProfileNaveList from "../../../Component/Profile/ProfileNaveList";
 import { useAuth } from "../../../Context/AuthContext";
 import { useNavigate } from "react-router";
+import { LuNotebookText } from "react-icons/lu";
 
 const MenuPage = () => {
   const { logout } = useAuth();
@@ -34,28 +35,28 @@ const MenuPage = () => {
         <ProfileNaveList
           title={"Main category"}
           icon={
-            <FaUser className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+            <LuNotebookText className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
           }
           url={"/super-admin/main-category"}
         />
         <ProfileNaveList
           title={"Sub category"}
           icon={
-            <FaUser className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+            <LuNotebookText className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
           }
           url={"/super-admin/sub-category"}
         />
         <ProfileNaveList
           title={"Product category"}
           icon={
-            <FaUser className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+            <LuNotebookText className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
           }
           url={"/super-admin/product-category"}
         />
         <ProfileNaveList
           title={"Unit"}
           icon={
-            <FaUser className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+            <LuNotebookText className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
           }
           url={"/super-admin/unit"}
         />

@@ -167,15 +167,17 @@
 import { useState } from "react";
 import notImage from "../../../../public/images/notimage.svg";
 import { IoIosArrowForward } from "react-icons/io";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 const Cetegories = () => {
-  const [mani_cetegory, setMainCetegory] = useState("খাবার");
+  const location = useLocation();
+  const categoryName = location.state?.name;
+  const [mani_cetegory, setMainCetegory] = useState(categoryName);
   const [sub_cetegory, setSubCetegory] = useState("");
 
   const allCetegory = [
     {
-      main_category: "খাবার",
+      main_category: "রেস্টুরেন্ট খাবার",
       image: "https://i.postimg.cc/0jC2VnwK/cooking.webp", // main category image
       sub_categories: [
         {
@@ -330,7 +332,7 @@ const Cetegories = () => {
       ],
     },
     {
-      main_category: "মুদি বাজার",
+      main_category: "বাজার আইটেম",
       image: "https://i.postimg.cc/m2qK0MyP/fresh-vegetables.webp",
       sub_categories: [
         {
@@ -393,7 +395,7 @@ const Cetegories = () => {
       {/* Header */}
       <div className="bg-white flex items-center gap-[15px] p-[16px] top_header_shadow">
         <h2 className="bg-white text-[#171717] font-semibold text-[16px]">
-          Barakha Mart
+          ক্যাটাগরি
         </h2>
       </div>
 

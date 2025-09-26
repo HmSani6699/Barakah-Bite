@@ -478,6 +478,22 @@ const Profile = () => {
           )}
         </div>
       )}
+      {user?.role === "admin" && (
+        <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mb-[16px]">
+          {user && (
+            <div
+              onClick={handleLogOut}
+              className="w-full flex items-center justify-between cursor-pointer"
+            >
+              <div className="flex items-center gap-[15px]">
+                <FiLogOut className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+                <p className="text-gray-600">লগআউট</p>
+              </div>
+              <IoIosArrowForward />
+            </div>
+          )}
+        </div>
+      )}
 
       {/* About Company */}
       <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md ">

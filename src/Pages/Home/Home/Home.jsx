@@ -1,6 +1,5 @@
 import FilterTab from "../FilterTab/FilterTab";
 import GroseryShop from "../GroseryShop/GroseryShop";
-import PopularItem from "../PopularItem/PopularItem";
 import RestaurantsShops from "../RestaurantsShops/RestaurantsShops";
 import HomeTopNavber from "../../Navber/HomeTopNavber";
 
@@ -12,12 +11,25 @@ import axios from "axios";
 import Loading from "../../../Component/Loading/Loading";
 import Hero from "../Hero/Hero";
 
+import resImage from "../../../../public/images/restaurant.png";
+import groceryImage from "../../../../public/images/grocery.png";
+
 const Home = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
   const [loading, setLoading] = useState(false);
   const [localStorageItems, setLocalStorageItems] = useState([]);
   const [allRestaurantActiveItems, setAllRestaurantActiveItems] = useState([]);
   const [tabValue, setTabValue] = useState("সকল");
+  const [allHeroData, setAllHeroData] = useState([
+    {
+      name: "রেস্টুরেন্ট খাবার",
+      img: resImage,
+    },
+    {
+      name: "বাজার আইটেম",
+      img: groceryImage,
+    },
+  ]);
 
   const haldleAddToCard = (item) => {
     const getItems = JSON.parse(localStorage.getItem("card"));
@@ -83,7 +95,7 @@ const Home = () => {
           <>
             <HomeTopNavber />
             <Banner />
-            <Hero />
+            <Hero allData={allHeroData} />
             <FilterTab
               haldleAddToCard={haldleAddToCard}
               allRestaurantActiveItems={allRestaurantActiveItems}

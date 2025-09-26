@@ -15,7 +15,7 @@ const FoodCard = ({ height, item }) => {
   }
 
   return (
-    <div className="border">
+    <div className="">
       <div className="bg-white rounded-[15px] min-w-[240px] relative border">
         {item?.variants?.[0]?.price && item?.variants?.[0]?.discount ? (
           <div className="absolute top-[20px] left-0 bg-[#ff6347] text-[12px] text-white px-[10px] py-[5px] rounded-r-[10px] shadow-md">

@@ -19,6 +19,7 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [localStorageItems, setLocalStorageItems] = useState([]);
   const [allRestaurantActiveItems, setAllRestaurantActiveItems] = useState([]);
+  const [allSubCategory, setallSubCategory] = useState([]);
   const [tabValue, setTabValue] = useState("সকল");
   const [allHeroData, setAllHeroData] = useState([
     {
@@ -46,6 +47,27 @@ const Home = () => {
 
       // get item
       setLocalStorageItems(JSON.parse(localStorage.getItem("card")));
+    }
+  };
+
+  // Get all main category
+  const handleGetAllMainCategory = async () => {
+    setLoading(true);
+    try {
+      let res = await axios.get(baseUrl + "/mainCategoryes");
+      if (res?.data?.success) {
+        setAllHeroData(res?.data?.data);
+        setLoading(false);
+      }
+    } catch (error) {
+      Swal.fire(
+        "Error!",
+        error?.response?.data?.message || "Something went wrong!",
+        "error"
+      );
+      setLoading(false);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -80,8 +102,32 @@ const Home = () => {
     }
   };
 
+  // get sub category
+  const handleGetAllSubCategory = async () => {
+    setLoading(true);
+    try {
+      let res = await axios.get(baseUrl + "/subcategoryProductsCount");
+
+      if (res?.data?.success) {
+        setallSubCategory(res?.data?.data);
+        setLoading(false);
+      }
+    } catch (error) {
+      Swal.fire(
+        "Error!",
+        error?.response?.data?.message || "Something went wrong!",
+        "error"
+      );
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    handleGetRestaurantItems();
+    handleGetAllMainCategory();
+    handleGetAllSubCategory();
+    // handleGetRestaurantItems();
   }, [tabValue]);
 
   return (
@@ -102,7 +148,7 @@ const Home = () => {
               setTabValue={setTabValue}
               tabValue={tabValue}
             />
-            <GroseryShop />
+            <GroseryShop allSubCategory={allSubCategory} />
             <RestaurantsShops />
             {/* <PopularItem /> */}
             {localStorageItems?.length > 0 && (

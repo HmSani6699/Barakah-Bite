@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router";
 
 const Hero = ({ allData }) => {
+  const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
   return (
     <div className="my-[16px] flex items-center gap-[16px] overflow-auto scrollbar-hide">
       {allData?.length > 0 &&
@@ -18,7 +19,7 @@ const Hero = ({ allData }) => {
             <div className="h-[40px] w-[50px] rounded-[8px]">
               <img
                 className=" h-full w-full rounded-[8px]"
-                src={item?.img}
+                src={baseImageUrl + "/" + item?.icon}
                 alt=""
               />
             </div>

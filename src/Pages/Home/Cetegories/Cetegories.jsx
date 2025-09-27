@@ -164,323 +164,179 @@
 
 // export default Cetegories;
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import notImage from "../../../../public/images/notimage.svg";
 import { IoIosArrowForward } from "react-icons/io";
 import { Link, useLocation } from "react-router";
+import axios from "axios";
+import Loading from "../../../Component/Loading/Loading";
 
 const Cetegories = () => {
-  const location = useLocation();
-  const categoryName = location.state?.name;
-  const [mani_cetegory, setMainCetegory] = useState(categoryName);
-  const [sub_cetegory, setSubCetegory] = useState("");
+  const baseUrl = import.meta.env.VITE_API_URL;
+  const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
 
-  const allCetegory = [
-    {
-      main_category: "রেস্টুরেন্ট খাবার",
-      image: "https://i.postimg.cc/0jC2VnwK/cooking.webp", // main category image
-      sub_categories: [
-        {
-          name: "ফাস্ট ফুড",
-          image: "https://i.postimg.cc/3x3X1RjG/fast-food.webp",
-          items: [
-            {
-              name: "বার্গার",
-              image: "https://i.postimg.cc/8C6nGfYt/burger.webp",
-            },
-            {
-              name: "পিজ্জা",
-              image: "https://i.postimg.cc/3JZV1pD2/pizza.webp",
-            },
-            {
-              name: "হট ডগ",
-              image: "https://i.postimg.cc/qR09h6Mz/hotdog.webp",
-            },
-            {
-              name: "স্যান্ডউইচ",
-              image: "https://i.postimg.cc/W1Q7y8cZ/sandwich.webp",
-            },
-            {
-              name: "শাওয়ারমা",
-              image: "https://i.postimg.cc/3JjP4gDd/shawarma.webp",
-            },
-            {
-              name: "ফ্রেঞ্চ ফ্রাই",
-              image: "https://i.postimg.cc/mgGQk7j2/french-fries.webp",
-            },
-          ],
-        },
-        {
-          name: "ভাজাপোড়া / চিকেন আইটেম",
-          image: "https://i.postimg.cc/3JQ8s5Kz/fried-chicken.webp",
-          items: [
-            {
-              name: "চিকেন ফ্রাই",
-              image: "https://i.postimg.cc/fyY9XJ6P/chicken-fry.webp",
-            },
-            {
-              name: "ফ্রাইড উইংস",
-              image: "https://i.postimg.cc/7hTf2Jyf/fried-wings.webp",
-            },
-            {
-              name: "বিবিকিউ চিকেন",
-              image: "https://i.postimg.cc/NfZ5xCwB/bbq-chicken.webp",
-            },
-          ],
-        },
-        {
-          name: "পাস্তা ও নুডলস",
-          image: "https://i.postimg.cc/3x3Q3t3h/pasta.webp",
-          items: [
-            {
-              name: "পাস্তা",
-              image: "https://i.postimg.cc/9F0P7kR7/pasta2.webp",
-            },
-            {
-              name: "নুডলস",
-              image: "https://i.postimg.cc/dVvT5jMZ/noodles.webp",
-            },
-            {
-              name: "স্প্যাগেটি",
-              image: "https://i.postimg.cc/8kK7YgHt/spaghetti.webp",
-            },
-            {
-              name: "চাউমিন",
-              image: "https://i.postimg.cc/mg1hv8rR/chaumin.webp",
-            },
-          ],
-        },
-        {
-          name: "স্ট্রিট ফুড",
-          image: "https://i.postimg.cc/3x3Q3t3h/street-food.webp",
-          items: [
-            {
-              name: "ফুচকা",
-              image: "https://i.postimg.cc/qR5G4wGs/fuchka.webp",
-            },
-            {
-              name: "চটপটি",
-              image: "https://i.postimg.cc/7hT9f8kR/chotpoti.webp",
-            },
-            {
-              name: "ঝালমুড়ি",
-              image: "https://i.postimg.cc/5yHf2JkP/jhalmuri.webp",
-            },
-            {
-              name: "সিঙ্গারা",
-              image: "https://i.postimg.cc/W3kP6yGh/singara.webp",
-            },
-            {
-              name: "সমুচা",
-              image: "https://i.postimg.cc/4N4H7kqR/samosa.webp",
-            },
-            { name: "রোল", image: "https://i.postimg.cc/6qQk4r2b/roll.webp" },
-          ],
-        },
-        {
-          name: "দেশি খাবার",
-          image: "https://i.postimg.cc/2y1T3kL8/deshi-food.webp",
-          items: [
-            {
-              name: "খিচুড়ি",
-              image: "https://i.postimg.cc/Qtd4H5Yf/kichuri.webp",
-            },
-            {
-              name: "তেহারি / বিরিয়ানি",
-              image: "https://i.postimg.cc/2Sd4K7kP/tehari-biryani.webp",
-            },
-            {
-              name: "হালিম",
-              image: "https://i.postimg.cc/xjQy5rGh/halim.webp",
-            },
-            {
-              name: "কাবাব",
-              image: "https://i.postimg.cc/7Y1P3hTt/kabab.webp",
-            },
-          ],
-        },
-        {
-          name: "মিষ্টি / সুইটস",
-          image: "https://i.postimg.cc/3x3Q3t3h/sweets.webp",
-          items: [
-            {
-              name: "রসগোল্লা",
-              image: "https://i.postimg.cc/1t7sG8kR/rosogolla.webp",
-            },
-            {
-              name: "সন্দেশ",
-              image: "https://i.postimg.cc/2yT5F7kR/sandesh.webp",
-            },
-            {
-              name: "চমচম",
-              image: "https://i.postimg.cc/3yR7K6kR/chomchom.webp",
-            },
-            {
-              name: "লাড্ডু",
-              image: "https://i.postimg.cc/4yT6F8kR/laddu.webp",
-            },
-            {
-              name: "পায়েস",
-              image: "https://i.postimg.cc/5yT8F7kR/payesh.webp",
-            },
-            {
-              name: "মিল্ককেক",
-              image: "https://i.postimg.cc/6yT9F7kR/milkcake.webp",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      main_category: "বাজার আইটেম",
-      image: "https://i.postimg.cc/m2qK0MyP/fresh-vegetables.webp",
-      sub_categories: [
-        {
-          name: "শাকসবজি",
-          image: "https://i.postimg.cc/m2qK0MyP/vegetables.webp",
-          items: [
-            { name: "আলু", image: "https://i.postimg.cc/7hT9f7kR/alu.webp" },
-            { name: "পটল", image: "https://i.postimg.cc/1yT7F6kR/patal.webp" },
-            {
-              name: "বাঁধাকপি",
-              image: "https://i.postimg.cc/2yT7K8kR/badhakopi.webp",
-            },
-            {
-              name: "ফুলকপি",
-              image: "https://i.postimg.cc/3yT8G9kR/fulkopi.webp",
-            },
-            {
-              name: "বেগুন",
-              image: "https://i.postimg.cc/4yT9H0kR/begun.webp",
-            },
-            {
-              name: "ঢেঁড়স",
-              image: "https://i.postimg.cc/5yT0J1kR/dhers.webp",
-            },
-          ],
-        },
-        {
-          name: "ফলমূল",
-          image: "https://i.postimg.cc/6yT1K2kR/fruits.webp",
-          items: [
-            { name: "আপেল", image: "https://i.postimg.cc/1yT2F3kR/apple.webp" },
-            {
-              name: "কমলা",
-              image: "https://i.postimg.cc/2yT3G4kR/orange.webp",
-            },
-            { name: "কলা", image: "https://i.postimg.cc/3yT4H5kR/banana.webp" },
-            {
-              name: "পেয়ারা",
-              image: "https://i.postimg.cc/4yT5J6kR/peara.webp",
-            },
-            { name: "আম", image: "https://i.postimg.cc/5yT6K7kR/mango.webp" },
-            {
-              name: "আনারস",
-              image: "https://i.postimg.cc/6yT7L8kR/pineapple.webp",
-            },
-          ],
-        },
-        // অন্যান্য sub-categories একইভাবে
-      ],
-    },
-  ];
+  const location = useLocation();
+  const [loading, setLoading] = useState(false);
+  const categoryName = location.state?.name;
+
+  const [mani_cetegory, setMainCetegory] = useState("");
+  const [sub_cetegory, setSubCetegory] = useState("");
+  const [allData, setAllData] = useState([]);
+
+  // Get all  category
+  const handleGetAllCategory = async () => {
+    setLoading(true);
+    try {
+      let res = await axios.get(baseUrl + "/allCategories");
+      if (res?.data?.success) {
+        setAllData(res?.data?.data);
+
+        if (categoryName) {
+          setMainCetegory(categoryName);
+        } else {
+          setMainCetegory(res?.data?.data[0]?.main_category);
+        }
+        setLoading(false);
+      }
+    } catch (error) {
+      Swal.fire(
+        "Error!",
+        error?.response?.data?.message || "Something went wrong!",
+        "error"
+      );
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    handleGetAllCategory();
+  }, []);
 
   // selected main category object
-  const selectedMain = allCetegory.find(
+  const selectedMain = allData.find(
     (cat) => cat.main_category === mani_cetegory
   );
 
   return (
-    <div className="mb-[90px]">
-      {/* Header */}
-      <div className="bg-white flex items-center gap-[15px] p-[16px] top_header_shadow">
-        <h2 className="bg-white text-[#171717] font-semibold text-[16px]">
-          ক্যাটাগরি
-        </h2>
-      </div>
+    <div>
+      {" "}
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="mb-[90px]">
+          {/* Header */}
+          <div className="bg-white flex items-center gap-[15px] p-[16px] top_header_shadow">
+            <h2 className="bg-white text-[#171717] font-semibold text-[16px]">
+              ক্যাটাগরি
+            </h2>
+          </div>
 
-      {/* Main content */}
-      <div className="bg-white mt-[10px] flex gap-[16px] py-[16px] pr-[16px]">
-        {/* Left: Main Categories */}
-        <div className="flex flex-col gap-[16px] ">
-          {allCetegory.map((item, i) => (
-            <button
-              key={i}
-              onClick={() => {
-                setMainCetegory(item.main_category);
-                setSubCetegory(""); // main category change -> sub reset
-              }}
-              className={` py-[10px] px-[16px] flex flex-col justify-center items-center transition-colors duration-300 rounded-r-md
+          {/* Main content */}
+          <div className="bg-white mt-[10px] flex gap-[16px] py-[16px] pr-[16px]">
+            {/* Left: Main Categories */}
+            <div className="flex flex-col gap-[16px] ">
+              {allData.map((item, i) => (
+                <button
+                  key={i}
+                  onClick={() => {
+                    setMainCetegory(item.main_category);
+                    setSubCetegory(""); // main category change -> sub reset
+                  }}
+                  className={` py-[10px] px-[16px] flex flex-col justify-center items-center transition-colors duration-300 rounded-r-md
                 ${
                   item.main_category === mani_cetegory
                     ? "bg-[#ffe5e0] text-[#ff6347] "
                     : ""
                 }`}
-            >
-              {item?.image ? (
-                <img className="w-[40px]" src={item?.image} alt="" />
-              ) : (
-                <img src={notImage} alt="" />
-              )}
-              <p className="text-[14px] mt-[6px]">{item.main_category}</p>
-            </button>
-          ))}
-        </div>
+                >
+                  {item?.image ? (
+                    <img
+                      className="w-[40px]"
+                      src={baseImageUrl + "/" + item?.image}
+                      alt=""
+                    />
+                  ) : (
+                    <img src={notImage} alt="" />
+                  )}
+                  <p className="text-[14px] mt-[6px]">{item.main_category}</p>
+                </button>
+              ))}
+            </div>
 
-        {/* Right: Sub-category & Items */}
-        <div className="flex-1 flex flex-col gap-[16px] w-[80%]">
-          {selectedMain?.sub_categories?.map((sub, i) => (
-            <div key={i}>
-              {/* Sub-category button */}
-              <button
-                onClick={() =>
-                  setSubCetegory(sub.name === sub_cetegory ? "" : sub.name)
-                }
-                className={`bg-[#eff1f1] w-full flex items-center justify-between p-[8px] text-[14px] text-[#1e2939] transition-colors duration-300
+            {/* Right: Sub-category & Items */}
+            <div className="flex-1 flex flex-col gap-[16px] w-[80%]">
+              {selectedMain?.sub_categories?.length > 0 ? (
+                selectedMain?.sub_categories?.map((sub, i) => (
+                  <div key={i}>
+                    {/* Sub-category button */}
+                    <button
+                      onClick={() =>
+                        setSubCetegory(
+                          sub.name === sub_cetegory ? "" : sub.name
+                        )
+                      }
+                      className={`bg-[#eff1f1] w-full flex items-center justify-between p-[8px] text-[14px] text-[#1e2939] transition-colors duration-300
                   ${
                     sub.name === sub_cetegory
                       ? "bg-[#ffe5e0] text-white"
                       : "hover:bg-[#e0e4e4]"
                   }`}
-              >
-                <div className="flex items-center gap-[6px]">
-                  <img src={notImage} alt="" />
-                  <p
-                    className={` ${
-                      sub.name === sub_cetegory ? "text-[#ff6347]" : ""
-                    }`}
-                  >
-                    {sub.name}
-                  </p>
-                </div>
-                <IoIosArrowForward />
-              </button>
-
-              {/* Items grid */}
-              {sub.name === sub_cetegory && (
-                <div className="grid grid-cols-3 my-[16px] gap-[16px]">
-                  {sub.items.map((item, idx) => (
-                    <Link to={"/categories/item/চাউল"}>
-                      {" "}
-                      <div
-                        key={idx}
-                        className="flex flex-col gap-[16px] items-center"
-                      >
-                        {item?.image ? (
-                          <img className="w-[40px]" src={item?.image} alt="" />
-                        ) : (
-                          <img className="w-[50px]" src={notImage} alt="" />
-                        )}
-                        <p className="text-[14px] text-center">{item?.name}</p>
+                    >
+                      <div className="flex items-center gap-[6px]">
+                        <img src={notImage} alt="" />
+                        <p
+                          className={` ${
+                            sub.name === sub_cetegory ? "text-[#ff6347]" : ""
+                          }`}
+                        >
+                          {sub.name}
+                        </p>
                       </div>
-                    </Link>
-                  ))}
-                </div>
+                      <IoIosArrowForward />
+                    </button>
+
+                    {/* Items grid */}
+                    {sub.name === sub_cetegory && (
+                      <div className="grid grid-cols-3 my-[16px] gap-[16px]">
+                        {sub?.productCategories?.map((item, idx) => (
+                          <Link to={"/categories/item/চাউল"}>
+                            {" "}
+                            <div
+                              key={idx}
+                              className="flex flex-col gap-[16px] items-center"
+                            >
+                              {item?.image ? (
+                                <img
+                                  className="w-[40px]"
+                                  src={baseImageUrl + "/" + item?.image}
+                                  alt=""
+                                />
+                              ) : (
+                                <img
+                                  className="w-[50px]"
+                                  src={notImage}
+                                  alt=""
+                                />
+                              )}
+                              <p className="text-[14px] text-center">
+                                {item?.name}
+                              </p>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <div>nai</div>
               )}
             </div>
-          ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

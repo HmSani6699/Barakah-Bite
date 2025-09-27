@@ -11,6 +11,8 @@ import Loading from "../../../Component/Loading/Loading";
 
 const Menu = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
+  const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
+
   const [loading, setLoading] = useState(false);
   const [openForm, setOpenForm] = useState(false);
   const [opeView, setOpeView] = useState(false);
@@ -156,23 +158,25 @@ const Menu = () => {
                   >
                     <div className="flex items-center gap-[10px]">
                       <img
-                        src={item?.img}
+                        src={baseImageUrl + "/" + item?.img}
                         alt={item.name}
                         className="w-[70px] h-[70px] rounded-lg object-cover"
                       />
                       <div>
                         <h3 className="font-medium">{item.name}</h3>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground mt-[5px]">
                           {item?.variants[0]?.label} - ৳{" "}
                           {item?.variants[0]?.price}
                         </p>
                         <div className="flex items-center justify-between mt-2 gap-[5px]">
-                          <h2 className="bg-white font-extrabold p-0 text-gray-500 line-through text-[16px]">
-                            <span className=" font-extrabold  bg-white p-0">
-                              ৳
-                            </span>{" "}
-                            {item?.variants[0]?.cutPrice}
-                          </h2>
+                          {item?.variants[0]?.cutPrice && (
+                            <h2 className="bg-white font-extrabold p-0 text-gray-500 line-through text-[16px]">
+                              <span className=" font-extrabold  bg-white p-0">
+                                ৳ {item?.variants[0]?.cutPrice}
+                              </span>{" "}
+                            </h2>
+                          )}
+
                           <h2>
                             <span className="font-bold">
                               <span className="font-extrabold  bg-white p-0">

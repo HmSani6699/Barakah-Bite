@@ -8,10 +8,12 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import Loading from "../../../../Component/Loading/Loading";
 import SelectInputField from "../../../../Component/SelectInputField/SelectInputField";
+import FileInputField from "../../../../Component/FileInputField/FileInputField";
+import noImage from "../../../../../public/images/notimage.svg";
 
 const SubCategory = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
-
+  const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
   const [loading, setLoading] = useState(false);
   const [openForm, setOpenForm] = useState(false);
   const [viewFormType, setviewFormType] = useState("");
@@ -20,8 +22,32 @@ const SubCategory = () => {
   const [allCategory, setAllCategory] = useState([]);
   const [updateData, setUpdateData] = useState({});
 
+  const [preview, setPreview] = useState(null);
   const [mainCategory, setMainCategory] = useState("");
   const [name, setName] = useState("");
+  const [image, setImage] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!mainCategory || mainCategory.trim() === "") {
+      newErrors.mainCategory = "Main category is required";
+    }
+
+    if (!name || name.trim() === "") {
+      newErrors.name = "Name is required";
+    }
+
+    if (!image) {
+      newErrors.image = "Image is required";
+    }
+
+    setErrors(newErrors);
+
+    // যদি কোন error না থাকে তাহলে true return করবে
+    return Object.keys(newErrors).length === 0;
+  };
 
   // 🔁 Fetch all SubCategories
   const handleGetAllCategory = async () => {
@@ -80,10 +106,19 @@ const SubCategory = () => {
 
   // ✅ Create SubCategory
   const handleCreate = async () => {
+    if (!validateForm()) {
+      return; // validation fail হলে আর submit করবে না
+    }
+
+    const formData = {
+      name,
+      mainCategory,
+      icon: image,
+    };
+
     try {
-      const res = await axios.post(baseUrl + "/subCategoryes", {
-        name,
-        mainCategory,
+      const res = await axios.post(baseUrl + "/subCategoryes", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
       if (res?.data?.success) {
@@ -91,6 +126,8 @@ const SubCategory = () => {
         setOpenForm(false);
         setName("");
         setMainCategory("");
+        setImage("");
+        setPreview("");
         Swal.fire("Success!", "Category created successfully!", "success");
       }
     } catch (error) {
@@ -104,12 +141,22 @@ const SubCategory = () => {
 
   // ✅ Update SubCategory
   const handleUpdate = async () => {
+    if (!validateForm()) {
+      return; // validation fail হলে আর submit করবে না
+    }
+
+    const formData = {
+      name,
+      mainCategory,
+      icon: image,
+    };
+
     try {
       const res = await axios.put(
         baseUrl + "/subCategoryes/" + updateData?._id,
+        formData,
         {
-          name,
-          mainCategory,
+          headers: { "Content-Type": "multipart/form-data" },
         }
       );
 
@@ -160,8 +207,22 @@ const SubCategory = () => {
     });
   };
 
+  // যখন updateData change হবে
+  useEffect(() => {
+    if (updateData) {
+      setName(updateData?.name);
+      setImage(updateData?.icon);
+      // যদি image থাকে তবে সেটা preview তে বসাও
+      if (updateData?.icon) {
+        setPreview(baseImageUrl + "/" + updateData?.icon); // এখানে direct URL/DB image আসবে
+      } else {
+        setPreview(null);
+      }
+    }
+  }, [updateData]);
+
   return (
-    <div className="p-[16px] relative">
+    <div className="p-[16px] relative mb-[90px]">
       <div className="flex items-center justify-between mb-[20px]">
         <h2 className="text-[20px] font-bold">Sub Catecory</h2>
         <div className="flex gap-2">
@@ -185,12 +246,14 @@ const SubCategory = () => {
         <Loading />
       ) : allCategory?.length > 0 ? (
         // ✅ CATEGORY TABLE
-        <div className="bg-white p-[16px]">
+        <div className="bg-white p-[16px] overflow-scroll">
           <table className="w-full">
             <thead className="bg-gray-300">
               <tr>
                 <th className="text-left pl-[30px] py-[16px]">ID</th>
-                <th className="text-center py-[16px]">Name</th>
+                <th className="text-left pl-[30px] py-[16px]">Image</th>
+                <th className="text-center py-[16px]">Main Category</th>
+                <th className="text-center py-[16px]">Sub Category</th>
                 <th className="py-[16px]">Action</th>
               </tr>
             </thead>
@@ -198,8 +261,26 @@ const SubCategory = () => {
               {allCategory.map((item, i) => (
                 <tr key={i} className="w-full">
                   <td className="px-[30px] py-[20px]">{i + 1}</td>
+                  <td className="px-[30px] py-[20px]">
+                    {item?.icon ? (
+                      <img
+                        className="h-[50px] w-[50px] rounded-full"
+                        src={`${baseImageUrl}/${item?.icon}`}
+                        alt="icon"
+                      />
+                    ) : (
+                      <img
+                        className="h-[50px] w-[50px] rounded-full"
+                        src={noImage}
+                        alt="icon"
+                      />
+                    )}
+                  </td>
                   <td className="px-[30px] py-[20px] text-center">
                     {item?.name}
+                  </td>
+                  <td className="px-[30px] py-[20px] text-center">
+                    {item?.mainCategory?.name}
                   </td>
                   <td className="px-[30px] py-[20px]">
                     <div className="flex gap-[20px] items-center justify-center">
@@ -253,6 +334,8 @@ const SubCategory = () => {
                 options={allMainCategory}
                 value={mainCategory}
                 setValue={setMainCategory}
+                required={true}
+                errorMessage={errors?.mainCategory}
               />
 
               <InputField
@@ -260,7 +343,46 @@ const SubCategory = () => {
                 value={name}
                 setValue={setName}
                 placeholder={"Enter sub category name"}
+                required={true}
+                errorMessage={errors.name}
               />
+
+              {!preview ? (
+                <div>
+                  <FileInputField
+                    title={"image"}
+                    value={image}
+                    setValue={setImage}
+                    size={"Height-40px Width-50px"}
+                    setPreview={setPreview}
+                    required={true}
+                    errorMessage={errors?.image}
+                  />
+                </div>
+              ) : (
+                <div>
+                  <div className="flex items-center justify-center border-2 border-dashed p-[16px] border-[#ff6347] rounded-[10px]">
+                    <div className="h-[100px]  w-[160px]">
+                      <img
+                        className=" h-full w-full"
+                        src={preview && preview}
+                        alt="preview"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex items-end justify-end ">
+                    <button
+                      onClick={() => {
+                        setPreview("");
+                        setImage("");
+                      }}
+                      className="bg-[#ff6347] text-white mt-[16px] py-[8px] px-[20px] rounded-[8px]"
+                    >
+                      Canchel
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="flex items-end justify-end">

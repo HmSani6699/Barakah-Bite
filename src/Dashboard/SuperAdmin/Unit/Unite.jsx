@@ -28,13 +28,18 @@ const Unite = () => {
 
   const [name, setName] = useState("");
 
+  const [error, setError] = useState(null);
+
   // 🔁 Fetch all SubCategories
   const handleGetAllUnit = async () => {
+    console.log("halskjdfk");
+
     setLoading(true);
     try {
       const res = await axios.get(baseUrl + "/units");
-      if (res?.data?.sussecc) {
+      if (res?.data?.success) {
         setAllUnit(res?.data?.data);
+        setError("");
       }
     } catch (error) {
       Swal.fire(
@@ -47,106 +52,103 @@ const Unite = () => {
     }
   };
 
-  // 🔁 Fetch all MainCategories for select dropdown
-  const handleGetAllMainCategory = async () => {
-    setLoading(true);
-    try {
-      const res = await axios.get(baseUrl + "/mainCategoryes");
-      if (res?.data?.success) {
-        const options = res.data.data.map((item) => ({
-          label: item.name,
-          value: item._id,
-        }));
-        setAllMainCategory(options);
-      }
-    } catch (error) {
-      Swal.fire(
-        "Error!",
-        error?.response?.data?.message || "Something went wrong!",
-        "error"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+  // // 🔁 Fetch all MainCategories for select dropdown
+  // const handleGetAllMainCategory = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const res = await axios.get(baseUrl + "/mainCategoryes");
+  //     if (res?.data?.success) {
+  //       const options = res.data.data.map((item) => ({
+  //         label: item.name,
+  //         value: item._id,
+  //       }));
+  //       setAllMainCategory(options);
+  //     }
+  //   } catch (error) {
+  //     Swal.fire(
+  //       "Error!",
+  //       error?.response?.data?.message || "Something went wrong!",
+  //       "error"
+  //     );
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
-  // 🔁 Fetch all SubCategories for select dropdown
-  const handleGetAllSubCategory = async () => {
-    setLoading(true);
-    try {
-      const res = await axios.get(baseUrl + "/subCategoryes");
-      if (res?.data?.success) {
-        const options = res.data.data.map((item) => ({
-          label: item.name,
-          value: item._id,
-        }));
-        setAllSubCategory(options);
-      }
-    } catch (error) {
-      Swal.fire(
-        "Error!",
-        error?.response?.data?.message || "Something went wrong!",
-        "error"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
-  // 🔁 Fetch all ProductCategories for select dropdown
-  const handleGetAllProductCategory = async () => {
-    setLoading(true);
-    try {
-      const res = await axios.get(baseUrl + "/productCategoryes");
-      if (res?.data?.success) {
-        const options = res?.data?.data?.map((item) => ({
-          label: item.name,
-          value: item._id,
-        }));
-        setAllProductCategory(options);
-      }
-    } catch (error) {
-      Swal.fire(
-        "Error!",
-        error?.response?.data?.message || "Something went wrong!",
-        "error"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+  // // 🔁 Fetch all SubCategories for select dropdown
+  // const handleGetAllSubCategory = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const res = await axios.get(baseUrl + "/subCategoryes");
+  //     if (res?.data?.success) {
+  //       const options = res.data.data.map((item) => ({
+  //         label: item.name,
+  //         value: item._id,
+  //       }));
+  //       setAllSubCategory(options);
+  //     }
+  //   } catch (error) {
+  //     Swal.fire(
+  //       "Error!",
+  //       error?.response?.data?.message || "Something went wrong!",
+  //       "error"
+  //     );
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  // // 🔁 Fetch all ProductCategories for select dropdown
+  // const handleGetAllProductCategory = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const res = await axios.get(baseUrl + "/productCategoryes");
+  //     if (res?.data?.success) {
+  //       const options = res?.data?.data?.map((item) => ({
+  //         label: item.name,
+  //         value: item._id,
+  //       }));
+  //       setAllProductCategory(options);
+  //     }
+  //   } catch (error) {
+  //     Swal.fire(
+  //       "Error!",
+  //       error?.response?.data?.message || "Something went wrong!",
+  //       "error"
+  //     );
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   useEffect(() => {
     handleGetAllUnit();
-    handleGetAllMainCategory();
-    handleGetAllSubCategory();
-    handleGetAllProductCategory();
+    // handleGetAllMainCategory();
+    // handleGetAllSubCategory();
+    // handleGetAllProductCategory();
   }, []);
 
   // 🔁 Populate form fields when editing
   useEffect(() => {
     if (updateData) {
       setName(updateData?.name || "");
-      setMainCategory(updateData?.mainCategory?._id || "");
     }
   }, [updateData]);
 
   // ✅ Create SubCategory
   const handleCreate = async () => {
+    if (!name) {
+      setError("Name is Requierd");
+      return;
+    }
+
     try {
-      const res = await axios.post(baseUrl + "/units", {
-        name,
-        mainCategory,
-        subCategory,
-        productCategory,
-      });
+      const res = await axios.post(baseUrl + "/units", { name });
 
       if (res?.data?.success) {
         handleGetAllUnit();
         setOpenForm(false);
         setName("");
-        setMainCategory("");
-        setSubCategory("");
-        setProductCategory("");
+
         Swal.fire("Success!", "Category created successfully!", "success");
       }
     } catch (error) {
@@ -163,17 +165,13 @@ const Unite = () => {
     try {
       const res = await axios.put(baseUrl + "/units/" + updateData?._id, {
         name,
-        mainCategory,
-        subCategory,
-        productCategory,
       });
 
       if (res?.data?.success) {
         handleGetAllUnit();
         setOpenForm(false);
         setName("");
-        setMainCategory("");
-        setSubCategory("");
+
         Swal.fire("Success!", "Category updated successfully!", "success");
       }
     } catch (error) {
@@ -215,8 +213,6 @@ const Unite = () => {
       }
     });
   };
-
-  console.log(allUnit);
 
   return (
     <div className="p-[16px] relative">
@@ -305,7 +301,7 @@ const Unite = () => {
                   : "Update Product Unit"}
               </h2>
 
-              <SelectInputField
+              {/* <SelectInputField
                 title={"Main Catecory"}
                 options={allMainCategory}
                 value={mainCategory}
@@ -323,13 +319,15 @@ const Unite = () => {
                 options={allProductCategory}
                 value={productCategory}
                 setValue={setProductCategory}
-              />
+              /> */}
 
               <InputField
                 title={"Unit Name"}
                 value={name}
                 setValue={setName}
                 placeholder={"Enter Unit name"}
+                required={true}
+                errorMessage={error}
               />
             </div>
 

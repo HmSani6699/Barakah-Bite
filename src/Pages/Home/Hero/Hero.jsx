@@ -7,6 +7,7 @@ const Hero = ({ allData }) => {
       {allData?.length > 0 &&
         allData?.map((item, i) => (
           <Link
+            key={i}
             to="/categories"
             state={{ name: item?.name }}
             className="bg-white flex items-center gap-[16px] p-[16px] rounded-[8px] "

@@ -2,6 +2,7 @@ import React from "react";
 import { IoMdCloseCircle } from "react-icons/io";
 
 const ViewMenu = ({ data, setOpeView }) => {
+  const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
   console.log(data);
 
   return (
@@ -21,7 +22,11 @@ const ViewMenu = ({ data, setOpeView }) => {
         {/* amin  */}
         <div>
           <div className="h-[300px] w-full">
-            <img className="w-full h-full" src={data?.img} alt="not image" />
+            <img
+              className="w-full h-full"
+              src={baseImageUrl + "/" + data?.img}
+              alt="not image"
+            />
           </div>
           <h2 className="text-[20px] my-[6px] font-bold">{data?.name}</h2>
           {data?.variants?.map((item, i) => (

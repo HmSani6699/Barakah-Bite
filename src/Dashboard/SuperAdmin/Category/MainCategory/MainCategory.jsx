@@ -21,8 +21,27 @@ const MainCategory = () => {
   const [updateData, setUpdateData] = useState({});
 
   const [preview, setPreview] = useState(null);
-  const [name, setName] = useState("");
   const [image, setImage] = useState("");
+  const [name, setName] = useState("");
+
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!name || name.trim() === "") {
+      newErrors.name = "Name is required";
+    }
+
+    if (!image) {
+      newErrors.image = "Image is required";
+    }
+
+    setErrors(newErrors);
+
+    // যদি কোন error না থাকে তাহলে true return করবে
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleGetAllCategory = async () => {
     setLoading(true);
@@ -47,7 +66,9 @@ const MainCategory = () => {
   }, []);
 
   const handleCreate = async () => {
-    // console.log({ name, image });
+    if (!validateForm()) {
+      return; // validation fail হলে আর submit করবে না
+    }
 
     try {
       const res = await axios.post(
@@ -66,6 +87,7 @@ const MainCategory = () => {
         setOpenForm(false);
         setName("");
         setImage("");
+        setPreview("");
         Swal.fire("Success!", "Category created successfully!", "success");
       }
     } catch (error) {
@@ -78,12 +100,21 @@ const MainCategory = () => {
   };
 
   const handleUpdate = async () => {
+    if (!validateForm()) {
+      return; // validation fail হলে আর submit করবে না
+    }
+
+    const formData = {
+      name,
+      icon: image,
+    };
+
     try {
       const res = await axios.put(
         baseUrl + "/mainCategoryes/" + updateData?._id,
+        formData,
         {
-          name,
-          icon: image,
+          headers: { "Content-Type": "multipart/form-data" },
         }
       );
 
@@ -133,14 +164,19 @@ const MainCategory = () => {
     });
   };
 
+  // যখন updateData change হবে
   useEffect(() => {
     if (updateData) {
       setName(updateData?.name);
       setImage(updateData?.icon);
+      // যদি image থাকে তবে সেটা preview তে বসাও
+      if (updateData?.icon) {
+        setPreview(baseImageUrl + "/" + updateData?.icon); // এখানে direct URL/DB image আসবে
+      } else {
+        setPreview(null);
+      }
     }
   }, [updateData]);
-
-  console.log(preview);
 
   return (
     <div className="p-[16px] relative">
@@ -249,6 +285,8 @@ const MainCategory = () => {
                 title={"Category Name"}
                 value={name}
                 setValue={setName}
+                required={true}
+                errorMessage={errors?.name}
               />
               {/* <InputField title={"Image"} value={image} setValue={setImage} /> */}
 
@@ -260,28 +298,30 @@ const MainCategory = () => {
                     setValue={setImage}
                     size={"Height-40px Width-50px"}
                     setPreview={setPreview}
+                    required={true}
+                    errorMessage={errors?.image}
                   />
                 </div>
               ) : (
                 <div>
                   <div className="flex items-center justify-center border-2 border-dashed p-[16px] border-[#ff6347] rounded-[10px]">
-                    <div className="h-[160px] ">
+                    <div className="h-[160px]">
                       <img
-                        className=" h-full w-[100px]"
-                        src={preview && preview}
+                        className="h-full w-[100px]"
+                        src={preview}
                         alt="preview"
                       />
                     </div>
                   </div>
-                  <div className="flex items-end justify-end ">
+                  <div className="flex items-end justify-end">
                     <button
                       onClick={() => {
-                        setPreview("");
+                        setPreview(null);
                         setImage("");
                       }}
                       className="bg-[#ff6347] text-white mt-[16px] py-[8px] px-[20px] rounded-[8px]"
                     >
-                      Canchel
+                      Cancel
                     </button>
                   </div>
                 </div>

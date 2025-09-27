@@ -8,9 +8,12 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import Loading from "../../../../Component/Loading/Loading";
 import SelectInputField from "../../../../Component/SelectInputField/SelectInputField";
+import FileInputField from "../../../../Component/FileInputField/FileInputField";
+import noImage from "../../../../../public/images/notimage.svg";
 
 const ProductCategory = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
+  const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
 
   const [loading, setLoading] = useState(false);
   const [openForm, setOpenForm] = useState(false);
@@ -20,10 +23,36 @@ const ProductCategory = () => {
   const [allSubCategory, setAllSubCategory] = useState([]);
   const [allCategory, setAllCategory] = useState([]);
   const [updateData, setUpdateData] = useState({});
-
+  const [preview, setPreview] = useState(null);
   const [mainCategory, setMainCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
   const [name, setName] = useState("");
+  const [icon, setIcon] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!mainCategory || mainCategory.trim() === "") {
+      newErrors.mainCategory = "Main category is required";
+    }
+    if (!subCategory || subCategory.trim() === "") {
+      newErrors.subCategory = "Sub category is required";
+    }
+
+    if (!name || name.trim() === "") {
+      newErrors.name = "Name is required";
+    }
+
+    if (!icon) {
+      newErrors.icon = "icon is required";
+    }
+
+    setErrors(newErrors);
+
+    // যদি কোন error না থাকে তাহলে true return করবে
+    return Object.keys(newErrors).length === 0;
+  };
 
   // 🔁 Fetch all SubCategories
   const handleGetAllCategory = async () => {
@@ -96,21 +125,22 @@ const ProductCategory = () => {
     handleGetAllSubCategory();
   }, []);
 
-  // 🔁 Populate form fields when editing
-  useEffect(() => {
-    if (updateData) {
-      setName(updateData?.name || "");
-      setMainCategory(updateData?.mainCategory?._id || "");
-    }
-  }, [updateData]);
-
   // ✅ Create SubCategory
   const handleCreate = async () => {
+    if (!validateForm()) {
+      return; // validation fail হলে আর submit করবে না
+    }
+
+    const formData = {
+      name,
+      icon,
+      mainCategory,
+      subCategory,
+    };
+
     try {
-      const res = await axios.post(baseUrl + "/productCategoryes", {
-        name,
-        mainCategory,
-        subCategory,
+      const res = await axios.post(baseUrl + "/productCategoryes", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
       if (res?.data?.success) {
@@ -119,6 +149,8 @@ const ProductCategory = () => {
         setName("");
         setMainCategory("");
         setSubCategory("");
+        setIcon("");
+        setPreview("");
         Swal.fire("Success!", "Category created successfully!", "success");
       }
     } catch (error) {
@@ -132,13 +164,23 @@ const ProductCategory = () => {
 
   // ✅ Update SubCategory
   const handleUpdate = async () => {
+    if (!validateForm()) {
+      return; // validation fail হলে আর submit করবে না
+    }
+
+    const formData = {
+      name,
+      icon,
+      mainCategory,
+      subCategory,
+    };
+
     try {
       const res = await axios.put(
         baseUrl + "/productCategoryes/" + updateData?._id,
+        formData,
         {
-          name,
-          mainCategory,
-          subCategory,
+          headers: { "Content-Type": "multipart/form-data" },
         }
       );
 
@@ -190,8 +232,24 @@ const ProductCategory = () => {
     });
   };
 
+  // যখন updateData change হবে
+  useEffect(() => {
+    if (updateData) {
+      setName(updateData?.name);
+      setMainCategory(updateData?.mainCategory);
+      setSubCategory(updateData?.subCategory);
+      setIcon(updateData?.icon);
+      // যদি icon থাকে তবে সেটা preview তে বসাও
+      if (updateData?.icon) {
+        setPreview(baseImageUrl + "/" + updateData?.icon); // এখানে direct URL/DB icon আসবে
+      } else {
+        setPreview(null);
+      }
+    }
+  }, [updateData]);
+
   return (
-    <div className="p-[16px] relative">
+    <div className="p-[16px] relative mb-[80px]">
       <div className="flex items-center justify-between mb-[20px]">
         <h2 className="text-[20px] font-bold">Product Catecory</h2>
         <div className="flex gap-2">
@@ -219,6 +277,7 @@ const ProductCategory = () => {
             <thead className="bg-gray-300">
               <tr>
                 <th className="text-left pl-[30px] py-[16px]">ID</th>
+                <th className="text-left pl-[30px] py-[16px]">Icon</th>
                 <th className="text-center py-[16px]">Name</th>
                 <th className="py-[16px]">Action</th>
               </tr>
@@ -227,6 +286,21 @@ const ProductCategory = () => {
               {allCategory.map((item, i) => (
                 <tr key={i} className="w-full">
                   <td className="px-[30px] py-[20px]">{i + 1}</td>
+                  <td className="px-[30px] py-[20px]">
+                    {item?.icon ? (
+                      <img
+                        className="h-[50px] w-[50px] rounded-full"
+                        src={`${baseImageUrl}/${item?.icon}`}
+                        alt="icon"
+                      />
+                    ) : (
+                      <img
+                        className="h-[50px] w-[50px] rounded-full"
+                        src={noImage}
+                        alt="icon"
+                      />
+                    )}
+                  </td>
                   <td className="px-[30px] py-[20px] text-center">
                     {item?.name}
                   </td>
@@ -282,6 +356,8 @@ const ProductCategory = () => {
                 options={allMainCategory}
                 value={mainCategory}
                 setValue={setMainCategory}
+                required={true}
+                errorMessage={errors?.mainCategory}
               />
 
               <SelectInputField
@@ -289,6 +365,8 @@ const ProductCategory = () => {
                 options={allSubCategory}
                 value={subCategory}
                 setValue={setSubCategory}
+                required={true}
+                errorMessage={errors?.subCategory}
               />
 
               <InputField
@@ -296,7 +374,46 @@ const ProductCategory = () => {
                 value={name}
                 setValue={setName}
                 placeholder={"Enter sub category name"}
+                required={true}
+                errorMessage={errors?.name}
               />
+
+              {!preview ? (
+                <div>
+                  <FileInputField
+                    title={"icon"}
+                    value={icon}
+                    setValue={setIcon}
+                    size={"Height-40px Width-50px"}
+                    setPreview={setPreview}
+                    required={true}
+                    errorMessage={errors?.icon}
+                  />
+                </div>
+              ) : (
+                <div>
+                  <div className="flex items-center justify-center border-2 border-dashed p-[16px] border-[#ff6347] rounded-[10px]">
+                    <div className="h-[100px] w-[160px] ">
+                      <img
+                        className=" h-full w-full"
+                        src={preview && preview}
+                        alt="preview"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex items-end justify-end ">
+                    <button
+                      onClick={() => {
+                        setPreview("");
+                        setIcon("");
+                      }}
+                      className="bg-[#ff6347] text-white mt-[16px] py-[8px] px-[20px] rounded-[8px]"
+                    >
+                      Canchel
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="flex items-end justify-end">

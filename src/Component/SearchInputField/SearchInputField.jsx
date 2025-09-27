@@ -1,14 +1,18 @@
 import { ImSearch } from "react-icons/im";
 
-const SearchInputField = () => {
+const SearchInputField = ({ value, setValue, placeholder }) => {
   return (
     <div className="flex items-center bg-white rounded-full pl-[20px]">
       <ImSearch className="text-[20px] text-gray-500 bg-white" />
 
       <input
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
         type="text"
         className="bg-white outline-none rounded-full p-[10px] w-full "
-        placeholder="খাবার বা দোকানের নাম দিয়ে খুঁজুন"
+        placeholder={
+          placeholder ? placeholder : "খাবার বা দোকানের নাম দিয়ে খুঁজুন"
+        }
       />
     </div>
   );

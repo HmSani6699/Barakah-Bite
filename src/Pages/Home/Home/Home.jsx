@@ -75,16 +75,7 @@ const Home = () => {
   const handleGetRestaurantItems = async () => {
     setLoading(true);
     try {
-      let res;
-      if (tabValue === "সকল") {
-        res = await axios.get(baseUrl + "/restaurantsItems");
-      } else {
-        res = await axios.get(
-          `${baseUrl}/restaurantsItems?productCategory=${encodeURIComponent(
-            tabValue
-          )}`
-        );
-      }
+      let res = await axios.get(baseUrl + "/populerItems");
 
       if (res?.data?.success) {
         setAllRestaurantActiveItems(res?.data?.data);
@@ -127,7 +118,7 @@ const Home = () => {
   useEffect(() => {
     handleGetAllMainCategory();
     handleGetAllSubCategory();
-    // handleGetRestaurantItems();
+    handleGetRestaurantItems();
   }, [tabValue]);
 
   return (

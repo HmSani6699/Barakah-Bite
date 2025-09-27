@@ -113,7 +113,10 @@ const Menu = () => {
     try {
       let response = await axios.put(
         baseUrl + `/products/${item?._id}`,
-        setStatus
+        setStatus,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
       );
       Swal.fire("Updated!", "Product updated successfully!", "success");
 

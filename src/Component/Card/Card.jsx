@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import CheckOut from "./CheckOut";
 
 const Cart = () => {
+  const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
   const { cartItems, addToCart, removeItem, totalCardCount, updateCart } =
     useCart();
 
@@ -99,7 +100,7 @@ const Cart = () => {
                   >
                     <div className="h-[70px] w-[30%] rounded-[10px] border-2 border-[#eff1f1] overflow-hidden">
                       <img
-                        src={item.img}
+                        src={baseImageUrl + "/" + item.img}
                         alt={item.name}
                         className="h-full w-full object-cover"
                       />

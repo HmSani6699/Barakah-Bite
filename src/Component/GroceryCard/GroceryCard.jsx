@@ -4,8 +4,6 @@ import notImage from "../../../public/images/notimage.svg";
 const GroceryCard = ({ item, style_clss, url }) => {
   const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
 
-  console.log(item);
-
   return (
     <Link to={url}>
       <div

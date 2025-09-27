@@ -13,33 +13,9 @@ const FilterTab = ({
   setIsFullImageOpen,
   haldleAddToCard,
   allRestaurantActiveItems,
-  setTabValue,
-  tabValue,
 }) => {
-  const allTabBtn = ["সকল", "বিরিয়ানি", "বার্গার", "নুডুলস", "পিৎজা", "পানীয়"];
-
   return (
     <div>
-      {/* {allTabBtn ? (
-        <div className="px-[15px]  flex items-center gap-[10px] overflow-auto scrollbar-hide my-[16px] lg:my-[30px]">
-          {allTabBtn?.map((item, i) => (
-            <button
-              key={i}
-              className={` ${
-                tabValue === item
-                  ? "main_bg_color text-white"
-                  : " bg-white text_black_color"
-              }      border-gray-300 py-[6px] px-[15px]  rounded-[8px] shadow-sm`}
-              onClick={() => setTabValue(item)}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-      ) : (
-        <p>NO Item Found !</p>
-      )} */}
-
       <div className="flex items-center justify-between  px-[15px] my-[16px]">
         <h2 className="text-[18px] font-bold text_black_color">
           জনপ্রিয় খাবার

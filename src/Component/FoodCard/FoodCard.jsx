@@ -4,6 +4,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { useCart } from "../CartContext/CartContext";
 
 const FoodCard = ({ height, item }) => {
+  const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
   const [isFullImageOpen, setIsFullImageOpen] = useState(false);
   const { addToCart } = useCart();
 
@@ -36,7 +37,7 @@ const FoodCard = ({ height, item }) => {
         >
           <img
             className="h-full w-full bg-cover rounded-t-[15px]"
-            src={item?.img}
+            src={baseImageUrl + "/" + item?.img}
             alt=""
           />
         </div>
@@ -45,7 +46,9 @@ const FoodCard = ({ height, item }) => {
         <div className=" bg-white rounded-b-[15px] w-full p-[10px]">
           <h2 className="bg-white text-[18px] font-bold  text-[#4f4a4a]">
             {item?.name}{" "}
-            <span className="text-[10px]">({item?.variants?.[0]?.label})</span>
+            <span className="text-[10px]">
+              ( {item?.variants?.[0]?.label} )
+            </span>
           </h2>
           <div className="flex items-center gap-[4px] bg-white ">
             <div className="h-[30px] w-[30px] rounded-full  border-[3px] border-white">

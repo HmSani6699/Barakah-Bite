@@ -96,8 +96,6 @@ const GroceryCategoryCard = () => {
     return Math.round(discount);
   }
 
-  console.log(allCategories);
-
   return (
     <div>
       {" "}

@@ -7,10 +7,14 @@ import { Link } from "react-router";
 import Swal from "sweetalert2";
 import axios from "axios";
 import Loading from "../../../Component/Loading/Loading";
+import { useCart } from "../../../Component/CartContext/CartContext";
+import { ToastContainer } from "react-toastify";
 
 const AllPopularItem = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
   const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
+
+  const { addToCart, totalCardCount } = useCart();
 
   const [isTabeButton, setIsTabeButton] = useState("সকল");
   const [search, setSearch] = useState("");
@@ -45,14 +49,6 @@ const AllPopularItem = () => {
     setLoading(true);
     try {
       let res;
-
-      // if (isTabeButton == "সকল") {
-      //   res = await axios.get(baseUrl + "/populerItems");
-      // } else if (search) {
-      //   res = await axios.get(`${baseUrl}/populerItems?search=${search}`);
-      // } else {
-      //   res = await axios.get(`${baseUrl}/populerItems?name=${isTabeButton}`);
-      // }
 
       if (search) {
         res = await axios.get(`${baseUrl}/populerItems?search=${search}`);
@@ -98,7 +94,15 @@ const AllPopularItem = () => {
             জনপ্রিয় খাবার
           </h2>
         </Link>
-        <LiaShoppingCartSolid className="bg-white text-[35px] text-[#6b7280]" />
+
+        <Link to={"/card"} className="relative">
+          <LiaShoppingCartSolid className="bg-white text-[35px] text-[#6b7280]" />
+          {totalCardCount > 0 && (
+            <span className="absolute top-0 -right-[5px] text-[#fff] z-[20] text-[10px] bg-[#ff6347] rounded-full h-[15px] w-[15px] flex items-center justify-center">
+              {totalCardCount}
+            </span>
+          )}
+        </Link>
       </div>
 
       <h2 className=" font-bold text-[20px] mt-[16px] text-center text-[#171717]">
@@ -212,6 +216,7 @@ const AllPopularItem = () => {
                         </div>
                       </div>
                       <button
+                        onClick={() => addToCart(item)}
                         className={`main_bg_color text-white  py-[4px] px-[30px] 
                         rounded-[6px] shadow-sm  w-full text-[14px]`}
                       >
@@ -241,6 +246,7 @@ const AllPopularItem = () => {
           )}
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

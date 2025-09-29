@@ -13,7 +13,6 @@ const Cart = () => {
   const { cartItems, addToCart, removeItem, totalCardCount, updateCart } =
     useCart();
 
-  const [currentPage, setCurretnPage] = useState("card");
   const [subTotal, setSubTotal] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
 

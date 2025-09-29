@@ -5,6 +5,7 @@ import FoodShopCreateUpdate from "./FoodShopCreateUpdate/FoodShopCreateUpdate";
 import FoodShopList from "./FoodShopList/FoodShopList";
 import FoodShopView from "./FoodShopView/FoodShopView";
 import axios from "axios";
+import Loading from "../../../Component/Loading/Loading";
 
 const AllFoodsShops = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -73,11 +74,17 @@ const AllFoodsShops = () => {
       <SearchInputField />
 
       {/* List */}
-      <FoodShopList
-        allShop={data}
-        handleViewShop={handleViewShop}
-        handleShopCreateUpdateType={handleShopCreateUpdateType}
-      />
+
+      {loading && !data?.length > 0 ? (
+        <Loading />
+      ) : (
+        <FoodShopList
+          allShop={data}
+          handleViewShop={handleViewShop}
+          handleShopCreateUpdateType={handleShopCreateUpdateType}
+          handleGetShop={handleGetShop}
+        />
+      )}
 
       {openForm && (
         <FoodShopCreateUpdate

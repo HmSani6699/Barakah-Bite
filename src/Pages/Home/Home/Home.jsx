@@ -32,6 +32,8 @@ const Home = () => {
     },
   ]);
 
+  const [allRestaurent, setAllrestaurent] = useState([]);
+
   const haldleAddToCard = (item) => {
     const getItems = JSON.parse(localStorage.getItem("card"));
 
@@ -115,10 +117,33 @@ const Home = () => {
     }
   };
 
+  // get sub category
+  const handleGetAllShop = async () => {
+    setLoading(true);
+    try {
+      let res = await axios.get(baseUrl + "/allShops");
+
+      if (res?.data?.success) {
+        setAllrestaurent(res?.data?.data);
+        setLoading(false);
+      }
+    } catch (error) {
+      Swal.fire(
+        "Error!",
+        error?.response?.data?.message || "Something went wrong!",
+        "error"
+      );
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     handleGetAllMainCategory();
     handleGetAllSubCategory();
     handleGetRestaurantItems();
+    handleGetAllShop();
   }, [tabValue]);
 
   return (
@@ -140,7 +165,7 @@ const Home = () => {
               tabValue={tabValue}
             />
             <GroseryShop allSubCategory={allSubCategory} />
-            <RestaurantsShops />
+            <RestaurantsShops allRestaurent={allRestaurent} />
             {/* <PopularItem /> */}
             {localStorageItems?.length > 0 && (
               <div className="bg-red-400 fixed bottom-[80px] left-0 z-[500] w-full py-[10px] text-white">

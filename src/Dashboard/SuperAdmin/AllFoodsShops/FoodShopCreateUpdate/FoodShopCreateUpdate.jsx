@@ -14,19 +14,19 @@ const FoodShopCreateUpdate = ({
   updateData,
 }) => {
   const baseUrl = import.meta.env.VITE_API_URL;
-  const [ownerName, setOwnerName] = useState("Md Sadiq");
-  const [ownerPhone, setOwnerPhone] = useState("01996359111");
-  const [ownerPassword, setOwnerPassword] = useState("12345");
-  const [name, setName] = useState("Sadiq Food");
-  const [phone, setPhone] = useState("01996359111");
-  const [address, setAddress] = useState("Bhulta, Gawuciya");
-  const [logo, setLogo] = useState("logo.png");
-  const [coverImage, setCoverImage] = useState("coverimage.png");
+  const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
+
+  const [ownerName, setOwnerName] = useState("");
+  const [ownerPhone, setOwnerPhone] = useState("");
+  const [ownerPassword, setOwnerPassword] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [logo, setLogo] = useState("");
+  const [coverImage, setCoverImage] = useState("");
   const [shopType, setShopType] = useState(1);
   const [status, setStatus] = useState(2);
-  const [description, setDescription] = useState(
-    "Ami apnader sathe new add hocchi asa korchi bohu dur jete parbo"
-  );
+  const [description, setDescription] = useState("");
   const [sharePricing, setSharePricing] = useState({
     tier1: "10", // for 0-150
     tier2: "8", // for 151-300
@@ -35,10 +35,13 @@ const FoodShopCreateUpdate = ({
     tier5: "5", // for 751-1000
   });
 
+  const [logopreview, setLogoPreview] = useState(null);
+  const [coverImagepreview, setCoverImagePreview] = useState(null);
+
   // Form validation
 
   const [errors, setErrors] = useState({});
-  const validateForm = () => {
+  const createValidateForm = () => {
     const newErrors = {};
 
     console.log(sharePricing);
@@ -136,14 +139,97 @@ const FoodShopCreateUpdate = ({
 
     return Object.keys(newErrors).length === 0; // true if no errors
   };
+  const updateValidateForm = () => {
+    const newErrors = {};
+
+    // Phone number regex for Bangladeshi format
+    const phoneRegex = /^01[3-9]\d{8}$/;
+
+    // Shop Name
+    if (!name.trim()) {
+      newErrors.name = "Shop name is required";
+    }
+
+    // Shop Phone
+    const trimmedPhone = phone.trim();
+    if (!trimmedPhone) {
+      newErrors.phone = "Shop phone is required";
+    } else if (trimmedPhone.length !== 11) {
+      newErrors.phone = "Phone number must be exactly 11 digits";
+    } else if (!phoneRegex.test(trimmedPhone)) {
+      newErrors.phone = "Invalid Bangladeshi phone number";
+    }
+
+    // Shop Address
+    if (!address.trim()) {
+      newErrors.address = "Shop address is required";
+    }
+
+    // Shop Type
+    if (!shopType) {
+      newErrors.shopType = "Shop type is required";
+    }
+
+    // Shop Status
+    if (!status) {
+      newErrors.status = "Shop status is required";
+    }
+
+    // Description
+    if (!description.trim()) {
+      newErrors.description = "Description is required";
+    }
+
+    // Logo file
+    if (!logo) {
+      newErrors.logo = "Logo file is required";
+    }
+
+    // Cover image file
+    if (!coverImage) {
+      newErrors.coverImage = "Cover image file is required";
+    }
+
+    // Share pricing validation
+    if (!sharePricing.tier1) {
+      newErrors.tier1 = "Tier 1 price is required";
+    }
+
+    if (!sharePricing.tier2) {
+      newErrors.tier2 = "Tier 2 price is required";
+    }
+
+    if (!sharePricing.tier3) {
+      newErrors.tier3 = "Tier 3 price is required";
+    }
+
+    if (!sharePricing.tier4) {
+      newErrors.tier4 = "Tier 4 price is required";
+    }
+
+    if (!sharePricing.tier5) {
+      newErrors.tier5 = "Tier 5 price is required";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0; // true if no errors
+  };
 
   // Create update
   const handleCreateUpdate = async () => {
     console.log(errors);
 
-    if (!validateForm()) {
-      // validation failed, stop submission
-      return;
+    if (viewForm === "create") {
+      if (!createValidateForm()) {
+        // validation failed, stop submission
+        return;
+      }
+    } else {
+      if (!updateValidateForm()) {
+        // validation failed, stop submission
+        return;
+      }
     }
 
     const postData = {
@@ -172,13 +258,18 @@ const FoodShopCreateUpdate = ({
 
       if (viewForm === "create") {
         // Create Shop
-        response = await axios.post(baseUrl + "/shops", postData);
+        response = await axios.post(baseUrl + "/shops", postData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
         Swal.fire("Success!", "Shop created successfully!", "success");
       } else {
         // Update Shop
         response = await axios.put(
           baseUrl + `/shops/${updateData?._id}`,
-          postData
+          postData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
         );
         Swal.fire("Updated!", "Product updated successfully!", "success");
       }
@@ -236,9 +327,12 @@ const FoodShopCreateUpdate = ({
       setPhone(updateData.phone || "");
       setOwnerName(updateData?.owner?.name || "");
       setShopType(updateData.shopType || "");
+      setStatus(updateData.status || "");
       setSharePricing(updateData.sharePricing || {});
-      setLogo(updateData.logo || "");
-      setCoverImage(updateData.coverImage || "");
+      setLogo(updateData?.logo || "");
+      setCoverImage(updateData?.coverImage || "");
+      setLogoPreview(`${baseImageUrl}/${updateData.logo}` || "");
+      setCoverImagePreview(`${baseImageUrl}/${updateData.coverImage}` || "");
     }
   }, [updateData]);
 
@@ -264,36 +358,42 @@ const FoodShopCreateUpdate = ({
         {/* Form fields */}
         <div className="space-y-4">
           {/* Name */}
-          <div className="bg-[#cdcdcd] p-[16px] rounded-[8px]">
-            <h2 className="text-[18px] font-semibold mb-[16px]"> Owner Info</h2>
-            <div className="flex flex-col gap-[16px] ">
-              <InputField
-                value={ownerName}
-                setValue={setOwnerName}
-                title="Owner Name"
-                placeholder="Enter owner name"
-                required={true}
-                errorMessage={errors.ownerName}
-              />
-              <InputField
-                value={ownerPhone}
-                setValue={setOwnerPhone}
-                title="Owner phone"
-                placeholder="Enter owner phone"
-                required={true}
-                errorMessage={errors.ownerPhone}
-                type="number"
-              />
-              <InputField
-                value={ownerPassword}
-                setValue={setOwnerPassword}
-                title="Owner password"
-                placeholder="Enter owner password"
-                required={true}
-                errorMessage={errors.ownerPassword}
-              />
+
+          {viewForm !== "update" && (
+            <div className="bg-[#cdcdcd] p-[16px] rounded-[8px]">
+              <h2 className="text-[18px] font-semibold mb-[16px]">
+                {" "}
+                Owner Info
+              </h2>
+              <div className="flex flex-col gap-[16px] ">
+                <InputField
+                  value={ownerName}
+                  setValue={setOwnerName}
+                  title="Owner Name"
+                  placeholder="Enter owner name"
+                  required={true}
+                  errorMessage={errors.ownerName}
+                />
+                <InputField
+                  value={ownerPhone}
+                  setValue={setOwnerPhone}
+                  title="Owner phone"
+                  placeholder="Enter owner phone"
+                  required={true}
+                  errorMessage={errors.ownerPhone}
+                  type="number"
+                />
+                <InputField
+                  value={ownerPassword}
+                  setValue={setOwnerPassword}
+                  title="Owner password"
+                  placeholder="Enter owner password"
+                  required={true}
+                  errorMessage={errors.ownerPassword}
+                />
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="bg-[#cdcdcd] p-[16px] rounded-[8px]">
             <h2 className="text-[18px] font-semibold mb-[16px]"> Shop Info</h2>
@@ -346,20 +446,90 @@ const FoodShopCreateUpdate = ({
                 required={true}
                 errorMessage={errors.status}
               />
-              <FileInputField
-                title="Logo"
-                value={logo}
-                setValue={setLogo}
-                required={true}
-                errorMessage={errors.logo}
-              />
-              <FileInputField
-                title="Cover Image"
-                value={coverImage}
-                setValue={setCoverImage}
-                required={true}
-                errorMessage={errors.coverImage}
-              />
+
+              {/* Image URL */}
+              {!logopreview ? (
+                <div>
+                  <FileInputField
+                    title={"Logo"}
+                    value={logo}
+                    setValue={setLogo}
+                    size={"Height-40px Width-50px"}
+                    setPreview={setLogoPreview}
+                    required={true}
+                    errorMessage={errors?.logo}
+                  />
+                </div>
+              ) : (
+                <div>
+                  <p className="mb-[10px] text-[16px]">
+                    Logo
+                    <span className="text-red-500 text-[18px] pl-[5px]">*</span>
+                  </p>
+                  <div className="flex items-center justify-center border-2 border-dashed p-[16px] border-[#ff6347] rounded-[10px]">
+                    <div className="h-[160px] w-[160px] ">
+                      <img
+                        className=" h-full w-full"
+                        src={logopreview && logopreview}
+                        alt="preview"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex items-end justify-end ">
+                    <button
+                      onClick={() => {
+                        setLogoPreview("");
+                        setLogo("");
+                      }}
+                      className="bg-[#ff6347] text-white mt-[16px] py-[8px] px-[20px] rounded-[8px]"
+                    >
+                      Canchel
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {!coverImagepreview ? (
+                <div>
+                  <FileInputField
+                    title={"Cover Image"}
+                    value={coverImage}
+                    setValue={setCoverImage}
+                    size={"Height-40px Width-50px"}
+                    setPreview={setCoverImagePreview}
+                    required={true}
+                    errorMessage={errors?.logo}
+                  />
+                </div>
+              ) : (
+                <div>
+                  <p className="mb-[10px] text-[16px]">
+                    Cover Image
+                    <span className="text-red-500 text-[18px] pl-[5px]">*</span>
+                  </p>
+                  <div className="flex items-center justify-center border-2 border-dashed p-[16px] border-[#ff6347] rounded-[10px]">
+                    <div className="h-[160px] w-[160px] ">
+                      <img
+                        className=" h-full w-full"
+                        src={coverImagepreview && coverImagepreview}
+                        alt="preview"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex items-end justify-end ">
+                    <button
+                      onClick={() => {
+                        setCoverImagePreview("");
+                        setLogo("");
+                      }}
+                      className="bg-[#ff6347] text-white mt-[16px] py-[8px] px-[20px] rounded-[8px]"
+                    >
+                      Canchel
+                    </button>
+                  </div>
+                </div>
+              )}
+
               <TextareaField
                 value={description}
                 setValue={setDescription}

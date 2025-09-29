@@ -1,15 +1,13 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
-
-// import required modules
 import { Autoplay, FreeMode } from "swiper/modules";
 import { Link } from "react-router";
-import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
+import noImage from "../../../../public/images/notimage.svg";
 
-const RestaurantsShops = () => {
+const RestaurantsShops = ({ allRestaurent }) => {
+  const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
+
   return (
     <div className=" my-[16px] py-[20px] lg:rounded-[10px] rounded-none mb-[90px]">
       <div className="px-[20px] flex items-center justify-between">
@@ -35,27 +33,40 @@ const RestaurantsShops = () => {
           modules={[Autoplay, FreeMode]}
           className="mySwiper"
         >
-          {[...Array(10)].map((_, i) => (
+          {allRestaurent.map((item, i) => (
             <SwiperSlide key={i}>
-              <Link to={"/shope-profile/1"}>
+              <Link to={`/shope-profile/${item?._id}`}>
                 <div className="flex flex-col items-center">
                   <div className="h-[60px] w-[60px] flex items-center justify-center rounded-full   bg-white shadow-md p-[10px]">
-                    <img
-                      className="h-full w-full rounded-full"
-                      src="https://i.postimg.cc/bJqXjHd5/FB-IMG-1757409260966.jpg"
-                      alt="logo"
-                    />
+                    {item?.logo ? (
+                      <img
+                        className="h-full w-full rounded-full"
+                        src={`${baseImageUrl}/${item?.logo}`}
+                        alt="logo"
+                      />
+                    ) : (
+                      <img
+                        className="h-full w-full rounded-full"
+                        src={noImage}
+                        alt="logo"
+                      />
+                    )}
                   </div>
                   <p className="text-[12px] flex items-center gap-[4px] mt-[10px]">
                     <FaStar className="text-[12px] text-yellow-400" /> 5.0
                   </p>
                   <h2 className="font-semibold  text-[12px] whitespace-nowrap text-gray-700">
-                    Barakah Mart
+                    {item?.name}
                   </h2>
-                  <p className=" font-normal text-gray-600 text-[10px]">
-                    <span className="main_color font-bold ">10 </span>
-                    আইটেম
-                  </p>
+
+                  {item?.productCount > 0 && (
+                    <p className=" font-normal text-gray-600 text-[10px]">
+                      <span className="main_color font-bold ">
+                        {item?.productCount}
+                      </span>
+                      আইটেম
+                    </p>
+                  )}
                 </div>
               </Link>
             </SwiperSlide>

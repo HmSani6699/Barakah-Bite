@@ -301,7 +301,7 @@ const Cetegories = () => {
                     {sub.name === sub_cetegory && (
                       <div className="grid grid-cols-3 my-[16px] gap-[16px]">
                         {sub?.productCategories?.map((item, idx) => (
-                          <Link to={"/categories/item/চাউল"}>
+                          <Link to={`/categories/item/${item?.name}`}>
                             {" "}
                             <div
                               key={idx}
@@ -331,7 +331,22 @@ const Cetegories = () => {
                   </div>
                 ))
               ) : (
-                <div>nai</div>
+                <div className="text-center mt-10 px-[16px]">
+                  <p className="text-gray-600 mt-2">
+                    দুঃখিত! আপনার খোঁজা আইটেমটি আমরা এই মুহূর্তে খুঁজে পাইনি।
+                    আপনি চাইলে আমাদের সাথে হোয়াটসঅ্যাপে যোগাযোগ করতে পারেন,
+                    আমরা আপনার প্রয়োজন অনুযায়ী সর্বোচ্চ চেষ্টা করব আইটেমটি
+                    সরবরাহ করতে।
+                  </p>
+                  <a
+                    href="https://wa.me/8801996359111"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-4 bg-green-500 text-white px-5 py-2 rounded-lg shadow hover:bg-green-600 transition"
+                  >
+                    WhatsApp এ মেসেজ করুন
+                  </a>
+                </div>
               )}
             </div>
           </div>

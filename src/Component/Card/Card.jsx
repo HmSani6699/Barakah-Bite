@@ -22,7 +22,7 @@ const Cart = () => {
       const sub = cartItems.reduce((acc, item) => {
         const selectedVariant =
           item.selectedVariant ||
-          item.variants.find((v) => v.id === item.variantId) ||
+          item.variants.find((v) => v._id === item.variantId) ||
           item.variants[0];
 
         return acc + selectedVariant.price * item.quantity;
@@ -39,6 +39,7 @@ const Cart = () => {
   // ✅ Increase Function
   const increaseQuantity = (item) => {
     const updatedItem = { ...item, quantity: item.quantity + 1 };
+
     updateCart(updatedItem);
     const audio = new Audio("/public/images/calculet.mp3");
     audio.play();
@@ -56,10 +57,35 @@ const Cart = () => {
 
   // ✅ Variant Change Function
   const handleVariantChange = (item, variantId) => {
-    const selectedVariant = item.variants.find((v) => v.id === variantId);
+    const selectedVariant = item.variants.find((v) => v._id === variantId);
     const updatedItem = { ...item, selectedVariant };
     updateCart(updatedItem);
   };
+
+  // const paylod
+  const orderPayload = {
+    items: cartItems.map((item) => {
+      const variant =
+        item.selectedVariant ||
+        item.variants.find((v) => v._id === item.variantId) ||
+        item.variants[0];
+
+      return {
+        productId: item._id,
+        img: item?.img,
+        productName: item.name,
+        variantId: variant._id,
+        variantName: variant.label,
+        quantity: item.quantity,
+        pricePerUnit: variant.price,
+        totalPrice: item.quantity * variant.price,
+      };
+    }),
+    subtotal: subTotal,
+    totalAmount: grandTotal,
+  };
+
+  console.log(cartItems);
 
   return (
     <>
@@ -89,12 +115,12 @@ const Cart = () => {
               {cartItems?.map((item) => {
                 const selectedVariant =
                   item.selectedVariant ||
-                  item.variants.find((v) => v.id === item.variantId) ||
+                  item.variants.find((v) => v._id === item._id) ||
                   item.variants[0];
 
                 return (
                   <div
-                    key={item.id}
+                    key={item._id}
                     className="flex gap-[6px]  bg-white rounded-[10px] p-4 relative shadow-sm overflow-hidden"
                   >
                     <div className="h-[70px] w-[30%] rounded-[10px] border-2 border-[#eff1f1] overflow-hidden">
@@ -137,13 +163,13 @@ const Cart = () => {
                           className={`border border-gray-300 rounded px-1 py-1 text-[10px] outline-none ${
                             !selectedVariant.cutPrice && "mt-[15px]"
                           }`}
-                          value={selectedVariant.id}
+                          value={selectedVariant._id}
                           onChange={(e) =>
                             handleVariantChange(item, e.target.value)
                           }
                         >
                           {item.variants.map((v) => (
-                            <option key={v.id} value={v.id}>
+                            <option key={v._id} value={v._id}>
                               {v.label} - ৳ {v.price}
                             </option>
                           ))}
@@ -205,7 +231,7 @@ const Cart = () => {
             </button>
             <Link
               to={"/checkOut"}
-              state={grandTotal}
+              state={orderPayload}
               className="text-[14px] bg-[#ff6347] text-white px-[20px] py-[8px] rounded-[8px]"
             >
               চেকআউটে এগিয়ে যান
@@ -213,8 +239,6 @@ const Cart = () => {
           </div>
         )}
       </div>
-      {/* ) : currentPage === "checkout" ? (
-        <CheckOut grandTotal={grandTotal} setCurretnPage={setCurretnPage} /> */}
     </>
   );
 };

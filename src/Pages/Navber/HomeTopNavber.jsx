@@ -5,14 +5,14 @@ import { LuLogIn } from "react-icons/lu";
 import { useCart } from "../../Component/CartContext/CartContext";
 import { Link } from "react-router";
 
-const HomeTopNavber = ({ openPopulerSearchBox, setOpenPopulerSearchBox }) => {
+const HomeTopNavber = ({
+  handleGetPopulerSearch,
+  openPopulerSearchBox,
+  searchValue,
+  setsearchValue,
+  handleGetSearchItem,
+}) => {
   const { totalCardCount } = useCart();
-
-  // Get all populer search
-  const handleGetPopuler = () => {
-    console.log(345);
-    setOpenPopulerSearchBox(true);
-  };
 
   return (
     <div>
@@ -26,15 +26,23 @@ const HomeTopNavber = ({ openPopulerSearchBox, setOpenPopulerSearchBox }) => {
             <ImSearch className="text-[20px] text-gray-500 bg-white" />
 
             <input
-              onClick={() => handleGetPopuler()}
+              value={searchValue}
+              onClick={() => handleGetPopulerSearch()}
+              onChange={(e) => setsearchValue(e.target.value)}
               type="text"
               className={`bg-white outline-none rounded-full  w-full  h-full pl-[6px] py-[8px] `}
               placeholder="খাবার বা দোকানের নাম দিয়ে "
             />
           </div>
-          <button className="bg-[#ff6347] text-white text-[12px] px-[15px] py-[5px] rounded-full w-[20%]">
-            খুঁজুন
-          </button>
+
+          {searchValue && (
+            <button
+              onClick={handleGetSearchItem}
+              className="bg-[#ff6347] text-white text-[12px] px-[15px] py-[5px] rounded-full w-[20%]"
+            >
+              খুঁজুন
+            </button>
+          )}
         </div>
       </div>
 

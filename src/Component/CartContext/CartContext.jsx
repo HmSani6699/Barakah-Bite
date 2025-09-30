@@ -1,88 +1,3 @@
-// // CartContext.js
-// import { createContext, useContext, useEffect, useState } from "react";
-// import { Slide, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
-// import Swal from "sweetalert2";
-
-// const CartContext = createContext();
-
-// export const useCart = () => useContext(CartContext);
-
-// export const CartProvider = ({ children }) => {
-//   const [cartItems, setCartItems] = useState([]);
-
-//   useEffect(() => {
-//     const stored = JSON.parse(localStorage.getItem("card")) || [];
-//     setCartItems(stored);
-//   }, [setCartItems]);
-
-//   const addToCart = (item) => {
-//     const stored = JSON.parse(localStorage.getItem("card")) || [];
-//     const index = stored.findIndex((p) => p.id === item.id);
-
-//     if (index !== -1) {
-//       stored[index].quantity += 1;
-//     } else {
-//       stored.push({ ...item, quantity: 1 });
-//     }
-
-//     const audio = new Audio("/public/images/sound.wav");
-//     audio.play();
-//     localStorage.setItem("card", JSON.stringify(stored));
-//     setCartItems(stored);
-//     toast.success("কার্টে যুক্ত হয়েছে।", {
-//       position: "top-center",
-//       autoClose: 2000,
-//       hideProgressBar: false,
-//       closeOnClick: false,
-//       pauseOnHover: true,
-//       draggable: true,
-//       progress: undefined,
-//       theme: "light",
-//       transition: Slide,
-//     });
-//   };
-
-//   const removeItem = (item) => {
-//     const stored = JSON.parse(localStorage.getItem("card")) || [];
-//     const index = stored.filter((i) => i.id !== item.id);
-
-//     Swal.fire({
-//       title: "Are you sure?",
-//       text: "You won't be able to revert this!",
-//       icon: "warning",
-//       showCancelButton: true,
-//       confirmButtonColor: "#3085d6",
-//       cancelButtonColor: "#d33",
-//       confirmButtonText: "Yes, delete it!",
-//     }).then((result) => {
-//       if (result.isConfirmed) {
-//         localStorage.setItem("card", JSON.stringify(index));
-//         setCartItems(index);
-
-//         Swal.fire({
-//           title: "Deleted!",
-//           text: "Your file has been deleted.",
-//           icon: "success",
-//         });
-//       }
-//     });
-//   };
-
-//   // Total count
-//   const totalCardCount =
-//     cartItems && cartItems?.length > 0 && cartItems?.length;
-
-//   return (
-//     <CartContext.Provider
-//       value={{ cartItems, addToCart, removeItem, totalCardCount }}
-//     >
-//       {children}
-//     </CartContext.Provider>
-//   );
-// };
-
-// CartContext.js
 import { createContext, useContext, useEffect, useState } from "react";
 import { Slide, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -110,11 +25,12 @@ export const CartProvider = ({ children }) => {
   // Add to cart
   const addToCart = (item) => {
     const stored = JSON.parse(localStorage.getItem("card")) || [];
+
     const index = stored.findIndex(
       (p) =>
-        p.id === item.id &&
-        (p.selectedVariant?.id || p.variants[0].id) ===
-          (item.selectedVariant?.id || item.variants[0].id)
+        p._id === item._id &&
+        (p.selectedVariant?.id || p.variants[0]._id) ===
+          (item.selectedVariant?.id || item.variants[0]._id)
     );
 
     if (index !== -1) {
@@ -138,7 +54,7 @@ export const CartProvider = ({ children }) => {
   // Update item (quantity / variant change)
   const updateCart = (updatedItem) => {
     const stored = JSON.parse(localStorage.getItem("card")) || [];
-    const index = stored.findIndex((p) => p.id === updatedItem.id);
+    const index = stored.findIndex((p) => p._id === updatedItem._id);
 
     if (index !== -1) {
       stored[index] = updatedItem;
@@ -149,7 +65,7 @@ export const CartProvider = ({ children }) => {
   // Remove item
   const removeItem = (item) => {
     const stored = JSON.parse(localStorage.getItem("card")) || [];
-    const filtered = stored.filter((i) => i.id !== item.id);
+    const filtered = stored.filter((i) => i._id !== item._id);
 
     Swal.fire({
       title: "Are you sure?",

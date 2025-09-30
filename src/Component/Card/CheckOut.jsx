@@ -9,13 +9,17 @@ import SelectInputField from "../SelectInputField/SelectInputField";
 import { v4 as uuidv4 } from "uuid";
 import { useCart } from "../CartContext/CartContext";
 import Swal from "sweetalert2";
+import axios from "axios";
+import { Slide, toast, ToastContainer } from "react-toastify";
 
 const CheckOut = () => {
+  const baseUrl = import.meta.env.VITE_API_URL;
+
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [selected, setSelected] = useState("cod");
+  const [selected, setSelected] = useState("cash");
   const [address, setAddress] = useState({});
   const location = useLocation();
-  const grandTotal = location.state;
+  const orderItem = location.state;
   const navigation = useNavigate();
   const [name, setName] = useState("MD Sadiq");
   const [number, setNumber] = useState("01996359111");
@@ -24,11 +28,13 @@ const CheckOut = () => {
   const [elaka, setElaka] = useState("পাকুন্ডা নাম পাড়া");
   const [hous, setHous] = useState("1");
   const [note, setNote] = useState("Vallo note");
-  const { removeAllItem } = useCart();
+  const { cartItems, removeAllItem } = useCart();
+  const [paymentNumber, setPaymentNumber] = useState();
+  const [paymentTransactionId, setPaymentTransactionId] = useState();
 
   const options = [
     {
-      id: "cod",
+      id: "cash",
       label: "Cash on delivery",
       description: "Pay with cash upon delivery.",
       icon: <FaMoneyBillWave className="text-green-600 text-xl" />,
@@ -89,13 +95,11 @@ const CheckOut = () => {
   }, []);
 
   // Handle order
-  const handleOrder = () => {
+  const handleOrder = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
+    const deliveryAddress = JSON.parse(localStorage.getItem("deliveryAddress"));
 
-    if (user) {
-      removeAllItem();
-      navigation("/success");
-    } else {
+    if (!user) {
       Swal.fire({
         title: "<strong>অনুগ্রহ করে <u>লগইন</u> করুন</strong>",
         icon: "warning",
@@ -126,6 +130,56 @@ const CheckOut = () => {
         }
       });
     }
+
+    try {
+      const payload = {
+        userId: user?.phone, // usually from auth
+        orderNumber: "ACC" + Date.now(),
+        status: "pending",
+
+        items: orderItem?.items,
+        subtotal: orderItem?.totalAmount,
+        deliveryFee: 40,
+        discount: 0,
+        totalAmount: orderItem?.totalAmount + 40,
+        deliveryType: "home",
+
+        deliveryInfo: {
+          name: deliveryAddress?.name,
+          phone: deliveryAddress?.number,
+          elaka: deliveryAddress?.elaka,
+          area: deliveryAddress?.area,
+          gram: deliveryAddress?.gram,
+        },
+        payment: {
+          method: selected,
+          status: "unpaid",
+          paymentNumber: paymentNumber,
+          transactionId: paymentTransactionId,
+        },
+        notes: deliveryAddress?.note || "",
+      };
+
+      const res = await axios.post(`${baseUrl}/orders`, payload);
+
+      if (res?.data?.success) {
+        toast.success("কার্টে যুক্ত হয়েছে।", {
+          position: "top-center",
+          autoClose: 2000,
+          theme: "light",
+          transition: Slide,
+        });
+        removeAllItem();
+        navigation("/success", { state: { order: res?.data?.data } });
+      }
+    } catch (error) {
+      console.log(error);
+      Swal.fire(
+        "Error!",
+        error?.response?.data?.message || "Something went wrong!",
+        "error"
+      );
+    }
   };
 
   return (
@@ -133,7 +187,7 @@ const CheckOut = () => {
       <Link to={"/card"}>
         <div className="bg-white h-[65px]  flex items-center gap-[15px] px-[15px] top_header_shadow w-full">
           <FaArrowLeft className="bg-white text-[20px] text-[#6b7280]" />
-          <h2 className="bg-white font-bold text-[16px] text-[#6b7280]">
+          <h2 className="bg-white font-bold text-[14px] text-[#6b7280]">
             পেমেন্ট করুন
           </h2>
         </div>
@@ -184,7 +238,7 @@ const CheckOut = () => {
             <p className="text-[14px]  bg-[#ffffff80]">সাব-টোটাল</p>
             <p className="bg-[#ffffff80]">
               <span className="font-extrabold bg-[#ffffff80]">৳ </span>
-              {grandTotal ? grandTotal : "0"}
+              {orderItem?.totalAmount ? orderItem?.totalAmount : "0"}
             </p>
           </div>
           <div className="flex items-center justify-between mb-[8px] bg-[#ffffff80]">
@@ -206,7 +260,7 @@ const CheckOut = () => {
             </p>
             <p className="font-bold pt-[8px] bg-[#ffffff80]">
               <span className="font-extrabold bg-[#ffffff80]">৳</span>{" "}
-              {grandTotal && grandTotal + 40}
+              {orderItem?.totalAmount && orderItem?.totalAmount + 40}
             </p>
           </div>
         </div>
@@ -245,7 +299,7 @@ const CheckOut = () => {
               </label>
 
               {/* Extra bubble for Cash on Delivery */}
-              {option.id === "cod" && selected === "cod" ? (
+              {option.id === "cash" && selected === "cash" ? (
                 <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md  p-[16px] text-gray-600 text-sm ">
                   <div className="absolute -top-2 left-[20px] w-[30px] h-[30px] bg-[#f3f3f3]  border-gray-200 rotate-45"></div>
                   <h2 className="relative z-[20]">
@@ -256,7 +310,9 @@ const CheckOut = () => {
                 <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md  p-[16px] text-gray-600 text-sm ">
                   <div className="absolute -top-2 left-[20px] w-[30px] h-[30px] bg-[#f3f3f3]  border-gray-200 rotate-45"></div>
                   <h2 className="text-center font-bold mb-[15px] relative z-10">
-                    আপনাকে {grandTotal && grandTotal + 40} টাকা পাঠাতে হবে ।
+                    আপনাকে{" "}
+                    {orderItem?.totalAmount && orderItem?.totalAmount + 40} টাকা
+                    পাঠাতে হবে ।
                   </h2>
                   <h2 className="text-[12px] text-center mb-[10px]">
                     bKash দিয়ে পেমেন্ট করুন। টাকা পাঠানোর পর নিচে আপনার নাম্বার
@@ -279,6 +335,7 @@ const CheckOut = () => {
                         <span className="text-red-500">*</span>
                       </p>
                       <input
+                        onChange={(e) => setPaymentNumber(e.target.value)}
                         type="text"
                         className="bg-white outline-none  p-[10px] w-full rounded-[8px] border shadow-sm"
                         placeholder="01XXXXXXXXX"
@@ -289,6 +346,9 @@ const CheckOut = () => {
                         ট্রানজেকশন আইডি <span className="text-red-500">*</span>
                       </p>
                       <input
+                        onChange={(e) =>
+                          setPaymentTransactionId(e.target.value)
+                        }
                         type="text"
                         className="bg-white outline-none  p-[10px] w-full rounded-[8px] border shadow-sm"
                         placeholder="ট্রানজেকশন আইডি"
@@ -300,7 +360,9 @@ const CheckOut = () => {
                 <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md  p-[16px] text-gray-600 text-sm ">
                   <div className="absolute -top-2 left-[20px] w-[30px] h-[30px] bg-[#f3f3f3]  border-gray-200 rotate-45"></div>
                   <h2 className="text-center font-bold mb-[15px] relative z-10">
-                    আপনাকে {grandTotal && grandTotal + 40} টাকা পাঠাতে হবে ।
+                    আপনাকে{" "}
+                    {orderItem?.totalAmount && orderItem?.totalAmount + 40} টাকা
+                    পাঠাতে হবে ।
                   </h2>
                   <h2 className="text-[12px] text-center mb-[10px]">
                     Nagad দিয়ে পেমেন্ট করুন। টাকা পাঠানোর পর নিচে আপনার নাম্বার
@@ -344,7 +406,9 @@ const CheckOut = () => {
                 <div className=" relative bg-[#f3f3f3] border border-gray-200 rounded-md  p-[16px] text-gray-600 text-sm ">
                   <div className="absolute -top-2 left-[20px] w-[30px] h-[30px] bg-[#f3f3f3]  border-gray-200 rotate-45"></div>
                   <h2 className="text-center font-bold mb-[15px] relative z-10">
-                    আপনাকে {grandTotal && grandTotal + 40} টাকা পাঠাতে হবে ।
+                    আপনাকে{" "}
+                    {orderItem?.totalAmount && orderItem?.totalAmount + 40} টাকা
+                    পাঠাতে হবে ।
                   </h2>
                   <h2 className="text-[12px] text-center mb-[10px]">
                     Rocket দিয়ে পেমেন্ট করুন। টাকা পাঠানোর পর নিচে আপনার নাম্বার
@@ -490,6 +554,8 @@ const CheckOut = () => {
           </div>
         </div>
       )}
+
+      <ToastContainer />
     </div>
   );
 };

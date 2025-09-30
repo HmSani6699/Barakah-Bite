@@ -5,23 +5,34 @@ import { LuLogIn } from "react-icons/lu";
 import { useCart } from "../../Component/CartContext/CartContext";
 import { Link } from "react-router";
 
-const HomeTopNavber = () => {
+const HomeTopNavber = ({ openPopulerSearchBox, setOpenPopulerSearchBox }) => {
   const { totalCardCount } = useCart();
+
+  // Get all populer search
+  const handleGetPopuler = () => {
+    console.log(345);
+    setOpenPopulerSearchBox(true);
+  };
 
   return (
     <div>
       <div className=" top_header_shadow bg-white px-[20px] py-[16px] fixed w-full top-0 z-[200] lg:hidden">
-        <div className="flex items-center justify-between border rounded-full pl-[10px] pr-[4px]">
-          <div className="flex items-center ">
+        <div
+          className={`flex items-center justify-between border rounded-full pl-[10px] pr-[4px] ${
+            openPopulerSearchBox && "border border-[#ff6347]"
+          }`}
+        >
+          <div className={`flex items-center w-[80%]`}>
             <ImSearch className="text-[20px] text-gray-500 bg-white" />
 
             <input
+              onClick={() => handleGetPopuler()}
               type="text"
-              className="bg-white outline-none rounded-full  w-full  h-full pl-[6px] py-[8px]"
+              className={`bg-white outline-none rounded-full  w-full  h-full pl-[6px] py-[8px] `}
               placeholder="খাবার বা দোকানের নাম দিয়ে "
             />
           </div>
-          <button className="bg-[#ff6347] text-white text-[12px] px-[15px] py-[5px] rounded-full ">
+          <button className="bg-[#ff6347] text-white text-[12px] px-[15px] py-[5px] rounded-full w-[20%]">
             খুঁজুন
           </button>
         </div>

@@ -34,6 +34,8 @@ const Home = () => {
 
   const [allRestaurent, setAllrestaurent] = useState([]);
 
+  const [openPopulerSearchBox, setOpenPopulerSearchBox] = useState(false);
+
   const haldleAddToCard = (item) => {
     const getItems = JSON.parse(localStorage.getItem("card"));
 
@@ -155,7 +157,10 @@ const Home = () => {
       <>
         {!loading ? (
           <>
-            <HomeTopNavber />
+            <HomeTopNavber
+              openPopulerSearchBox={openPopulerSearchBox}
+              setOpenPopulerSearchBox={setOpenPopulerSearchBox}
+            />
             <Banner />
             <Hero allData={allHeroData} />
             <FilterTab
@@ -179,6 +184,17 @@ const Home = () => {
           </div>
         )}
       </>
+
+      {openPopulerSearchBox && (
+        <div
+          onClick={() => setOpenPopulerSearchBox(false)}
+          className="fixed inset-0 bg-[#000000d9] z-[200] flex items-start justify-center overflow-y-scroll h-screen w-full top-[70px]"
+        >
+          <div className="my-[20px]  mx-[15px] p-[20px] rounded-[15px] bg-white w-full">
+            <h2>জনপ্রিয় অনুসন্ধান</h2>
+          </div>
+        </div>
+      )}
 
       <ToastContainer />
     </div>

@@ -40,6 +40,7 @@ import MainCategory from "../Dashboard/SuperAdmin/Category/MainCategory/MainCate
 import SubCategory from "../Dashboard/SuperAdmin/Category/SubCategory/SubCategory";
 import ProductCategory from "../Dashboard/SuperAdmin/Category/ProductCategory/ProductCategory";
 import Unite from "../Dashboard/SuperAdmin/Unit/Unite";
+import PopulerSearch from "../Dashboard/SuperAdmin/Search/PopulerSearch/PopulerSearch";
 
 const router = createBrowserRouter([
   {
@@ -205,6 +206,10 @@ const router = createBrowserRouter([
       {
         path: "/super-admin/unit",
         element: <Unite />,
+      },
+      {
+        path: "/super-admin/populer-search",
+        element: <PopulerSearch />,
       },
     ],
   },

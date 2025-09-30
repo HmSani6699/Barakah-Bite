@@ -1,4 +1,4 @@
-import { FaHeadset, FaInfoCircle, FaUser } from "react-icons/fa";
+import { FaHeadset, FaInfoCircle, FaSearchPlus, FaUser } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { IoIosArrowForward } from "react-icons/io";
 import ProfileNaveList from "../../../Component/Profile/ProfileNaveList";
@@ -59,6 +59,13 @@ const MenuPage = () => {
             <LuNotebookText className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
           }
           url={"/super-admin/unit"}
+        />
+        <ProfileNaveList
+          title={"Populer Search"}
+          icon={
+            <FaSearchPlus className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+          }
+          url={"/super-admin/populer-search"}
         />
         {/* <ProfileNaveList
           title={"যোগাযোগ"}

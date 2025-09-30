@@ -135,7 +135,7 @@ const GroceryCategoryCard = () => {
             </div>
           </div>
 
-          {!search && (
+          {!search && allCategoriesCount?.length > 0 && (
             <>
               {allCategoriesCount && (
                 <div className="px-[15px] flex items-center gap-[16px] overflow-auto scrollbar-hide  mt-[16px]">
@@ -274,6 +274,7 @@ const GroceryCategoryCard = () => {
           )}
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

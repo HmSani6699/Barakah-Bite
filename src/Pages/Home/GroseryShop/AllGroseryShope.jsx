@@ -270,7 +270,7 @@ const AllGroseryShope = () => {
             {/* all content  */}
 
             {contentloading ? (
-              <div className="lg:pt-[400px]">
+              <div className="lg:pt-[400px] pt-[500px] ">
                 <Loading />
               </div>
             ) : (

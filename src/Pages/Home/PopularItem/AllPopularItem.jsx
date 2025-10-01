@@ -166,8 +166,7 @@ const AllPopularItem = () => {
       )}
 
       {loading ? (
-        <div className="lg:mt-[450px]">
-          {" "}
+        <div className="lg:mt-[450px] mt-[500px]">
           <Loading />
         </div>
       ) : (

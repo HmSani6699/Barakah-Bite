@@ -238,7 +238,7 @@ const ShopeProfile = () => {
             )}
 
             {contentloading ? (
-              <div className="mt-[100px]">
+              <div className="lg:mt-[100px] pt-[500px]">
                 <Loading />
               </div>
             ) : (

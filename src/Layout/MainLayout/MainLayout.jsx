@@ -46,7 +46,7 @@ const MainLayout = () => {
             location?.pathname === "/login" || location?.pathname === "/signup"
               ? "hidden"
               : "block"
-          }`}
+          } hidden lg:block`}
         >
           <Footer />
         </div>

@@ -9,7 +9,7 @@ const RestaurantsShops = ({ allRestaurent }) => {
   const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
 
   return (
-    <div className=" my-[16px] lg:my-0 py-[20px] lg:rounded-[10px] rounded-none mb-[30px] lg:mb-[50px]">
+    <div className=" my-[16px] lg:my-0 lg:py-[20px] lg:rounded-[10px] rounded-none mb-[90px] lg:mb-[50px]">
       <div className="px-[20px] flex items-center justify-between">
         <h2 className="text-[18px] font-bold  ">রেস্টুরেন্ট এন্ড শপসমূহ</h2>
 

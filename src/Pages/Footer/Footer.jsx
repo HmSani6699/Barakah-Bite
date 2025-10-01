@@ -68,15 +68,30 @@ const Footer = () => {
           <h3 className="font-semibold text-lg mb-4">সাপোর্ট দরকার?</h3>
           <div className="space-y-4 text-sm text-gray-300">
             <div className="flex items-center gap-3">
-              <FaMapMarkerAlt className="text-red-500 text-lg" />
+              <a
+                href="#"
+                className="p-2 rounded-full bg-white hover:bg-pink-500"
+              >
+                <FaMapMarkerAlt className="text-[#0f172a]" />
+              </a>
               <p>হাউস# ৪৪, রোড নং ২/এ, ধানমন্ডি, ঢাকা ১২০৯</p>
             </div>
             <div className="flex items-center gap-3">
-              <FaPhoneAlt className="text-green-500 text-lg" />
+              <a
+                href="#"
+                className="p-2 rounded-full bg-white hover:bg-pink-500"
+              >
+                <FaPhoneAlt className="text-[#0f172a]" />
+              </a>
               <p>+8801340474040</p>
             </div>
             <div className="flex items-center gap-3">
-              <FaEnvelope className="text-blue-500 text-lg" />
+              <a
+                href="#"
+                className="p-2 rounded-full bg-white hover:bg-pink-500"
+              >
+                <FaEnvelope className="text-[#0f172a]" />
+              </a>
               <p>info@barakahmart.com</p>
             </div>
           </div>

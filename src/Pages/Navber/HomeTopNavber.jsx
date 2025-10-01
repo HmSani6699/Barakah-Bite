@@ -3,7 +3,7 @@ import { IoLocationOutline } from "react-icons/io5";
 import { LiaShoppingCartSolid } from "react-icons/lia";
 import { LuLogIn } from "react-icons/lu";
 import { useCart } from "../../Component/CartContext/CartContext";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { FaRegUser } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 
@@ -25,9 +25,15 @@ const HomeTopNavber = ({
     setOldAddress(getAddress);
   }, []);
 
+  const location = useLocation();
+
   return (
     <div>
-      <div className=" top_header_shadow bg-white px-[20px] py-[16px] fixed w-full top-0 z-[200] lg:hidden">
+      <div
+        className={`${
+          location?.pathname === "/" ? "block" : "hidden"
+        } top_header_shadow bg-white px-[20px] py-[16px] fixed w-full top-0 z-[200] lg:hidden`}
+      >
         <div
           className={`flex items-center justify-between border rounded-full pl-[10px] pr-[4px] ${
             openPopulerSearchBox && "border border-[#ff6347]"

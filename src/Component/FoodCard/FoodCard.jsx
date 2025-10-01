@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
 import { useCart } from "../CartContext/CartContext";
+import { ToastContainer } from "react-toastify";
 
 const FoodCard = ({ height, item }) => {
   const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
@@ -17,7 +18,7 @@ const FoodCard = ({ height, item }) => {
 
   return (
     <div className="">
-      <div className="bg-white rounded-[15px] min-w-[240px] relative border">
+      <div className="bg-white rounded-[15px] min-w-[240px] lg:w-full relative border cursor-pointer">
         {item?.variants?.[0]?.price && item?.variants?.[0]?.discount ? (
           <div className="absolute top-[20px] left-0 bg-[#ff6347] text-[12px] text-white px-[10px] py-[5px] rounded-r-[10px] shadow-md">
             {calculateDiscountPercentageFromDiscount(

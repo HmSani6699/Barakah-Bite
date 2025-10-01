@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaArrowLeft, FaMoneyBillWave } from "react-icons/fa";
 import { FaLocationDot, FaPlus } from "react-icons/fa6";
-import { IoMdCloseCircle } from "react-icons/io";
+import { IoIosArrowForward, IoMdCloseCircle } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router";
 import InputField from "../InputField/InputField";
 import TextareaField from "../TextareaField/TextareaField";
@@ -11,6 +11,8 @@ import { useCart } from "../CartContext/CartContext";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { Slide, toast, ToastContainer } from "react-toastify";
+import HomeTopNavber from "../../Pages/Navber/HomeTopNavber";
+import { TiHomeOutline } from "react-icons/ti";
 
 const CheckOut = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -184,7 +186,7 @@ const CheckOut = () => {
 
   return (
     <div className="">
-      <Link to={"/card"}>
+      <Link to={"/card"} className="lg:hidden block">
         <div className="bg-white h-[65px]  flex items-center gap-[15px] px-[15px] top_header_shadow w-full">
           <FaArrowLeft className="bg-white text-[20px] text-[#6b7280]" />
           <h2 className="bg-white font-bold text-[14px] text-[#6b7280]">
@@ -192,8 +194,19 @@ const CheckOut = () => {
           </h2>
         </div>
       </Link>
+
+      <HomeTopNavber />
+      <div className="hidden  lg:mt-[90px] px-[16px] lg:flex items-center gap-[10px]">
+        <TiHomeOutline className="text-[25px] text-[#6b7280]" />
+        <Link to={"/card"} className="text-[#6b7280] hover:underline">
+          হোম
+        </Link>
+        <IoIosArrowForward className="text-[#6b7280]" />
+        <h2> পেমেন্ট করুন</h2>
+      </div>
+
       {/*  */}
-      <div className="px-[15px]">
+      <div className="px-[15px] lg:w-[500px] mx-auto">
         {/* Address */}
 
         {address ? (

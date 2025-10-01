@@ -1,5 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router";
 import notImage from "../../../public/images/notimage.svg";
+import { ToastContainer } from "react-toastify";
 
 const GroceryCard = ({
   item,
@@ -22,7 +23,7 @@ const GroceryCard = ({
           setOldTabButton && setOldTabButton(isTabeButton);
         }
       }}
-      className={` ${style_clss?.bg} ${style_clss?.rounded}  ${style_clss?.padding} flex flex-col items-center`}
+      className={` ${style_clss?.bg} ${style_clss?.rounded}  ${style_clss?.padding} flex flex-col items-center cursor-pointer`}
     >
       <div className={`${style_clss?.height} w-full   object-cover `}>
         {item?.icon || item?.productCategory?.icon ? (
@@ -56,6 +57,8 @@ const GroceryCard = ({
           আইটেম
         </p>
       </div>
+
+      <ToastContainer />
     </div>
   );
 };

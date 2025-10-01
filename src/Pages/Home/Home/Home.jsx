@@ -16,6 +16,11 @@ import groceryImage from "../../../../public/images/grocery.png";
 import { ImSearch } from "react-icons/im";
 import FoodCard from "../../../Component/FoodCard/FoodCard";
 import { IoClose } from "react-icons/io5";
+import { IoMdCloseCircle } from "react-icons/io";
+import InputField from "../../../Component/InputField/InputField";
+import SelectInputField from "../../../Component/SelectInputField/SelectInputField";
+import TextareaField from "../../../Component/TextareaField/TextareaField";
+import { v4 as uuidv4 } from "uuid";
 
 const Home = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -44,7 +49,50 @@ const Home = () => {
   const [allSearchItem, setallSearchItem] = useState([]);
   const [title, setTitle] = useState("");
   const [openSearchItem, setOpenSearchItem] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
+  // address
+  const [address, setAddress] = useState("MD Sadiq");
+  const [name, setName] = useState("MD Sadiq");
+  const [number, setNumber] = useState("01996359111");
+  const [area, setArea] = useState("সোনারগাঁও");
+  const [gram, setGram] = useState("পাকুন্ডা");
+  const [elaka, setElaka] = useState("পাকুন্ডা নাম পাড়া");
+  const [hous, setHous] = useState("1");
+  const [note, setNote] = useState("Vallo note");
+
+  // Add Address
+  const handleAddAddress = () => {
+    const getDelivery = JSON.parse(localStorage.getItem("deliveryAddress"));
+
+    const newAddress = {
+      name,
+      number,
+      gram,
+      elaka,
+      hous,
+      area,
+      note,
+      id: uuidv4(),
+      date: new Date().toISOString().split("T")[0],
+    };
+
+    // get aitem
+    if (getDelivery) {
+      localStorage.removeItem("deliveryAddress");
+      localStorage.setItem("deliveryAddress", JSON.stringify(newAddress));
+      const getItem = localStorage.getItem("deliveryAddress");
+      setAddress(JSON.parse(getItem));
+      setIsFormOpen(false);
+    } else {
+      localStorage.setItem("deliveryAddress", JSON.stringify(newAddress));
+      const getItem = localStorage.getItem("deliveryAddress");
+      setAddress(JSON.parse(getItem));
+      setIsFormOpen(false);
+    }
+  };
+
+  // handle add cart item
   const haldleAddToCard = (item) => {
     const getItems = JSON.parse(localStorage.getItem("card"));
 
@@ -232,9 +280,7 @@ const Home = () => {
 
   return (
     <div
-      className={`max-w-[1200px] mx-auto relative ${
-        localStorageItems?.length > 0 && "pb-[50px]"
-      }`}
+      className={` relative ${localStorageItems?.length > 0 && "pb-[50px]"}`}
     >
       <>
         {!loading ? (
@@ -246,6 +292,8 @@ const Home = () => {
               searchValue={searchValue}
               setsearchValue={setsearchValue}
               handleGetSearchItem={handleGetSearchItem}
+              setIsFormOpen={setIsFormOpen}
+              address={address}
             />
 
             {openSearchItem ? (
@@ -321,7 +369,6 @@ const Home = () => {
               </div>
             ) : (
               <div>
-                {" "}
                 <Banner />
                 <Hero allData={allHeroData} />
                 <FilterTab
@@ -343,12 +390,13 @@ const Home = () => {
             )}
           </>
         ) : (
-          <div className="mt-[100px]">
+          <div className="mt-[100px] lg:h-screen">
             <Loading />
           </div>
         )}
       </>
 
+      {/* top search box */}
       {openPopulerSearchBox && (
         <div>
           <div
@@ -379,6 +427,87 @@ const Home = () => {
                     </button>
                   ))}
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* address add */}
+      {isFormOpen && (
+        <div className="fixed inset-0 bg-[#000000d9] z-[200] flex items-start justify-center overflow-y-scroll h-screen w-full">
+          <div className="my-[40px]  mx-[15px] p-[20px] rounded-[10px] bg-white  w-[700px] mt-[80px]">
+            <div className="flex items-end justify-end mb-[20px]">
+              <IoMdCloseCircle
+                onClick={() => setIsFormOpen(false)}
+                className="text-red-500 text-[30px] cursor-pointer"
+              />
+            </div>
+
+            <div className="w-full">
+              <h2 className="text-center text-[20px] font-bold mb-[20px]">
+                নতুন ঠিকানা যোগ করুন
+              </h2>
+
+              <div className="grid grid-cols-2 gap-[20px]">
+                <InputField
+                  title={"আপনার নাম"}
+                  placeholder={"এখানে আপনার নাম লিখুন"}
+                  value={name}
+                  setValue={setName}
+                />{" "}
+                <InputField
+                  title={"কন্টাক্ট নম্বর"}
+                  placeholder={"আপনার মোবাইল নম্বর দিন"}
+                  value={number}
+                  setValue={setNumber}
+                />
+                <SelectInputField
+                  title="থানা"
+                  value={area}
+                  setValue={setArea}
+                  options={[
+                    { value: "রূপগঞ্জ", label: "রূপগঞ্জ" },
+                    { value: "আড়াইহাজার", label: "আড়াইহাজার" },
+                    { value: "সোনারগাঁ", label: "সোনারগাঁ" },
+                  ]}
+                />
+                <InputField
+                  title={"গ্রাম"}
+                  placeholder={"গ্রাম এর নাম লিখুন"}
+                  value={gram}
+                  setValue={setGram}
+                />{" "}
+                <InputField
+                  title={"এলাকা / পাড়া"}
+                  placeholder={"এলাকার নাম লিখুন"}
+                  value={elaka}
+                  setValue={setElaka}
+                />
+                <InputField
+                  title={"বাসা/হোল্ডিং, রোড নং"}
+                  placeholder={"বাসা নং, রোড নং এবং পাড়ার নাম লিখুন"}
+                  value={hous}
+                  setValue={setHous}
+                />
+                <div className="col-span-2">
+                  <TextareaField
+                    title={"বিশেষ নোট (ঐচ্ছিক)"}
+                    placeholder={
+                      "ডেলিভারি সংক্রান্ত কোনো বিশেষ নির্দেশনা থাকলে এখানে লিখুন..."
+                    }
+                    bg={"bg-[#eff1f1]"}
+                    value={note}
+                    setValue={setNote}
+                  />
+                </div>
+              </div>
+
+              <button
+                onClick={handleAddAddress}
+                className="mt-[30px] w-full bg-[#ff6347] text-white py-[10px] rounded-[10px]"
+              >
+                ঠিকানা সেভ করুন
+              </button>
             </div>
           </div>
         </div>

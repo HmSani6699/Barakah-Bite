@@ -9,6 +9,9 @@ import Loading from "../Loading/Loading";
 import { LiaShoppingCartSolid } from "react-icons/lia";
 import { useCart } from "../CartContext/CartContext";
 import { ToastContainer } from "react-toastify";
+import HomeTopNavber from "../../Pages/Navber/HomeTopNavber";
+import { TiHomeOutline } from "react-icons/ti";
+import { IoIosArrowForward } from "react-icons/io";
 
 const GroceryCategoryCard = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -100,10 +103,12 @@ const GroceryCategoryCard = () => {
     <div>
       {" "}
       {loading ? (
-        <Loading />
+        <div className="h-screen">
+          <Loading />
+        </div>
       ) : (
         <div className="mb-[16px]">
-          <div className="bg-white h-[65px]   px-[15px] top_header_shadow flex items-center justify-between">
+          <div className="bg-white h-[65px]   px-[15px] top_header_shadow flex items-center justify-between lg:hidden">
             <Link to={"/"} className="flex items-center gap-[15px]">
               <FaArrowLeft className="bg-white text-[20px] text-[#6b7280]" />
               <h2 className="bg-white font-bold text-[14px] text-[#6b7280]">
@@ -119,6 +124,18 @@ const GroceryCategoryCard = () => {
               )}
             </Link>
           </div>
+
+          <HomeTopNavber />
+
+          <div className="hidden  lg:mt-[90px] px-[16px] lg:flex items-center gap-[10px] mb-[30px]">
+            <TiHomeOutline className="text-[25px] text-[#6b7280]" />
+            <Link to={"/"} className="text-[#6b7280] hover:underline">
+              হোম
+            </Link>
+            <IoIosArrowForward className="text-[#6b7280]" />
+            <h2> {pageTitle && pageTitle}</h2>
+          </div>
+
           <div>
             <h2 className=" font-bold text-[20px] mt-[16px] text-center">
               {pageTitle && pageTitle}
@@ -170,11 +187,13 @@ const GroceryCategoryCard = () => {
           {/* main content */}
 
           {contentLoading ? (
-            <Loading />
+            <div className="h-screen">
+              <Loading />
+            </div>
           ) : (
             <>
               {allCategories?.length > 0 ? (
-                <div className="grid grid-cols-2 gap-[20px] bg-white  p-[20px] mt-[16px]">
+                <div className="grid grid-cols-2 lg:grid-cols-5 gap-[20px] bg-white  p-[20px] mt-[16px]">
                   {allCategories?.map((item, i) => (
                     <>
                       {!item?.status ? (
@@ -253,7 +272,7 @@ const GroceryCategoryCard = () => {
                   ))}
                 </div>
               ) : (
-                <div className="text-center mt-10 px-[16px]">
+                <div className="text-center mt-10 px-[16px] lg:max-w-[500px] mx-auto  mb-[100px]">
                   <p className="text-gray-600 mt-2">
                     দুঃখিত! আপনার খোঁজা আইটেমটি আমরা এই মুহূর্তে খুঁজে পাইনি।
                     আপনি চাইলে আমাদের সাথে হোয়াটসঅ্যাপে যোগাযোগ করতে পারেন,

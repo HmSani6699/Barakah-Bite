@@ -11,6 +11,9 @@ import axios from "axios";
 import { useCart } from "../CartContext/CartContext";
 import noImage from "../../../public/images/notimage.svg";
 import Loading from "../Loading/Loading";
+import { TiHomeOutline } from "react-icons/ti";
+import { IoIosArrowForward } from "react-icons/io";
+import HomeTopNavber from "../../Pages/Navber/HomeTopNavber";
 
 const ShopeProfile = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -124,7 +127,7 @@ const ShopeProfile = () => {
         <Loading />
       ) : (
         <div className="mb-[120px] relative">
-          <div className="bg-white h-[65px]   px-[15px] top_header_shadow flex items-center justify-between">
+          <div className="bg-white h-[65px]   px-[15px] top_header_shadow flex items-center justify-between lg:hidden">
             <Link to={"/"} className="flex items-center gap-[15px]">
               <FaArrowLeft className="bg-white text-[20px] text-[#6b7280]" />
               <h2 className="bg-white font-bold text-[14px] text-[#6b7280]">
@@ -141,7 +144,18 @@ const ShopeProfile = () => {
             </Link>
           </div>
 
-          <div className="bg-white h-[80px] text-center flex items-center justify-center relative">
+          <HomeTopNavber />
+
+          <div className="hidden  lg:mt-[90px] px-[16px] lg:flex items-center gap-[10px] mb-[30px]">
+            <TiHomeOutline className="text-[25px] text-[#6b7280]" />
+            <Link to={"/"} className="text-[#6b7280] hover:underline">
+              হোম
+            </Link>
+            <IoIosArrowForward className="text-[#6b7280]" />
+            <h2> {allShop?.name}</h2>
+          </div>
+
+          <div className="bg-white h-[80px] lg:h-[200px] text-center flex items-center justify-center relative">
             {allShop?.coverImage ? (
               <img
                 className="h-full w-full object-cover"
@@ -157,7 +171,7 @@ const ShopeProfile = () => {
             )}
           </div>
 
-          <div className="px-[20px] absolute top-[110px] left-0 w-full">
+          <div className="px-[20px] absolute top-[110px] lg:top-[230px] left-0 w-full">
             <div className="h-[80px] w-[80px] rounded-full  border-[4px] border-[#eff1f1] shadow-md  overflow-hidden">
               {allShop?.logo ? (
                 <img
@@ -231,13 +245,13 @@ const ShopeProfile = () => {
               <>
                 {" "}
                 {allItemsData?.length > 0 ? (
-                  <div className="px-[15px] mt-[20px] flex flex-col gap-[20px] mb-[20px]">
+                  <div className="px-[15px] mt-[20px] grid grid-cols-1 lg:grid-cols-4 gap-[20px] mb-[20px]">
                     {allItemsData?.map((item, i) => (
                       <FoodCard height="h-[190px]" item={item} />
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center mt-10 px-[16px]">
+                  <div className="text-center mt-10 px-[16px] lg:max-w-[500px] mx-auto">
                     <p className="text-gray-600 mt-2">
                       দুঃখিত! আপনার খোঁজা আইটেমটি আমরা এই মুহূর্তে খুঁজে পাইনি।
                       আপনি চাইলে আমাদের সাথে হোয়াটসঅ্যাপে যোগাযোগ করতে পারেন,

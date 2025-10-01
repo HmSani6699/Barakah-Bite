@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import FoodCard from "../../../Component/FoodCard/FoodCard";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import { Link } from "react-router";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import { MdKeyboardDoubleArrowRight } from "react-icons/md";
-import { Link } from "react-router";
+import "swiper/css/navigation";
+
+import { Navigation } from "swiper/modules";
+import { IoIosArrowForward } from "react-icons/io";
 
 const FilterTab = ({
   setIsFullImageOpen,
@@ -48,19 +51,33 @@ const FilterTab = ({
       </div>
 
       {/* PC Device */}
-      <div className="lg:block hidden px-[15px]">
-        <Swiper slidesPerView={3} spaceBetween={20} className="mySwiper">
+      <div className="lg:block hidden px-[15px] relative">
+        <Swiper
+          slidesPerView={4}
+          spaceBetween={20}
+          navigation={{
+            nextEl: ".custom-next",
+            prevEl: ".custom-prev",
+          }}
+          modules={[Navigation]}
+          className="mySwiper"
+        >
           {allRestaurantActiveItems.map((item, i) => (
             <SwiperSlide key={i}>
-              <FoodCard
-                // setIsFullImageOpen={setIsFullImageOpen}
-                height="h-[140px]"
-                item={item}
-                // haldleAddToCard={haldleAddToCard}
-              />
+              <FoodCard height="h-[140px]" item={item} />
             </SwiperSlide>
           ))}
         </Swiper>
+
+        {/* Custom Prev Button */}
+        <div className="custom-prev absolute left-[30px] top-1/2 -translate-y-1/2 bg-white w-10 h-10 flex items-center justify-center rounded-full shadow cursor-pointer hover:bg-gray-100 transition z-[100] ">
+          <IoIosArrowForward className="rotate-[180deg] text-[25px]" />
+        </div>
+
+        {/* Custom Next Button */}
+        <div className="custom-next absolute right-[30px] top-1/2 -translate-y-1/2 bg-white w-10 h-10 flex items-center justify-center rounded-full shadow cursor-pointer hover:bg-gray-100 transition z-[100] ">
+          <IoIosArrowForward className="text-[25px]" />
+        </div>
       </div>
     </div>
   );

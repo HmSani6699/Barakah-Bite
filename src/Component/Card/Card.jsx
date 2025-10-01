@@ -7,6 +7,10 @@ import { LiaShoppingCartSolid } from "react-icons/lia";
 import { RiDeleteBin6Line, RiFileList2Line } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import CheckOut from "./CheckOut";
+import { ToastContainer } from "react-toastify";
+import { TiHomeOutline } from "react-icons/ti";
+import { IoIosArrowForward } from "react-icons/io";
+import HomeTopNavber from "../../Pages/Navber/HomeTopNavber";
 
 const Cart = () => {
   const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
@@ -90,7 +94,7 @@ const Cart = () => {
   return (
     <>
       <div className="relative">
-        <div className="bg-white h-[65px]   px-[15px] top_header_shadow flex items-center justify-between">
+        <div className="bg-white h-[65px]   px-[15px] top_header_shadow flex items-center justify-between lg:hidden">
           <Link to={"/"} className="flex items-center gap-[15px]">
             <FaArrowLeft className="bg-white text-[20px] text-[#6b7280]" />
             <h2 className="bg-white font-bold text-[16px] text-[#6b7280]">
@@ -108,7 +112,17 @@ const Cart = () => {
           </div>
         </div>
 
-        <div className="">
+        <HomeTopNavber />
+        <div className="hidden  lg:mt-[90px] px-[16px] lg:flex items-center gap-[10px]">
+          <TiHomeOutline className="text-[25px] text-[#6b7280]" />
+          <Link to={"/"} className="text-[#6b7280] hover:underline">
+            হোম
+          </Link>
+          <IoIosArrowForward className="text-[#6b7280]" />
+          <h2>নির্বাচিত আইটেম</h2>
+        </div>
+
+        <div className="lg:w-[500px] mx-auto">
           {/* All items */}
           {cartItems?.length > 0 ? (
             <div className="mt-[16px] flex flex-col gap-[16px]">
@@ -204,7 +218,7 @@ const Cart = () => {
               })}
             </div>
           ) : (
-            <div className="text-center my-[30px] ">
+            <div className="text-center my-[30px] lg:mt-[50px] lg:h-screen">
               <RiFileList2Line className="text-[120px]  text-[#a7a6a6] inline-block" />
               <h2 className="mt-[20px]">কোনো আইটেম এখনো যোগ করা হয়নি।</h2>
               <div className=" flex items-center justify-center mt-[16px]">
@@ -221,7 +235,7 @@ const Cart = () => {
         </div>
 
         {totalCardCount > 0 && (
-          <div className="fixed bottom-0 left-0 w-full flex items-center justify-between bg-white px-[16px] py-[16px]">
+          <div className="fixed lg:relative lg:mb-[50px] lg:mt-[20px] lg:w-[500px] lg:mx-auto bottom-0 left-0 w-full flex items-center justify-between bg-white px-[16px] py-[16px]">
             <button className="text-[14px] font-semibold">
               সাব-টোটাল:
               <span className="text-[#ff6347]">
@@ -239,6 +253,7 @@ const Cart = () => {
           </div>
         )}
       </div>
+      <ToastContainer />
     </>
   );
 };

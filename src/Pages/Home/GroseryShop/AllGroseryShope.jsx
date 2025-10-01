@@ -8,6 +8,16 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useCart } from "../../../Component/CartContext/CartContext";
 import { LiaShoppingCartSolid } from "react-icons/lia";
+import { TiHomeOutline } from "react-icons/ti";
+import { IoIosArrowForward } from "react-icons/io";
+import HomeTopNavber from "../../Navber/HomeTopNavber";
+import { ToastContainer } from "react-toastify";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/free-mode";
+
+import { FreeMode, Navigation } from "swiper/modules";
 
 const AllGroseryShope = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -103,10 +113,23 @@ const AllGroseryShope = () => {
     <>
       {" "}
       {loading ? (
-        <Loading />
+        <div className="lg:h-screen">
+          <Loading />
+        </div>
       ) : (
         <div className="mb-[16px]">
-          <div className="bg-white h-[65px]   px-[15px] top_header_shadow flex items-center justify-between">
+          <div className="hidden  lg:mt-[90px] px-[16px] lg:flex items-center gap-[10px]">
+            <TiHomeOutline className="text-[25px] text-[#6b7280]" />
+            <Link to={"/"} className="text-[#6b7280] hover:underline">
+              হোম
+            </Link>
+            <IoIosArrowForward className="text-[#6b7280]" />
+            <h2>অল ক্যাটাগরি</h2>
+          </div>
+
+          <HomeTopNavber />
+
+          <div className="bg-white h-[65px]   px-[15px] top_header_shadow flex items-center justify-between lg:hidden">
             <Link to={"/"} className="flex items-center gap-[15px]">
               <FaArrowLeft className="bg-white text-[20px] text-[#6b7280]" />
               <h2 className="bg-white font-bold text-[14px] text-[#6b7280]">
@@ -122,7 +145,7 @@ const AllGroseryShope = () => {
               )}
             </Link>
           </div>
-          <div className="bg-white h-[80px] text-center flex items-center justify-center relative">
+          <div className="bg-white h-[80px] text-center flex items-center justify-center relative lg:hidden ">
             <img
               className="h-full w-full object-cover"
               src="https://i.postimg.cc/QNH0fRzB/download-3.jpg"
@@ -137,7 +160,7 @@ const AllGroseryShope = () => {
               />
             </div>
           </div>
-          <div className="mt-[60px] px-[15px]">
+          <div className="mt-[60px] lg:mt-[30px] px-[15px]">
             <SearchInputField value={search} setValue={setSearch} />
           </div>
 
@@ -145,13 +168,13 @@ const AllGroseryShope = () => {
 
           <div>
             {!search && allSubCategory && (
-              <div className="px-[15px] flex items-center gap-[10px] overflow-auto scrollbar-hide my-[16px]">
+              <div className="px-[15px] flex items-center gap-[10px] overflow-auto scrollbar-hide my-[16px] lg:hidden">
                 <button
                   className={` ${
                     isTabeButton === "সকল"
                       ? "main_bg_color text-white"
                       : " bg-white text_black_color"
-                  }      py-[6px] px-[20px]  rounded-[8px] shadow-sm whitespace-nowrap`}
+                  }    border-gray-300 py-[6px] px-[15px]  rounded-[8px] shadow-sm whitespace-nowrap`}
                   onClick={() => {
                     setIsTabeButton("সকল");
                     handleGetAllSubCategory();
@@ -178,14 +201,82 @@ const AllGroseryShope = () => {
               </div>
             )}
 
+            <div className="lg:block hidden px-[70px] relative ">
+              <div className="horizontal-menu-wrapper relative ">
+                {" "}
+                {/* Add horizontal padding here */}
+                <Swiper
+                  slidesPerView={"auto"}
+                  spaceBetween={10}
+                  freeMode={true}
+                  navigation={{
+                    nextEl: ".custom-next",
+                    prevEl: ".custom-prev",
+                  }}
+                  modules={[FreeMode, Navigation]}
+                  className="horizontal-menu-swiper "
+                >
+                  {/* "সকল" button */}
+                  <SwiperSlide className="menu-slide">
+                    <button
+                      className={` ${
+                        isTabeButton === "সকল"
+                          ? "main_bg_color text-white"
+                          : " bg-white text_black_color"
+                      } border-gray-300 py-[6px] px-[15px] rounded-[8px] shadow-sm whitespace-nowrap`}
+                      onClick={() => {
+                        setIsTabeButton("সকল");
+                        handleGetAllSubCategory();
+                      }}
+                    >
+                      সকল
+                    </button>
+                  </SwiperSlide>
+
+                  {/* Dynamic buttons */}
+                  {allSubCategory.map((item, index) => (
+                    <SwiperSlide key={index} className="menu-slide">
+                      <button
+                        onClick={() => {
+                          setOldTabButton("");
+                          setIsTabeButton(item?.name);
+                          setSubCategory(item?.name);
+                        }}
+                        className={`${
+                          isTabeButton === item?.name ||
+                          item?.name === oldTabButton
+                            ? "main_bg_color text-white"
+                            : "bg-white text_black_color"
+                        } border-gray-300 py-[6px] px-[15px] rounded-[8px] shadow-sm whitespace-nowrap`}
+                      >
+                        {item?.name}
+                      </button>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+
+              {/* Custom Prev Button */}
+              <div className="custom-prev absolute left-[30px] top-1/2 -translate-y-1/2 bg-white w-10 h-10 flex items-center justify-center rounded-full shadow cursor-pointer hover:bg-gray-100 transition z-[100]">
+                <IoIosArrowForward className="rotate-180" />
+              </div>
+
+              {/* Custom Next Button */}
+              <div className="custom-next absolute right-[30px] top-1/2 -translate-y-1/2 bg-white w-10 h-10 flex items-center justify-center rounded-full shadow cursor-pointer hover:bg-gray-100 transition z-[100]">
+                <IoIosArrowForward />
+              </div>
+            </div>
+
             {/* all content  */}
 
             {contentloading ? (
-              <Loading />
+              <div className="lg:pt-[400px]">
+                <Loading />
+              </div>
             ) : (
               <>
                 {singleSubCategory && singleSubCategory?.length > 0 ? (
-                  <div className="grid grid-cols-2 gap-[20px] bg-white  p-[20px] mt-[16px]">
+                  <div className="grid grid-cols-2 lg:grid-cols-5 gap-[20px] bg-white  p-[20px] mt-[16px] lg:mb-[20px]">
                     {singleSubCategory?.map((item, i) => (
                       <>
                         {" "}
@@ -264,8 +355,8 @@ const AllGroseryShope = () => {
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center mt-10 px-[16px]">
-                    <p className="text-gray-600 mt-[10px] text-[14px]">
+                  <div className="text-center mt-10 px-[16px] lg:max-w-[500px] mx-auto lg:mb-[100px]">
+                    <p className="text-gray-600 mt-[10px] text-[14px] ">
                       দুঃখিত! আপনার খোঁজা আইটেমটি আমরা এই মুহূর্তে খুঁজে পাইনি।
                       আপনি চাইলে আমাদের সাথে হোয়াটসঅ্যাপে যোগাযোগ করতে পারেন,
                       আমরা আপনার প্রয়োজন অনুযায়ী সর্বোচ্চ চেষ্টা করব আইটেমটি
@@ -286,6 +377,7 @@ const AllGroseryShope = () => {
           </div>
         </div>
       )}
+      {/* <ToastContainer /> */}
     </>
   );
 };

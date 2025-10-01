@@ -22,7 +22,7 @@ const Banner = () => {
   ];
 
   return (
-    <div className="mt-[85px] lg:mt-[60px]">
+    <div className="mt-[85px] lg:mt-[85px]">
       <Swiper
         pagination={{
           dynamicBullets: true,
@@ -36,7 +36,7 @@ const Banner = () => {
       >
         {allBanner?.map((item) => (
           <SwiperSlide>
-            <div className=" h-[180px] lg:h-[170px] px-[15px] rounded-[10px]">
+            <div className=" h-[180px] lg:h-[300px] px-[15px] rounded-[10px]">
               <img
                 className="h-full w-full object-cover rounded-[10px]"
                 src={item?.img}

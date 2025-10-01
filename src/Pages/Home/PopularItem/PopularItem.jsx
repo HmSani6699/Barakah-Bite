@@ -1,6 +1,14 @@
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import FoodCard from "../../../Component/FoodCard/FoodCard";
 import { Link } from "react-router";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+import { Pagination, Navigation } from "swiper/modules";
 
 const PopularItem = () => {
   const allFoods = [
@@ -36,6 +44,7 @@ const PopularItem = () => {
       cutPrice: "180",
     },
   ];
+
   return (
     <div className="mb-[90px] lg:mb-[20px] mt-[16px] lg:mt-[20px]">
       <div className="flex items-center justify-between  px-[15px]">
@@ -60,6 +69,29 @@ const PopularItem = () => {
           <h1>Item Not Found !</h1>
         </div>
       )}
+
+      {/*  */}
+      <>
+        <Swiper
+          slidesPerView={3}
+          spaceBetween={30}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination]}
+          className="mySwiper"
+        >
+          <SwiperSlide>Slide 1</SwiperSlide>
+          <SwiperSlide>Slide 2</SwiperSlide>
+          <SwiperSlide>Slide 3</SwiperSlide>
+          <SwiperSlide>Slide 4</SwiperSlide>
+          <SwiperSlide>Slide 5</SwiperSlide>
+          <SwiperSlide>Slide 6</SwiperSlide>
+          <SwiperSlide>Slide 7</SwiperSlide>
+          <SwiperSlide>Slide 8</SwiperSlide>
+          <SwiperSlide>Slide 9</SwiperSlide>
+        </Swiper>
+      </>
     </div>
   );
 };

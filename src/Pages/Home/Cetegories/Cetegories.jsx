@@ -170,6 +170,9 @@ import { IoIosArrowForward } from "react-icons/io";
 import { Link, useLocation } from "react-router";
 import axios from "axios";
 import Loading from "../../../Component/Loading/Loading";
+import HomeTopNavber from "../../Navber/HomeTopNavber";
+import { TiHomeOutline } from "react-icons/ti";
+import { ToastContainer } from "react-toastify";
 
 const Cetegories = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -223,11 +226,24 @@ const Cetegories = () => {
     <div>
       {" "}
       {loading ? (
-        <Loading />
+        <div className="lg:h-screen">
+          <Loading />
+        </div>
       ) : (
-        <div className="mb-[90px]">
+        <div className="mb-[90px] lg:mt-[90px]">
+          <div className="hidden  lg:mt-[90px] px-[16px] lg:flex items-center gap-[10px]">
+            <TiHomeOutline className="text-[25px] text-[#6b7280]" />
+            <Link to={"/"} className="text-[#6b7280] hover:underline">
+              হোম
+            </Link>
+            <IoIosArrowForward className="text-[#6b7280]" />
+            <h2>অল ক্যাটাগরি</h2>
+          </div>
+
+          <HomeTopNavber />
+
           {/* Header */}
-          <div className="bg-white flex items-center gap-[15px] p-[16px] top_header_shadow">
+          <div className="bg-white flex items-center gap-[15px] p-[16px] top_header_shadow lg:hidden ">
             <h2 className="bg-white text-[#171717] font-semibold text-[16px]">
               ক্যাটাগরি
             </h2>
@@ -299,7 +315,7 @@ const Cetegories = () => {
 
                     {/* Items grid */}
                     {sub.name === sub_cetegory && (
-                      <div className="grid grid-cols-3 my-[16px] gap-[16px]">
+                      <div className="grid grid-cols-3 lg:grid-cols-10 my-[16px] gap-[16px]">
                         {sub?.productCategories?.map((item, idx) => (
                           <Link to={`/categories/item/${item?.name}`}>
                             {" "}
@@ -308,11 +324,13 @@ const Cetegories = () => {
                               className="flex flex-col gap-[16px] items-center"
                             >
                               {item?.image ? (
-                                <img
-                                  className="w-[40px]"
-                                  src={baseImageUrl + "/" + item?.image}
-                                  alt=""
-                                />
+                                <div className="w-full lg:h-[80px] h-[60px]">
+                                  <img
+                                    className="w-full h-full object-cover"
+                                    src={baseImageUrl + "/" + item?.image}
+                                    alt=""
+                                  />
+                                </div>
                               ) : (
                                 <img
                                   className="w-[50px]"
@@ -331,7 +349,7 @@ const Cetegories = () => {
                   </div>
                 ))
               ) : (
-                <div className="text-center mt-10 px-[16px]">
+                <div className="text-center mt-10 px-[16px] lg:max-w-[500px] mx-auto">
                   <p className="text-gray-600 mt-2">
                     দুঃখিত! আপনার খোঁজা আইটেমটি আমরা এই মুহূর্তে খুঁজে পাইনি।
                     আপনি চাইলে আমাদের সাথে হোয়াটসঅ্যাপে যোগাযোগ করতে পারেন,
@@ -352,6 +370,7 @@ const Cetegories = () => {
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

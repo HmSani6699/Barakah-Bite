@@ -9,6 +9,9 @@ import axios from "axios";
 import Loading from "../../../Component/Loading/Loading";
 import { useCart } from "../../../Component/CartContext/CartContext";
 import { ToastContainer } from "react-toastify";
+import HomeTopNavber from "../../Navber/HomeTopNavber";
+import { TiHomeOutline } from "react-icons/ti";
+import { IoIosArrowForward } from "react-icons/io";
 
 const AllPopularItem = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -86,8 +89,10 @@ const AllPopularItem = () => {
   }
 
   return (
-    <div>
-      <div className="bg-white h-[65px]   px-[15px] top_header_shadow flex items-center justify-between">
+    <div className=" overflow-hidden lg:mb-[50px]">
+      <HomeTopNavber />
+
+      <div className="bg-white h-[65px]   px-[15px] top_header_shadow flex items-center justify-between lg:hidden">
         <Link to={"/"} className="flex items-center gap-[15px]">
           <FaArrowLeft className="bg-white text-[20px] text-[#6b7280]" />
           <h2 className="bg-white font-bold text-[14px] text-[#6b7280]">
@@ -105,7 +110,16 @@ const AllPopularItem = () => {
         </Link>
       </div>
 
-      <h2 className=" font-bold text-[20px] mt-[16px] text-center text-[#171717]">
+      <div className="hidden  lg:mt-[90px] px-[16px] lg:flex items-center gap-[10px]">
+        <TiHomeOutline className="text-[25px] text-[#6b7280]" />
+        <Link to={"/"} className="text-[#6b7280] hover:underline">
+          হোম
+        </Link>
+        <IoIosArrowForward className="text-[#6b7280]" />
+        <h2> জনপ্রিয় খাবার</h2>
+      </div>
+
+      <h2 className=" font-bold text-[20px] mt-[16px] text-center text-[#171717] ">
         জনপ্রিয় খাবার
       </h2>
 
@@ -152,11 +166,14 @@ const AllPopularItem = () => {
       )}
 
       {loading ? (
-        <Loading />
+        <div className="lg:mt-[450px]">
+          {" "}
+          <Loading />
+        </div>
       ) : (
         <div>
           {allPopulerItems?.length > 0 ? (
-            <div className="grid grid-cols-2 gap-[16px]  rounded-[15px] p-[20px] ">
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-[16px]  rounded-[15px] p-[20px] ">
               {allPopulerItems?.map((item) => (
                 <div className="bg-white rounded-[10px]  relative">
                   {item?.variants?.[0]?.price &&

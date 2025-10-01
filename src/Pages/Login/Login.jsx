@@ -37,8 +37,8 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen px-[15px]">
-      <div className="border-t-[4px] border-[#ff6347] rounded-[10px] bg-white shadow-md  w-full p-[20px]">
+    <div className="flex items-center justify-center h-screen px-[15px] lg:my-[50px] ">
+      <div className="border-t-[4px] border-[#ff6347] rounded-[10px] bg-white shadow-md  w-full p-[20px] lg:w-[450px]">
         <div className="flex items-center justify-center gap-[10px]">
           <div className="h-[50px] w-[50px]">
             <img

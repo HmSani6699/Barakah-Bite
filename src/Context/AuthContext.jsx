@@ -1,6 +1,7 @@
 // src/Context/AuthContext.jsx
 
 import { createContext, useContext, useEffect, useState } from "react";
+import { Navigate } from "react-router";
 
 const AuthContext = createContext();
 
@@ -23,6 +24,7 @@ const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem("user"); // optional
     window.location.href = "/";
+    // <Navigate to="/" replace />;
   };
 
   return (

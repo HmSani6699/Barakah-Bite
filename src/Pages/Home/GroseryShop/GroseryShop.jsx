@@ -105,7 +105,7 @@ const GroseryShop = ({ allSubCategory = [] }) => {
       </div>
 
       {/* Slider */}
-      <div className="border border-gray-200 rounded-lg p-[16px] bg-white">
+      <div className="">
         <Swiper
           slidesPerView={3}
           slidesPerGroup={3} // প্রতি গ্রুপে কতগুলো স্লাইড যাবে

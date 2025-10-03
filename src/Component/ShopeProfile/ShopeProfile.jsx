@@ -228,7 +228,7 @@ const ShopeProfile = () => {
                       isTabeButton === item?.name
                         ? "main_bg_color text-white"
                         : " bg-white text_black_color"
-                    }      border-gray-300 py-[6px] px-[15px]  rounded-[8px] shadow-sm`}
+                    }      border-gray-300 py-[6px] px-[15px] whitespace-nowrap rounded-[8px] shadow-sm`}
                     onClick={() => setIsTabeButton(item?.name)}
                   >
                     {item?.name}

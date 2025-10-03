@@ -69,8 +69,6 @@ const Cart = () => {
   // const paylod
   const orderPayload = {
     items: cartItems.map((item) => {
-      console.log(item);
-
       const variant =
         item.selectedVariant ||
         item.variants.find((v) => v._id === item.variantId) ||

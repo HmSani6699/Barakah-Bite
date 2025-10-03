@@ -168,6 +168,8 @@ const CheckOut = () => {
 
       const res = await axios.post(`${baseUrl}/orders`, payload);
 
+      console.log(171, res);
+
       if (res?.data?.success) {
         toast.success("Order Success", {
           position: "top-center",
@@ -176,7 +178,7 @@ const CheckOut = () => {
           transition: Slide,
         });
         removeAllItem();
-        navigation("/success", { state: { order: res?.data?.data } });
+        navigation("/success", { state: { order: res?.data?.order } });
       }
     } catch (error) {
       console.log(error);

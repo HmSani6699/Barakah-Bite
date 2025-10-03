@@ -573,8 +573,6 @@ const CheckOut = () => {
           </div>
         </div>
       )}
-
-      <ToastContainer />
     </div>
   );
 };

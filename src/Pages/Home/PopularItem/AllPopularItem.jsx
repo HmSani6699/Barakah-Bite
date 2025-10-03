@@ -172,7 +172,7 @@ const AllPopularItem = () => {
       ) : (
         <div>
           {allPopulerItems?.length > 0 ? (
-            <div className="grid grid-cols-2 lg:grid-cols-5 gap-[16px]  rounded-[15px] p-[20px] ">
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-[16px]  rounded-[10px] p-[20px] ">
               {allPopulerItems?.map((item) => (
                 <div className="bg-white rounded-[10px]  relative">
                   {item?.variants?.[0]?.price &&
@@ -189,7 +189,7 @@ const AllPopularItem = () => {
               Solt out
             </div> */}
                   <div
-                    className={`h-[130px] bg-white rounded-t-[15px] w-full object-cover`}
+                    className={`lg:h-[130px] h-[100px] bg-white rounded-t-[8px] w-full object-cover`}
                   >
                     <img
                       className="h-full w-full bg-cover rounded-t-[15px]"

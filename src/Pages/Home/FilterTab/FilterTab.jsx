@@ -11,6 +11,7 @@ import "swiper/css/navigation";
 
 import { Navigation } from "swiper/modules";
 import { IoIosArrowForward } from "react-icons/io";
+import { ToastContainer } from "react-toastify";
 
 const FilterTab = ({
   setIsFullImageOpen,
@@ -79,6 +80,7 @@ const FilterTab = ({
           <IoIosArrowForward className="text-[25px]" />
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

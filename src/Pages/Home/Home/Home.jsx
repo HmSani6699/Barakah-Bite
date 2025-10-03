@@ -379,6 +379,7 @@ const Home = () => {
                 />
                 <GroseryShop allSubCategory={allSubCategory} />
                 <RestaurantsShops allRestaurent={allRestaurent} />
+                <ToastContainer />
               </div>
             )}
 
@@ -388,6 +389,7 @@ const Home = () => {
                 {localStorageItems?.length} আইটেম
               </div>
             )}
+            <ToastContainer />
           </>
         ) : (
           <div className="mt-[100px] lg:h-screen">

@@ -14,6 +14,7 @@ import Loading from "../Loading/Loading";
 import { TiHomeOutline } from "react-icons/ti";
 import { IoIosArrowForward } from "react-icons/io";
 import HomeTopNavber from "../../Pages/Navber/HomeTopNavber";
+import { ToastContainer } from "react-toastify";
 
 const ShopeProfile = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -268,6 +269,7 @@ const ShopeProfile = () => {
                     </a>
                   </div>
                 )}
+                <ToastContainer />
               </>
             )}
           </div>

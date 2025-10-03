@@ -288,12 +288,12 @@ const GroceryCategoryCard = () => {
                     WhatsApp এ মেসেজ করুন
                   </a>
                 </div>
-              )}
+              )}{" "}
+              <ToastContainer />
             </>
           )}
         </div>
       )}
-      <ToastContainer />
     </div>
   );
 };

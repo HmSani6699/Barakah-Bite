@@ -6,6 +6,8 @@ import { useCart } from "../../Component/CartContext/CartContext";
 import { Link, useLocation } from "react-router";
 import { FaRegUser } from "react-icons/fa6";
 import { useEffect, useState } from "react";
+import notImage from "../../../public/images/notimage.svg";
+import { IoIosArrowForward } from "react-icons/io";
 
 const HomeTopNavber = ({
   handleGetPopulerSearch,
@@ -19,13 +21,22 @@ const HomeTopNavber = ({
   const { totalCardCount } = useCart();
 
   const [oldAddress, setOldAddress] = useState("");
+  const [userData, setUserData] = useState("");
+  const [isOpenProfile, setIsOpenProfile] = useState(false);
 
   useEffect(() => {
     const getAddress = JSON.parse(localStorage.getItem("deliveryAddress"));
+    const userData = JSON.parse(localStorage.getItem("user"));
     setOldAddress(getAddress);
+    setUserData(userData);
   }, []);
 
   const location = useLocation();
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUserData("");
+  };
 
   return (
     <div>
@@ -104,16 +115,53 @@ const HomeTopNavber = ({
               )}
             </Link>
 
-            <div className="flex items-center text-white gap-[8px]">
-              <FaRegUser className="text-[25px]" />
-              <Link to={"/login"} className="hover:underline">
-                Login
-              </Link>
-              /
-              <Link to={"/signup"} className="hover:underline">
-                Signup
-              </Link>
-            </div>
+            {userData ? (
+              <div className="relative">
+                <div
+                  onClick={() => setIsOpenProfile(!isOpenProfile)}
+                  className="text-white flex items-center gap-[10px] cursor-pointer"
+                >
+                  <h2>{userData?.name}</h2>
+                  <div className="bg-white  h-[40px] w-[40px] rounded-full flex items-center justify-center">
+                    <FaRegUser className="text-black text-[20px]" />
+                  </div>
+                </div>
+
+                {isOpenProfile && (
+                  <div className="absolute top-[50px] right-0 bg-[#0f172a] text-white  w-[200px] p-[16px] rounded-b-[10px]">
+                    <div className="flex flex-col gap-[20px]">
+                      <Link className="flex  items-center justify-between">
+                        <div className="flex  items-center gap-[10px]">
+                          <FaRegUser /> Profile
+                        </div>
+                        <IoIosArrowForward />
+                      </Link>
+                      <Link
+                        onClick={() => handleLogout()}
+                        className="flex  items-center justify-between"
+                      >
+                        <div className="flex  items-center gap-[10px]">
+                          <LuLogIn />
+                          Logout
+                        </div>
+                        <IoIosArrowForward />
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="flex items-center text-white gap-[8px]">
+                <FaRegUser className="text-[25px]" />
+                <Link to={"/login"} className="hover:underline">
+                  Login
+                </Link>
+                /
+                <Link to={"/signup"} className="hover:underline">
+                  Signup
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

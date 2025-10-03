@@ -27,7 +27,7 @@ const Login = () => {
           navigate("/food-shop");
         } else if (loginUser?.data?.data?.role === "rider") {
           navigate("/rider");
-        } else if (loginUser?.data?.data?.role === "admin") {
+        } else if (loginUser?.data?.data?.role === "super-admin") {
           navigate("/super-admin");
         }
       }

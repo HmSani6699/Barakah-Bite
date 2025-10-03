@@ -69,6 +69,8 @@ const Cart = () => {
   // const paylod
   const orderPayload = {
     items: cartItems.map((item) => {
+      console.log(item);
+
       const variant =
         item.selectedVariant ||
         item.variants.find((v) => v._id === item.variantId) ||
@@ -83,13 +85,12 @@ const Cart = () => {
         quantity: item.quantity,
         pricePerUnit: variant.price,
         totalPrice: item.quantity * variant.price,
+        shopId: item?.shop?._id ? item?.shop?._id : item?.shop,
       };
     }),
     subtotal: subTotal,
     totalAmount: grandTotal,
   };
-
-  console.log(cartItems);
 
   return (
     <>

@@ -45,11 +45,7 @@ import PopulerSearch from "../Dashboard/SuperAdmin/Search/PopulerSearch/PopulerS
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <ProtectedRoute allowedRoles={["user"]}>
-        <MainLayout />
-      </ProtectedRoute>
-    ),
+    element: <MainLayout />,
     children: [
       {
         path: "/",
@@ -174,7 +170,7 @@ const router = createBrowserRouter([
   {
     path: "/super-admin",
     element: (
-      <ProtectedRoute allowedRoles={["admin"]}>
+      <ProtectedRoute allowedRoles={["super-admin"]}>
         <SuperAdminLayout />
       </ProtectedRoute>
     ),

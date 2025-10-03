@@ -131,6 +131,8 @@ const CheckOut = () => {
           });
         }
       });
+
+      return;
     }
 
     try {
@@ -162,10 +164,12 @@ const CheckOut = () => {
         notes: deliveryAddress?.note || "",
       };
 
+      // console.log(payload);
+
       const res = await axios.post(`${baseUrl}/orders`, payload);
 
       if (res?.data?.success) {
-        toast.success("কার্টে যুক্ত হয়েছে।", {
+        toast.success("Order Success", {
           position: "top-center",
           autoClose: 2000,
           theme: "light",

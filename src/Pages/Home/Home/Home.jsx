@@ -52,14 +52,14 @@ const Home = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   // address
-  const [address, setAddress] = useState("MD Sadiq");
-  const [name, setName] = useState("MD Sadiq");
-  const [number, setNumber] = useState("01996359111");
-  const [area, setArea] = useState("সোনারগাঁও");
-  const [gram, setGram] = useState("পাকুন্ডা");
-  const [elaka, setElaka] = useState("পাকুন্ডা নাম পাড়া");
-  const [hous, setHous] = useState("1");
-  const [note, setNote] = useState("Vallo note");
+  const [address, setAddress] = useState("");
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
+  const [area, setArea] = useState("");
+  const [gram, setGram] = useState("");
+  const [elaka, setElaka] = useState("");
+  const [hous, setHous] = useState("");
+  const [note, setNote] = useState("");
 
   // Add Address
   const handleAddAddress = () => {

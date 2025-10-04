@@ -90,15 +90,15 @@ import { Grid, Pagination } from "swiper/modules";
 
 const GroseryShop = ({ allSubCategory = [] }) => {
   return (
-    <div className="bg-white lg:bg-[#eff1f1] px-[20px] py-[20px] rounded-[10px] lg:mt-[16px]">
+    <div className="bg-white px-[20px] py-[20px] rounded-[10px] lg:mt-[16px]">
       {/* Header */}
-      <div className="flex items-center justify-between  bg-white lg:bg-[#eff1f1] lg:mb-[16px]">
-        <h2 className="text-[18px] font-bold text_black_color bg-white lg:bg-[#eff1f1]">
+      <div className="flex items-center justify-between  bg-white  lg:mb-[16px]">
+        <h2 className="text-[18px] font-bold text_black_color bg-white ">
           নিত্যপ্রয়োজনীয় বাজার
         </h2>
 
         <Link to={"/all-categories"}>
-          <button className="flex  items-center gap-[10px] main_color bg-white lg:bg-[#eff1f1]">
+          <button className="flex  items-center gap-[10px] main_color bg-white ">
             আরো দেখুন <MdKeyboardDoubleArrowRight />
           </button>
         </Link>

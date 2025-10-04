@@ -41,11 +41,16 @@ import SubCategory from "../Dashboard/SuperAdmin/Category/SubCategory/SubCategor
 import ProductCategory from "../Dashboard/SuperAdmin/Category/ProductCategory/ProductCategory";
 import Unite from "../Dashboard/SuperAdmin/Unit/Unite";
 import PopulerSearch from "../Dashboard/SuperAdmin/Search/PopulerSearch/PopulerSearch";
+import OrderHistory from "../Dashboard/SuperAdmin/OrderHistory/OrderHistory";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />,
+    element: (
+      <ProtectedRoute>
+        <MainLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "/",
@@ -186,6 +191,10 @@ const router = createBrowserRouter([
       {
         path: "/super-admin/all-riders",
         element: <AllRiders />,
+      },
+      {
+        path: "/super-admin/order-history",
+        element: <OrderHistory />,
       },
       {
         path: "/super-admin/menu",

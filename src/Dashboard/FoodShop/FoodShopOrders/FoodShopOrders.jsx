@@ -174,10 +174,10 @@ const FoodShopOrders = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className="px-[15px] mb-[100px] mt-[20px] lg:pr-[30px] relative">
+        <div className="px-[15px] mb-[100px] mt-[20px]  relative">
           {/* Orders Tab */}
 
-          <div className="lg:pr-[20px]">
+          <div className="">
             <div className="flex items-center justify-between mb-[20px] ">
               <h2 className="text-[20px] font-bold">অর্ডার ম্যানেজমেন্ট</h2>
 

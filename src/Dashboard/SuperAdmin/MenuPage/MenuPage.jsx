@@ -33,6 +33,13 @@ const MenuPage = () => {
       {/* About Company */}
       <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mt-[20px]">
         <ProfileNaveList
+          title={"Order History"}
+          icon={
+            <LuNotebookText className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+          }
+          url={"/super-admin/order-history"}
+        />
+        <ProfileNaveList
           title={"Main category"}
           icon={
             <LuNotebookText className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />

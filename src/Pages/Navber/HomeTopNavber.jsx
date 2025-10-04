@@ -97,8 +97,8 @@ const HomeTopNavber = ({
             >
               <IoLocationOutline />
               <p className="text-[14px]">
-                {address?.gram || oldAddress?.gram},
-                {address?.elaka || oldAddress?.elaka},
+                {address?.gram || oldAddress?.gram || "Dhaka"},
+                {address?.elaka || oldAddress?.elaka || "Bangladash"},
                 {address?.area || oldAddress?.area}
               </p>
             </button>

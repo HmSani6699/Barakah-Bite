@@ -72,16 +72,21 @@ const roleRedirectMap = {
 
 const ProtectedRoute = ({ allowedRoles, children }) => {
   const { user } = useAuth();
+  const localUser = JSON.parse(localStorage.getItem("user"));
 
   // user না থাকলে সরাসরি home এ পাঠাও
-  if (!user) {
+  if (!user && !localUser) {
+    console.log("no user", localUser);
+
     // return <Navigate to="/" replace />;
     return <>{children}</>;
   }
 
   // role mismatch হলে redirect করো
-  if (allowedRoles && !allowedRoles.includes(user.role)) {
-    const redirectPath = roleRedirectMap[user.role] || "/";
+  if (allowedRoles && !allowedRoles.includes(user?.role || localUser?.role)) {
+    console.log("yes user");
+
+    const redirectPath = roleRedirectMap[user?.role] || "/";
     return <Navigate to={redirectPath} replace />;
   }
 

@@ -14,6 +14,7 @@ import noImage from "../../../../../public/images/notimage.svg";
 const MainCategory = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
   const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
+
   const [loading, setLoading] = useState(false);
   const [openForm, setOpenForm] = useState(false);
   const [viewFormType, setviewFormType] = useState("");
@@ -179,7 +180,7 @@ const MainCategory = () => {
   }, [updateData]);
 
   return (
-    <div className="p-[16px] relative">
+    <div className="p-[16px] relative mb-[90px]">
       <div className="flex items-center justify-between mb-[20px]">
         <h2 className="text-[20px] font-bold">Main Catecory</h2>
         <div className="flex gap-2">

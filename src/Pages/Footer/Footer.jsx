@@ -1,4 +1,5 @@
 import React from "react";
+import logo from "../../../public/images/logo.png";
 import {
   FaEnvelope,
   FaFacebookF,
@@ -9,6 +10,7 @@ import {
   FaWhatsapp,
   FaYoutube,
 } from "react-icons/fa";
+import { Link } from "react-router";
 
 const Footer = () => {
   return (
@@ -16,14 +18,11 @@ const Footer = () => {
       <div className="max-w-[1200px] mx-auto px-6 grid md:grid-cols-4 gap-10">
         {/* Logo + About */}
         <div>
-          <div className="flex items-center gap-3 mb-4">
-            <img
-              src="https://i.postimg.cc/bJqXjHd5/FB-IMG-1757409260966.jpg"
-              alt="logo"
-              className="w-12 h-12 rounded-full border border-white"
-            />
-            <h2 className="font-bold text-xl">বারাকাহ মার্ট</h2>
-          </div>
+          <Link to={"/"}>
+            <div className=" w-[150px] mb-[16px]">
+              <img src={logo} alt="logo" className="w-full h-full " />
+            </div>
+          </Link>
           <p className="text-sm text-gray-300">
             সুস্বাদু খাবার ও তাজা মুদিপণ্য আপনার দোরগোড়ায় পৌঁছে দিচ্ছি – দ্রুত ও
             নির্ভরযোগ্য সেবায়।
@@ -74,7 +73,7 @@ const Footer = () => {
               >
                 <FaMapMarkerAlt className="text-[#0f172a]" />
               </a>
-              <p>হাউস# ৪৪, রোড নং ২/এ, ধানমন্ডি, ঢাকা ১২০৯</p>
+              <p>হাউস# ৪৪, রোড নং ২/এ, ভূলতা, গাউছিয়া, রূপগঞ্জ, নারায়ণগঞ্জ</p>
             </div>
             <div className="flex items-center gap-3">
               <a
@@ -83,7 +82,15 @@ const Footer = () => {
               >
                 <FaPhoneAlt className="text-[#0f172a]" />
               </a>
-              <p>+8801340474040</p>
+
+              <a
+                href="https://wa.me/8801996359111"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                <p>+8801996-359111 ( WhatsApp )</p>
+              </a>
             </div>
             <div className="flex items-center gap-3">
               <a
@@ -92,7 +99,7 @@ const Footer = () => {
               >
                 <FaEnvelope className="text-[#0f172a]" />
               </a>
-              <p>info@barakahmart.com</p>
+              <p>hallo.pfood@gmail.com</p>
             </div>
           </div>
         </div>
@@ -139,7 +146,7 @@ const Footer = () => {
               পেমেন্ট গ্রহণযোগ্য
             </h2>
 
-            <img
+            {/* <img
               src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg"
               alt="Visa"
               className="h-[30px] w-[50px] bg-white p-1 rounded shadow"
@@ -148,7 +155,7 @@ const Footer = () => {
               src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
               alt="MasterCard"
               className="h-[30px] w-[50px] bg-white p-1 rounded shadow"
-            />
+            /> */}
 
             <img
               src="https://download.logo.wine/logo/BKash/BKash-Logo.wine.png"
@@ -171,7 +178,7 @@ const Footer = () => {
 
       {/* Bottom */}
       <div className="border-t border-gray-600  py-4 text-center text-sm text-gray-400">
-        © ২০২৫ বারাকাহ মার্ট। সর্বস্বত্ব সংরক্ষিত।
+        © ২০২৫ PFood & পি ফুড। সর্বস্বত্ব সংরক্ষিত।
       </div>
     </footer>
   );

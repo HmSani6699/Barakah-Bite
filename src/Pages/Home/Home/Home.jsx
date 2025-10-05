@@ -60,9 +60,56 @@ const Home = () => {
   const [elaka, setElaka] = useState("");
   const [hous, setHous] = useState("");
   const [note, setNote] = useState("");
+  const [InsiteOROutsite, setInsiteOROutsite] = useState("inside");
+
+  const [errors, setErrors] = useState({});
+  const createValidateForm = () => {
+    const newErrors = {};
+
+    // Phone number regex for Bangladeshi format
+    const phoneRegex = /^01[3-9]\d{8}$/;
+
+    // Owner Name
+    if (!name.trim()) {
+      newErrors.name = "Name is required";
+    }
+
+    // Owner Phone
+    const trimmedOwnerPhone = number.trim();
+    if (!trimmedOwnerPhone) {
+      newErrors.number = "Phone is required";
+    } else if (trimmedOwnerPhone.length !== 11) {
+      newErrors.number = "Phone number must be exactly 11 digits";
+    } else if (!phoneRegex.test(trimmedOwnerPhone)) {
+      newErrors.number = "Invalid Bangladeshi phone number";
+    }
+
+    // Owner Password
+    if (!area.trim()) {
+      newErrors.area = "Area is required";
+    }
+
+    // Shop Name
+    if (!gram.trim()) {
+      newErrors.gram = "Gram name is required";
+    }
+
+    // Shop Address
+    if (!elaka.trim()) {
+      newErrors.elaka = "Elaka name is required";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0; // true if no errors
+  };
 
   // Add Address
   const handleAddAddress = () => {
+    if (!createValidateForm()) {
+      return;
+    }
+
     const getDelivery = JSON.parse(localStorage.getItem("deliveryAddress"));
 
     const newAddress = {
@@ -73,6 +120,7 @@ const Home = () => {
       hous,
       area,
       note,
+      deliveryCharge: InsiteOROutsite === "inside" ? 30 : 50,
       id: uuidv4(),
       date: new Date().toISOString().split("T")[0],
     };
@@ -456,12 +504,16 @@ const Home = () => {
                   placeholder={"এখানে আপনার নাম লিখুন"}
                   value={name}
                   setValue={setName}
+                  required={true}
+                  errorMessage={errors?.name}
                 />{" "}
                 <InputField
                   title={"কন্টাক্ট নম্বর"}
                   placeholder={"আপনার মোবাইল নম্বর দিন"}
                   value={number}
                   setValue={setNumber}
+                  required={true}
+                  errorMessage={errors?.number}
                 />
                 <SelectInputField
                   title="থানা"
@@ -472,18 +524,24 @@ const Home = () => {
                     { value: "আড়াইহাজার", label: "আড়াইহাজার" },
                     { value: "সোনারগাঁ", label: "সোনারগাঁ" },
                   ]}
+                  required={true}
+                  errorMessage={errors?.area}
                 />
                 <InputField
                   title={"গ্রাম"}
                   placeholder={"গ্রাম এর নাম লিখুন"}
                   value={gram}
                   setValue={setGram}
+                  required={true}
+                  errorMessage={errors?.gram}
                 />{" "}
                 <InputField
                   title={"এলাকা / পাড়া"}
                   placeholder={"এলাকার নাম লিখুন"}
                   value={elaka}
                   setValue={setElaka}
+                  required={true}
+                  errorMessage={errors?.elaka}
                 />
                 <InputField
                   title={"বাসা/হোল্ডিং, রোড নং"}
@@ -491,6 +549,39 @@ const Home = () => {
                   value={hous}
                   setValue={setHous}
                 />
+                <div className="col-span-2">
+                  {/* Inside Bazar */}
+                  <label className="flex items-center gap-3 mb-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={InsiteOROutsite === "inside"}
+                      onChange={() => setInsiteOROutsite("inside")}
+                      className="h-5 w-5 accent-green-500"
+                    />
+                    <div className="flex items-center gap-[10px]">
+                      <p className="font-medium text-gray-800">Inside Bazar</p>
+                      <p className="text-sm text-gray-600">
+                        ( গাউসিয়া কেন্দ্রের কাছের এলাকা )
+                      </p>
+                    </div>
+                  </label>
+
+                  {/* Outside Bazar */}
+                  <label className="flex items-center gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={InsiteOROutsite === "outside"}
+                      onChange={() => setInsiteOROutsite("outside")}
+                      className="h-5 w-5 accent-orange-500"
+                    />
+                    <div className="flex items-center gap-[10px]">
+                      <p className="font-medium text-gray-800">Outside Bazar</p>
+                      <p className="text-sm text-gray-600">
+                        ( গাউসিয়া থেকে দূরের এলাকা )
+                      </p>
+                    </div>
+                  </label>
+                </div>
                 <div className="col-span-2">
                   <TextareaField
                     title={"বিশেষ নোট (ঐচ্ছিক)"}

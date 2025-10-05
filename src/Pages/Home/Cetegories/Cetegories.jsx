@@ -173,6 +173,7 @@ import Loading from "../../../Component/Loading/Loading";
 import HomeTopNavber from "../../Navber/HomeTopNavber";
 import { TiHomeOutline } from "react-icons/ti";
 import { ToastContainer } from "react-toastify";
+import { FaArrowLeft } from "react-icons/fa";
 
 const Cetegories = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -224,9 +225,8 @@ const Cetegories = () => {
 
   return (
     <div>
-      {" "}
       {loading ? (
-        <div className="lg:h-screen">
+        <div className="mt-[300px]">
           <Loading />
         </div>
       ) : (
@@ -244,9 +244,12 @@ const Cetegories = () => {
 
           {/* Header */}
           <div className="bg-white flex items-center gap-[15px] p-[16px] top_header_shadow lg:hidden ">
-            <h2 className="bg-white text-[#171717] font-semibold text-[16px]">
-              ক্যাটাগরি
-            </h2>
+            <Link to={"/"} className="flex items-center gap-[15px]">
+              <FaArrowLeft className="bg-white text-[20px] text-[#6b7280]" />
+              <h2 className="bg-white font-bold text-[16px] text-[#6b7280]">
+                ক্যাটাগরি
+              </h2>
+            </Link>
           </div>
 
           {/* Main content */}

@@ -8,6 +8,7 @@ import { FaRegUser } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import notImage from "../../../public/images/notimage.svg";
 import { IoIosArrowForward } from "react-icons/io";
+import logo from "../../../public/images/logo.png";
 
 const HomeTopNavber = ({
   handleGetPopulerSearch,
@@ -78,16 +79,12 @@ const HomeTopNavber = ({
       <div className="bg-[#0f172a] fixed top-0 left-0 w-full z-[500] top_header_shadow px-[20px] py-[10px] lg:block hidden">
         <div className="max-w-[1100px] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-[10px] ">
-            <div className="h-[40px] w-[40px] flex items-center justify-center rounded-full   bg-white shadow-md ">
-              <img
-                className="h-full w-full rounded-full"
-                src="https://i.postimg.cc/bJqXjHd5/FB-IMG-1757409260966.jpg"
-                alt="logo"
-              />
-            </div>
-            <h2 className="font-semibold text-[20px] text-white">
-              Barakh Mart
-            </h2>
+            <Link to={"/"}>
+              {" "}
+              <div className=" flex items-center justify-center w-[135px] ">
+                <img className="h-full w-full " src={logo} alt="logo" />
+              </div>{" "}
+            </Link>
           </div>
           {/* Location */}
           <div className="min-w-[500px]">

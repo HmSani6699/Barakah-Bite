@@ -21,7 +21,7 @@ const HomeBottomNavber = () => {
 
   return (
     <div
-      className={`bg-white fixed bottom-0 w-full  flex items-center justify-around text-gray-500 top_shadow py-[10px] z-[100] md:hidden ${
+      className={`bg-white fixed bottom-0 w-full  flex items-center justify-around text-gray-500 top_shadow py-[10px] z-[100] lg:hidden ${
         pathname === "/card" ||
         pathname === "/all-categories" ||
         pathname === "/grocery-itms" ||

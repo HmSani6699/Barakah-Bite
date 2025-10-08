@@ -1,57 +1,46 @@
 import { Outlet, useLocation } from "react-router";
 import HomeBottomNavber from "../../Pages/Navber/HomeBottomNavber";
-import { CartProvider } from "../../Component/CartContext/CartContext";
-import Cetegories from "../../Pages/Home/Cetegories/Cetegories";
-import HomeTopNavber from "../../Pages/Navber/HomeTopNavber";
+import { useCart } from "../../Component/CartContext/CartContext";
 
-import restura from "../../../public/images/notimage.svg";
 import Footer from "../../Pages/Footer/Footer";
 import { ToastContainer } from "react-toastify";
+import { MdOutlineArrowOutward } from "react-icons/md";
 
 const MainLayout = () => {
   const location = useLocation();
+
+  const { cartItems } = useCart();
+
   return (
     <div className="relative">
-      <CartProvider>
-        {/* Mobile */}
-        <div className="lg:flex max-w-[1200px] mx-auto relative">
-          <div className=" hidden">
-            <div className="w-[250px] fixed p-[16px]  top-[80px] bg-gray-300 h-[85vh] z-[2000] rounded-r-[20px] overflow-y-scroll">
-              <div className="flex items-center justify-between gap-[10px]">
-                <div className="flex flex-col items-center w-full bg-[#ff6347] p-[8px] rounded-[6px]">
-                  <img src={restura} alt="" />
-                  <h2 className="text-[12px] mt-[8px] text-white">রেস্তোরাঁ</h2>
-                </div>
+      {/* Mobile */}
+      <div className="lg:flex max-w-[1200px] mx-auto relative">
+        <Outlet />
 
-                <div className="flex flex-col items-center w-full bg-[#ffe5e0] text-[#ff6347] p-[8px] rounded-[6px]">
-                  <img src={restura} alt="" />
-                  <h2 className="text-[12px] mt-[8px]">বাজার</h2>
-                </div>
+        {/* {cartItems?.length > 0 && (
+          <div className="fixed bottom-[70px] left-0 z-[500] w-full py-[10px] text-white px-[16px] ">
+            <div className="bg-[#ff5733] shadow-lg flex items-center justify-between px-[16px] py-[6px] rounded-full">
+              <h2 className="text-[14px]"> {cartItems?.length} আইটেম</h2>
 
-                <div className="flex flex-col items-center w-full bg-[#ffe5e0] text-[#ff6347] p-[8px] rounded-[6px]">
-                  <img src={restura} alt="" />
-                  <h2 className="text-[12px] mt-[8px]">ফার্মেসি</h2>
-                </div>
-              </div>
+              <button className="text-[14px] flex items-center gap-[4px]">
+                আইটেম লিস্ট দেখুন <MdOutlineArrowOutward />
+              </button>
             </div>
           </div>
-          <div className="block w-full  ">
-            <Outlet />
-          </div>
-          <HomeBottomNavber />
-        </div>
+        )} */}
+        <HomeBottomNavber />
+      </div>
 
-        <div
-          className={`${
-            location?.pathname === "/login" || location?.pathname === "/signup"
-              ? "hidden"
-              : "block"
-          } hidden lg:block`}
-        >
-          <Footer />
-        </div>
-        <ToastContainer />
-      </CartProvider>
+      <div
+        className={`${
+          location?.pathname === "/login" || location?.pathname === "/signup"
+            ? "hidden"
+            : "block"
+        } hidden lg:block`}
+      >
+        <Footer />
+      </div>
+      <ToastContainer />
     </div>
   );
 };

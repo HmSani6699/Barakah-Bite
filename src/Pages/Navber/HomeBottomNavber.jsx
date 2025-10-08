@@ -97,7 +97,8 @@ const HomeBottomNavber = () => {
           pathname === "/profile" ||
           pathname === "/contactus" ||
           pathname === "/aboutus" ||
-          pathname === "/address"
+          pathname === "/address" ||
+          pathname === "/myorders"
             ? "text-[#ff6347]"
             : "text-gray-500"
         }`}

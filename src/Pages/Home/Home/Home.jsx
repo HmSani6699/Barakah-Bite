@@ -21,6 +21,9 @@ import InputField from "../../../Component/InputField/InputField";
 import SelectInputField from "../../../Component/SelectInputField/SelectInputField";
 import TextareaField from "../../../Component/TextareaField/TextareaField";
 import { v4 as uuidv4 } from "uuid";
+import { useCart } from "../../../Component/CartContext/CartContext";
+import { MdOutlineArrowOutward } from "react-icons/md";
+import { Link } from "react-router";
 
 const Home = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -50,6 +53,7 @@ const Home = () => {
   const [title, setTitle] = useState("");
   const [openSearchItem, setOpenSearchItem] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const { cartItems, totalCardCount } = useCart();
 
   // address
   const [address, setAddress] = useState("");
@@ -327,9 +331,7 @@ const Home = () => {
   }
 
   return (
-    <div
-      className={` relative ${localStorageItems?.length > 0 && "pb-[50px]"}`}
-    >
+    <div className={` relative ${cartItems?.length > 0 && "pb-[50px]"}`}>
       <>
         {!loading ? (
           <>
@@ -420,7 +422,6 @@ const Home = () => {
                 <Banner />
                 <Hero allData={allHeroData} />
                 <FilterTab
-                  haldleAddToCard={haldleAddToCard}
                   allRestaurantActiveItems={allRestaurantActiveItems}
                   setTabValue={setTabValue}
                   tabValue={tabValue}
@@ -432,11 +433,21 @@ const Home = () => {
             )}
 
             {/* <PopularItem /> */}
-            {localStorageItems?.length > 0 && (
-              <div className="bg-red-400 fixed bottom-[80px] left-0 z-[500] w-full py-[10px] text-white">
-                {localStorageItems?.length} আইটেম
+
+            {cartItems?.length > 0 && (
+              <div className="fixed bottom-[70px] left-0 z-[500] w-full py-[10px] text-white px-[16px] ">
+                <Link to={"/card"}>
+                  <div className="bg-[#ff5733] shadow-lg flex items-center justify-between px-[16px] py-[6px] rounded-full">
+                    <h2 className="text-[14px]"> {totalCardCount} আইটেম</h2>
+
+                    <button className="text-[14px] flex items-center gap-[4px]">
+                      আইটেম লিস্ট দেখুন <MdOutlineArrowOutward />
+                    </button>
+                  </div>
+                </Link>
               </div>
             )}
+
             <ToastContainer />
           </>
         ) : (

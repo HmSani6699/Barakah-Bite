@@ -11,19 +11,20 @@ import { LiaShoppingCartSolid } from "react-icons/lia";
 import { TiHomeOutline } from "react-icons/ti";
 import { IoIosArrowForward } from "react-icons/io";
 import HomeTopNavber from "../../Navber/HomeTopNavber";
-import { ToastContainer } from "react-toastify";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 
 import { FreeMode, Navigation } from "swiper/modules";
+import { MdOutlineArrowOutward } from "react-icons/md";
 
 const AllGroseryShope = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
   const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
+
   const [loading, setLoading] = useState(false);
-  const { addToCart, totalCardCount } = useCart();
+  const { addToCart, totalCardCount, cartItems } = useCart();
   const [contentloading, setContentLoading] = useState(false);
 
   const [allSubCategory, setallSubCategory] = useState([]);
@@ -117,7 +118,7 @@ const AllGroseryShope = () => {
           <Loading />
         </div>
       ) : (
-        <div className="mb-[16px]">
+        <div className={`mb-[16px] ${cartItems?.length > 0 && "mb-[60px]"}`}>
           <div className="hidden  lg:mt-[90px] px-[16px] lg:flex items-center gap-[10px]">
             <TiHomeOutline className="text-[25px] text-[#6b7280]" />
             <Link to={"/"} className="text-[#6b7280] hover:underline">
@@ -126,9 +127,7 @@ const AllGroseryShope = () => {
             <IoIosArrowForward className="text-[#6b7280]" />
             <h2>অল ক্যাটাগরি</h2>
           </div>
-
           <HomeTopNavber />
-
           <div className="bg-white h-[65px]   px-[15px] top_header_shadow flex items-center justify-between lg:hidden">
             <Link to={"/"} className="flex items-center gap-[15px]">
               <FaArrowLeft className="bg-white text-[20px] text-[#6b7280]" />
@@ -163,9 +162,7 @@ const AllGroseryShope = () => {
           <div className="mt-[60px] lg:mt-[30px] px-[15px]">
             <SearchInputField value={search} setValue={setSearch} />
           </div>
-
           {/*  */}
-
           <div>
             {!search && allSubCategory && (
               <div className="px-[15px] flex items-center gap-[10px] overflow-auto scrollbar-hide my-[16px] lg:hidden">
@@ -375,6 +372,19 @@ const AllGroseryShope = () => {
               </>
             )}
           </div>
+          {cartItems?.length > 0 && (
+            <div className="fixed bottom-[0px] bg-white left-0 z-[500] w-full py-[10px] text-white px-[16px] ">
+              <Link to={"/card"}>
+                <div className="bg-[#ff5733] shadow-lg flex items-center justify-between px-[16px] py-[6px] rounded-full">
+                  <h2 className="text-[14px]"> {totalCardCount} আইটেম</h2>
+
+                  <button className="text-[14px] flex items-center gap-[4px]">
+                    আইটেম লিস্ট দেখুন <MdOutlineArrowOutward />
+                  </button>
+                </div>
+              </Link>
+            </div>
+          )}
         </div>
       )}
       {/* <ToastContainer /> */}

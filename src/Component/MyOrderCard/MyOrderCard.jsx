@@ -57,10 +57,12 @@ const MyOrderCard = ({ item }) => {
       .join("");
   }
 
+  console.log(item);
+
   return (
     <div
       onClick={() => usenavigate("/myorderstracking/1")}
-      className=" bg-white  rounded-[15px] p-[20px]"
+      className=" bg-white  rounded-[15px]"
     >
       <div className={` bg-white rounded-[10px] `}>
         <div className="flex  justify-between gap-3 mb-2 bg-gray-300 rounded-t-[10px] p-[16px]">

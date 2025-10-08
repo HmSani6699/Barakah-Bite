@@ -2,9 +2,23 @@ import axios, { all } from "axios";
 import React, { useEffect, useState } from "react";
 import { FiFilter } from "react-icons/fi";
 import Loading from "../../../Component/Loading/Loading";
-import { FaPhone, FaRegClock, FaRegUser, FaUserAlt } from "react-icons/fa";
+import {
+  FaBell,
+  FaPhone,
+  FaRegClock,
+  FaRegUser,
+  FaUserAlt,
+} from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
+import {
+  onReceiveMessage,
+  requestFCMToken,
+} from "../../../Utils/firebaseUtils";
+import { useNotification } from "../../../Context/NotificationContext";
+import { ToastContainer } from "react-toastify";
+import OrderHistoryFilterForm from "./OrderHistoryFilterForm";
+import Swal from "sweetalert2";
 
 const OrderHistory = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -14,17 +28,21 @@ const OrderHistory = () => {
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [isOpenFilterTitle, setIsOpenFilterTitle] = useState(null);
 
+  const { notificationCount } = useNotification();
+
   const [allOrders, setAllOrders] = useState([]);
   const [date, setDate] = useState("");
   const [filters, setFilters] = useState({
     all: false,
-    confirm: false,
-    cancel: false,
-    pending: false,
+    pending: false, // যখন order place হলো
+    partially_accepted: false, // কিছু shop accept করলো, কিছু করলো না
+    confirmed: false, // সব shop accept করলো
+    preparing: false,
+    out_for_delivery: false,
+    delivered: false,
+    cancelled: false,
   });
   const [errors, setErrors] = useState("");
-
-  const [totalPrice, setTotalPrice] = useState(0);
 
   // handle check box
   const handleCheckbox = (name) => {
@@ -33,16 +51,26 @@ const OrderHistory = () => {
       const newValue = !filters.all;
       setFilters({
         all: newValue,
-        confirm: newValue,
-        cancel: newValue,
-        pending: newValue,
+        pending: newValue, // যখন order place হলো
+        partially_accepted: newValue, // কিছু shop accept করলো, কিছু করলো না
+        confirmed: newValue, // সব shop accept করলো
+        preparing: newValue,
+        out_for_delivery: newValue,
+        delivered: newValue,
+        cancelled: newValue,
       });
     } else {
       // আলাদা checkbox control
       const newFilters = { ...filters, [name]: !filters[name] };
       // confirm + cancel যদি দুটোই select হয়, তবে all = true
       newFilters.all =
-        newFilters.confirm && newFilters.cancel && newFilters.pending;
+        newFilters.pending &&
+        newFilters.partially_accepted &&
+        newFilters.confirmed &&
+        newFilters.preparing &&
+        newFilters.out_for_delivery &&
+        newFilters.delivered &&
+        newFilters.cancelled;
       setFilters(newFilters);
     }
   };
@@ -52,9 +80,13 @@ const OrderHistory = () => {
     setIsOpenFilter(false);
     setFilters({
       all: false,
-      confirm: false,
-      cancel: false,
-      pending: false,
+      pending: false, // যখন order place হলো
+      partially_accepted: false, // কিছু shop accept করলো, কিছু করলো না
+      confirmed: false, // সব shop accept করলো
+      preparing: false,
+      out_for_delivery: false,
+      delivered: false,
+      cancelled: false,
     });
     setDate("");
   };
@@ -72,28 +104,48 @@ const OrderHistory = () => {
   const handleGetShopOrders = async () => {
     setLoading(true);
     try {
+      // let url;
+
+      // if (filters?.all) {
+      //   url = `${baseUrl}/orders?date=${date}`;
+      //   setIsOpenFilterTitle(`${date} All`);
+      // } else if (filters?.confirm) {
+      //   url = `${baseUrl}/orders?date=${date}&status=accepted`;
+      //   setIsOpenFilterTitle(`${date} accepted`);
+      // } else if (filters?.pending) {
+      //   url = `${baseUrl}/orders?date=${date}&status=pending`;
+      //   setIsOpenFilterTitle(`${date} pending`);
+      // } else if (filters?.cancel) {
+      //   url = `${baseUrl}/orders?date=${date}&status=cancelled`;
+      //   setIsOpenFilterTitle(`${date} cancelled`);
+      // } else {
+      //   url = `${baseUrl}/orders`;
+      // }
+
       let url;
 
-      if (filters?.all) {
+      const selectedStatuses = Object.keys(filters).filter(
+        (key) => filters[key] && key !== "all"
+      ); // যেগুলো select করা হয়েছে
+
+      if (filters.all) {
+        // ✅ সব দেখাবে
         url = `${baseUrl}/orders?date=${date}`;
-        setIsOpenFilterTitle(`${date} All`);
-      } else if (filters?.confirm) {
-        url = `${baseUrl}/orders?date=${date}&status=accepted`;
-        setIsOpenFilterTitle(`${date} accepted`);
-      } else if (filters?.pending) {
-        url = `${baseUrl}/orders?date=${date}&status=pending`;
-        setIsOpenFilterTitle(`${date} pending`);
-      } else if (filters?.cancel) {
-        url = `${baseUrl}/orders?date=${date}&status=cancelled`;
-        setIsOpenFilterTitle(`${date} cancelled`);
+        setIsOpenFilterTitle(`${date} - All Orders`);
+      } else if (selectedStatuses.length > 0) {
+        // ✅ একাধিক status দেখাবে
+        url = `${baseUrl}/orders?date=${date}&status=${selectedStatuses.join(
+          ","
+        )}`;
+        setIsOpenFilterTitle(`${date} - ${selectedStatuses.join(", ")}`);
       } else {
-        url = `${baseUrl}/orders`;
+        // ✅ default (pending)
+        url = `${baseUrl}/orders?date=${date}&status=pending`;
       }
 
       const res = await axios.get(url);
 
       if (res?.status === 200) {
-        console.log(res?.data?.orders);
         setAllOrders(res?.data?.orders);
         handleClearFilter();
         setErrors("");
@@ -109,7 +161,16 @@ const OrderHistory = () => {
   };
 
   useEffect(() => {
-    handleGetShopOrders();
+    // Collect admin token
+    requestFCMToken().then((token) => {
+      fetch(`${baseUrl}/register-token`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token }),
+      });
+    });
+
+    handleGetShopOrders(); // initial fetch
   }, []);
 
   // Order time
@@ -165,24 +226,18 @@ const OrderHistory = () => {
   }
 
   // update status
-  const handleUpdateStatuse = async (shopOrderId, status) => {
+  const handleUpdateStatus = async (orderId, newStatus) => {
     try {
-      const res = await axios.put(
-        `${baseUrl}/shop-orders/${shopOrderId}/status`,
-        { status } // body তে পাঠাতে হবে
-      );
+      const res = await axios.put(`${baseUrl}/orders/${orderId}`, {
+        status: newStatus,
+      });
 
       if (res.data.success) {
-        handleGetShopOrders();
         Swal.fire("Success!", "Statuse update successfully!", "success");
+        handleGetShopOrders();
       }
     } catch (error) {
-      console.log("❌ Error updating status:", error);
-      Swal.fire(
-        "Error!",
-        error?.response?.data?.message || "Something went wrong!",
-        "error"
-      );
+      console.error("❌ Error updating order:", error);
     }
   };
 
@@ -198,93 +253,36 @@ const OrderHistory = () => {
             <div className="flex items-center justify-between mb-[20px] ">
               <h2 className="text-[20px] font-bold">অর্ডার ম্যানেজমেন্ট</h2>
 
-              <button
-                onClick={() => setIsOpenFilter(!isOpenFilter)}
-                className="flex items-center gap-[10px] bg-[#ff6347] text-white px-[15px] py-[8px] rounded-[6px]"
-              >
-                <FiFilter />
-                ফিল্টার
-              </button>
+              <div className="flex items-center gap-[30px]">
+                <div className="flex items-center gap-2 relative">
+                  <FaBell className="text-2xl text-gray-700" />
+                  {notificationCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-sm rounded-full px-2">
+                      {notificationCount}
+                    </span>
+                  )}
+                </div>
+                {/* filter */}
+                <button
+                  onClick={() => setIsOpenFilter(!isOpenFilter)}
+                  className="flex items-center gap-[10px] bg-[#ff6347] text-white px-[15px] py-[8px] rounded-[6px]"
+                >
+                  <FiFilter />
+                  ফিল্টার
+                </button>
+              </div>
             </div>
 
             {isOpenFilter && (
-              <div className="absolute top-[50px] right-[40px] bg-white shadow-lg p-5 z-[100] lg:w-[300px] rounded-2xl border border-gray-200">
-                {/* Date Filter */}
-                <div className="mb-5">
-                  <label className="block mb-2 text-gray-700 font-medium">
-                    তারিখ
-                  </label>
-                  <input
-                    type="date"
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#ff6347]"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                  />
-                  {errors && (
-                    <p className="text-[12px] text-red-500">{errors}</p>
-                  )}
-                </div>
-
-                {/* Status Filters */}
-                <div className="space-y-3">
-                  <p className="text-gray-700 font-medium">অর্ডার স্ট্যাটাস</p>
-
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={filters.all}
-                      onChange={() => handleCheckbox("all")}
-                      className="h-4 w-4 text-[#ff6347] focus:ring-[#ff6347] border-gray-300 rounded"
-                    />
-                    <span className="text-gray-600">সকল</span>
-                  </label>
-
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={filters.confirm}
-                      onChange={() => handleCheckbox("confirm")}
-                      className="h-4 w-4 text-[#ff6347] focus:ring-[#ff6347] border-gray-300 rounded"
-                    />
-                    <span className="text-gray-600">কনফার্ম</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={filters.pending}
-                      onChange={() => handleCheckbox("pending")}
-                      className="h-4 w-4 text-[#ff6347] focus:ring-[#ff6347] border-gray-300 rounded"
-                    />
-                    <span className="text-gray-600">pending</span>
-                  </label>
-
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={filters.cancel}
-                      onChange={() => handleCheckbox("cancel")}
-                      className="h-4 w-4 text-[#ff6347] focus:ring-[#ff6347] border-gray-300 rounded"
-                    />
-                    <span className="text-gray-600">বাতিল</span>
-                  </label>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex justify-end gap-3 mt-6">
-                  <button
-                    onClick={() => handleClearFilter()}
-                    className="px-4 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100 transition"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={() => handleFilterOrders()}
-                    className="px-4 py-2 rounded-lg bg-[#ff6347] text-white hover:bg-[#e5533c] transition"
-                  >
-                    Apply
-                  </button>
-                </div>
-              </div>
+              <OrderHistoryFilterForm
+                filters={filters}
+                data={date}
+                setDate={setDate}
+                errors={errors}
+                handleCheckbox={handleCheckbox}
+                handleClearFilter={handleClearFilter}
+                handleFilterOrders={handleFilterOrders}
+              />
             )}
           </div>
 
@@ -309,12 +307,10 @@ const OrderHistory = () => {
             <div className="flex flex-col gap-[20px] ">
               {allOrders?.length > 0 ? (
                 allOrders?.map((order, i) => {
-                  console.log(order);
-
                   let price = 0;
 
                   return (
-                    <div className="bg-white flex flex-col gap-[20px]">
+                    <div key={i} className="bg-white flex flex-col gap-[20px]">
                       <div className="flex  justify-between gap-3 mb-2 bg-gray-300 rounded-t-[10px] p-[16px] ">
                         <div>
                           <p className="font-medium lg:text-[14px] text-[10px] mt-[5px]">
@@ -364,7 +360,7 @@ const OrderHistory = () => {
                           price = price + subtotal;
 
                           return (
-                            <div className="">
+                            <div key={i} className="">
                               <div className="flex items-center justify-between">
                                 {/* shop */}
                                 <div className="text-left  flex flex-col items-center">
@@ -392,8 +388,6 @@ const OrderHistory = () => {
                                       key={i}
                                       className="flex items-center gap-[16px]"
                                     >
-                                      {console.log(item)}
-
                                       <div className="h-full w-[70px] lg:w-[100px] border">
                                         <img
                                           className="w-full h-full"
@@ -449,21 +443,69 @@ const OrderHistory = () => {
                       </div>
 
                       <div className="bg-gray-300 rounded-b-[10px] flex items-center justify-between px-[16px] py-[10px]">
+                        <div>
+                          <h2>Current status</h2>
+                          <p className="bg-[#ff5733] text-white">
+                            {order?.status}
+                          </p>
+                        </div>
+
                         {/* Accion */}
                         <div className="flex items-center gap-2">
-                          {order?.status === "pending" ? (
-                            <button className="text-white bg-yellow-500 rounded-[6px] py-[2px] px-[10px]">
-                              pending
-                            </button>
-                          ) : order?.status === "confirmed" ? (
-                            <button className="text-white bg-green-700 rounded-[6px] py-[2px] px-[10px]">
-                              কন্ফার্ম
-                            </button>
-                          ) : (
-                            <button className="text-white bg-red-500 rounded-[6px] py-[2px] px-[10px]">
-                              বাতিল
-                            </button>
-                          )}
+                          <button
+                            onClick={() =>
+                              handleUpdateStatus(
+                                order?._id,
+                                "partially_accepted"
+                              )
+                            }
+                            className="text-white bg-yellow-500 rounded-[6px] py-[2px] px-[10px]"
+                          >
+                            Partially Accepted
+                          </button>
+                          <button
+                            onClick={() =>
+                              handleUpdateStatus(order?._id, "confirmed")
+                            }
+                            className="text-white bg-green-700 rounded-[6px] py-[2px] px-[10px]"
+                          >
+                            Confirmed
+                          </button>
+
+                          <button
+                            onClick={() =>
+                              handleUpdateStatus(order?._id, "preparing")
+                            }
+                            className="text-white bg-yellow-500 rounded-[6px] py-[2px] px-[10px]"
+                          >
+                            Preparing
+                          </button>
+                          <button
+                            onClick={() =>
+                              handleUpdateStatus(order?._id, "out_for_delivery")
+                            }
+                            className="text-white bg-yellow-500 rounded-[6px] py-[2px] px-[10px]"
+                          >
+                            Out for delivery
+                          </button>
+
+                          <button
+                            onClick={() =>
+                              handleUpdateStatus(order?._id, "delivered")
+                            }
+                            className="text-white bg-yellow-500 rounded-[6px] py-[2px] px-[10px]"
+                          >
+                            Delivered
+                          </button>
+
+                          <button
+                            onClick={() =>
+                              handleUpdateStatus(order?._id, "cancelled")
+                            }
+                            className="text-white bg-red-500 rounded-[6px] py-[2px] px-[10px]"
+                          >
+                            Cancelled
+                          </button>
                         </div>
                         <p className="font-bold lg:text-lg text-[16px]">
                           মোট মূল্য ={convertToBanglaNumber(price)}
@@ -486,6 +528,7 @@ const OrderHistory = () => {
               )}
             </div>
           </div>
+          <ToastContainer />
         </div>
       )}
     </>

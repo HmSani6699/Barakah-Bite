@@ -6,7 +6,7 @@ import { Link } from "react-router";
 import { LiaShoppingCartSolid } from "react-icons/lia";
 import { RiDeleteBin6Line, RiFileList2Line } from "react-icons/ri";
 import { useEffect, useState } from "react";
-import CheckOut from "./CheckOut";
+import nolistImage from "../../../public/images/noList.png";
 import { ToastContainer } from "react-toastify";
 import { TiHomeOutline } from "react-icons/ti";
 import { IoIosArrowForward } from "react-icons/io";
@@ -14,8 +14,7 @@ import HomeTopNavber from "../../Pages/Navber/HomeTopNavber";
 
 const Cart = () => {
   const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
-  const { cartItems, addToCart, removeItem, totalCardCount, updateCart } =
-    useCart();
+  const { cartItems, removeItem, totalCardCount, updateCart } = useCart();
 
   const [subTotal, setSubTotal] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
@@ -218,7 +217,7 @@ const Cart = () => {
             </div>
           ) : (
             <div className="text-center my-[30px] lg:mt-[50px] lg:h-screen">
-              <RiFileList2Line className="text-[120px]  text-[#a7a6a6] inline-block" />
+              <img className="w-[400px] h-full" src={nolistImage} alt="" />
               <h2 className="mt-[20px]">কোনো আইটেম এখনো যোগ করা হয়নি।</h2>
               <div className=" flex items-center justify-center mt-[16px]">
                 <Link

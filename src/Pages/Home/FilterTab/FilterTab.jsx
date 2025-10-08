@@ -13,11 +13,7 @@ import { Navigation } from "swiper/modules";
 import { IoIosArrowForward } from "react-icons/io";
 import { ToastContainer } from "react-toastify";
 
-const FilterTab = ({
-  setIsFullImageOpen,
-  haldleAddToCard,
-  allRestaurantActiveItems,
-}) => {
+const FilterTab = ({ setIsFullImageOpen, allRestaurantActiveItems }) => {
   return (
     <div>
       <div className="flex items-center justify-between  px-[15px] my-[16px]">
@@ -40,7 +36,6 @@ const FilterTab = ({
                 setIsFullImageOpen={setIsFullImageOpen}
                 height="h-[140px]"
                 item={item}
-                haldleAddToCard={haldleAddToCard}
               />
             ))}
           </div>

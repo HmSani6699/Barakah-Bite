@@ -68,20 +68,21 @@ export const CartProvider = ({ children }) => {
     const filtered = stored.filter((i) => i._id !== item._id);
 
     Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: "তুমি কি নিশ্চিত?",
+      text: "এই কাজটি করার পর আর ফিরে যাওয়া যাবে না!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "হ্যাঁ, মুছে ফেলো!",
+      cancelButtonText: "বাতিল",
     }).then((result) => {
       if (result.isConfirmed) {
         saveToStorage(filtered);
 
         Swal.fire({
-          title: "Deleted!",
-          text: "Your item has been deleted.",
+          title: "মুছে ফেলা হয়েছে!",
+          text: "তোমার আইটেমটি সফলভাবে মুছে ফেলা হয়েছে।",
           icon: "success",
         });
       }

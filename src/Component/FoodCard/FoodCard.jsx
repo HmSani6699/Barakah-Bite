@@ -2,7 +2,6 @@ import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
 import { useCart } from "../CartContext/CartContext";
-import { ToastContainer } from "react-toastify";
 
 const FoodCard = ({ height, item }) => {
   const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;

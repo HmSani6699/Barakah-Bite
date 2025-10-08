@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useCart } from "../CartContext/CartContext";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { Slide, toast, ToastContainer } from "react-toastify";
+import { Slide, toast } from "react-toastify";
 import HomeTopNavber from "../../Pages/Navber/HomeTopNavber";
 import { TiHomeOutline } from "react-icons/ti";
 
@@ -23,13 +23,13 @@ const CheckOut = () => {
   const location = useLocation();
   const orderItem = location.state;
   const navigation = useNavigate();
-  const [name, setName] = useState("MD Sadiq");
-  const [number, setNumber] = useState("01996359111");
-  const [area, setArea] = useState("সোনারগাঁও");
-  const [gram, setGram] = useState("পাকুন্ডা");
-  const [elaka, setElaka] = useState("পাকুন্ডা নাম পাড়া");
-  const [hous, setHous] = useState("1");
-  const [note, setNote] = useState("Vallo note");
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
+  const [area, setArea] = useState("");
+  const [gram, setGram] = useState("");
+  const [elaka, setElaka] = useState("  ");
+  const [hous, setHous] = useState("");
+  const [note, setNote] = useState("");
   const { cartItems, removeAllItem } = useCart();
   const [paymentNumber, setPaymentNumber] = useState();
   const [paymentTransactionId, setPaymentTransactionId] = useState();
@@ -95,6 +95,10 @@ const CheckOut = () => {
     // Shop Address
     if (!elaka.trim()) {
       newErrors.elaka = "Elaka name is required";
+    }
+    // Inside & Out site
+    if (!InsiteOROutsite.trim()) {
+      newErrors.insiteOROutsite = "Please select Insite or Outsite bazar";
     }
 
     setErrors(newErrors);
@@ -214,8 +218,6 @@ const CheckOut = () => {
       // console.log(payload);
 
       const res = await axios.post(`${baseUrl}/orders`, payload);
-
-      console.log(171, res);
 
       if (res?.data?.success) {
         toast.success("Order Success", {
@@ -620,7 +622,7 @@ const CheckOut = () => {
                       type="checkbox"
                       checked={InsiteOROutsite === "inside"}
                       onChange={() => setInsiteOROutsite("inside")}
-                      className="h-5 w-5 accent-green-500"
+                      className="h-5 w-5 accent-[#ff5733]"
                     />
                     <div className="flex items-center gap-[10px]">
                       <p className="font-medium text-gray-800">Inside Bazar</p>
@@ -636,7 +638,7 @@ const CheckOut = () => {
                       type="checkbox"
                       checked={InsiteOROutsite === "outside"}
                       onChange={() => setInsiteOROutsite("outside")}
-                      className="h-5 w-5 accent-orange-500"
+                      className="h-5 w-5 accent-[#ff5733]"
                     />
                     <div className="flex items-center gap-[10px]">
                       <p className="font-medium text-gray-800">Outside Bazar</p>
@@ -645,6 +647,12 @@ const CheckOut = () => {
                       </p>
                     </div>
                   </label>
+
+                  {errors?.insiteOROutsite && (
+                    <p className="text-[12px] text-red-500">
+                      {errors?.insiteOROutsite}
+                    </p>
+                  )}
                 </div>
                 <div className="col-span-2">
                   <TextareaField

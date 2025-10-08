@@ -6,7 +6,7 @@ const OrderSuccess = () => {
   const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
   const location = useLocation();
   const order = location.state;
-  console.log(order);
+  console.log(order?.order?.orderNumber);
 
   return (
     <div className="h-screen w-full flex items-center justify-center ">
@@ -95,8 +95,7 @@ const OrderSuccess = () => {
         </div>
         <div className="flex flex-col gap-[20px] mt-[30px] w-full">
           <Link
-            to={"/tracking-order"}
-            state={{ id: "1" }}
+            to={"/myorders"}
             className="main_bg_color text-white rounded-full py-[10px] px-[20px] w-full inline-block text-center"
           >
             অর্ডার ট্র্যাক করুন

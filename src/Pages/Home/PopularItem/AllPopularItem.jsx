@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import HomeTopNavber from "../../Navber/HomeTopNavber";
 import { TiHomeOutline } from "react-icons/ti";
 import { IoIosArrowForward } from "react-icons/io";
+import { MdOutlineArrowOutward } from "react-icons/md";
 
 const AllPopularItem = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -262,6 +263,21 @@ const AllPopularItem = () => {
           )}
         </div>
       )}
+
+      {totalCardCount > 0 && (
+        <div className="fixed bottom-[0px] bg-white left-0 z-[500] w-full py-[10px] text-white px-[16px] ">
+          <Link to={"/card"}>
+            <div className="bg-[#ff5733] shadow-lg flex items-center justify-between px-[16px] py-[6px] rounded-full">
+              <h2 className="text-[14px]"> {totalCardCount} আইটেম</h2>
+
+              <button className="text-[14px] flex items-center gap-[4px]">
+                আইটেম লিস্ট দেখুন <MdOutlineArrowOutward />
+              </button>
+            </div>
+          </Link>
+        </div>
+      )}
+
       <ToastContainer />
     </div>
   );

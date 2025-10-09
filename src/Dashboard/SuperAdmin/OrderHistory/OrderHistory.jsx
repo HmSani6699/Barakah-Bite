@@ -5,16 +5,13 @@ import Loading from "../../../Component/Loading/Loading";
 import {
   FaBell,
   FaPhone,
+  FaRegCalendarAlt,
   FaRegClock,
-  FaRegUser,
   FaUserAlt,
 } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
-import {
-  onReceiveMessage,
-  requestFCMToken,
-} from "../../../Utils/firebaseUtils";
+import { requestFCMToken } from "../../../Utils/firebaseUtils";
 import { useNotification } from "../../../Context/NotificationContext";
 import { ToastContainer } from "react-toastify";
 import OrderHistoryFilterForm from "./OrderHistoryFilterForm";
@@ -104,24 +101,6 @@ const OrderHistory = () => {
   const handleGetShopOrders = async () => {
     setLoading(true);
     try {
-      // let url;
-
-      // if (filters?.all) {
-      //   url = `${baseUrl}/orders?date=${date}`;
-      //   setIsOpenFilterTitle(`${date} All`);
-      // } else if (filters?.confirm) {
-      //   url = `${baseUrl}/orders?date=${date}&status=accepted`;
-      //   setIsOpenFilterTitle(`${date} accepted`);
-      // } else if (filters?.pending) {
-      //   url = `${baseUrl}/orders?date=${date}&status=pending`;
-      //   setIsOpenFilterTitle(`${date} pending`);
-      // } else if (filters?.cancel) {
-      //   url = `${baseUrl}/orders?date=${date}&status=cancelled`;
-      //   setIsOpenFilterTitle(`${date} cancelled`);
-      // } else {
-      //   url = `${baseUrl}/orders`;
-      // }
-
       let url;
 
       const selectedStatuses = Object.keys(filters).filter(
@@ -310,12 +289,32 @@ const OrderHistory = () => {
                   let price = 0;
 
                   return (
-                    <div key={i} className="bg-white flex flex-col gap-[20px]">
-                      <div className="flex  justify-between gap-3 mb-2 bg-gray-300 rounded-t-[10px] p-[16px] ">
+                    <div
+                      key={i}
+                      className="bg-white rounded-[10px] flex flex-col"
+                    >
+                      <div className="mb-2 bg-gray-300 rounded-t-[10px] p-[16px] ">
                         <div>
-                          <p className="font-medium lg:text-[14px] text-[10px] mt-[5px]">
-                            অর্ডার আইডি: {order?.orderNumber}
-                          </p>
+                          <div className="flex  justify-between">
+                            <p className="font-medium lg:text-[14px] text-[10px] mt-[5px]">
+                              অর্ডার আইডি: {order?.orderNumber}
+                            </p>
+                            <div>
+                              <p className="flex items-center gap-[6px] text-[10px] lg:text-[14px]">
+                                <FaRegClock />
+                                {getTimeAgoBangla(
+                                  order?.shopOrders[0]?.createdAt
+                                )}{" "}
+                              </p>
+                              <p className="flex items-center gap-[6px] text-[10px] lg:text-[14px] mt-[6px]">
+                                <FaRegCalendarAlt />
+
+                                {convertToBanglaNumber(
+                                  order?.shopOrders[0]?.createdAt.slice(0, 10)
+                                )}
+                              </p>
+                            </div>
+                          </div>
                           <p className="font-medium lg:text-[18px] text-[14px] flex items-center gap-[4px]">
                             <FaUserAlt className="text-gray-500" />
 
@@ -332,23 +331,9 @@ const OrderHistory = () => {
                             {order?.deliveryInfo?.area}
                           </p>
                         </div>
-
-                        <div>
-                          <p className="flex items-center gap-[6px] text-[10px] lg:text-[14px]">
-                            <FaRegClock />
-                            {getTimeAgoBangla(
-                              order?.shopOrders[0]?.createdAt
-                            )}{" "}
-                            (
-                            {convertToBanglaNumber(
-                              order?.shopOrders[0]?.createdAt.slice(0, 10)
-                            )}
-                            )
-                          </p>
-                        </div>
                       </div>
 
-                      <div className="p-[16px]">
+                      <div className="">
                         {/* shop and item */}
                         {order?.shopOrders?.map((shopOrder, i) => {
                           const subtotal = shopOrder?.items?.reduce(
@@ -361,34 +346,34 @@ const OrderHistory = () => {
 
                           return (
                             <div key={i} className="">
-                              <div className="flex items-center justify-between">
-                                {/* shop */}
-                                <div className="text-left  flex flex-col items-center">
-                                  <div className="h-[30px] w-[30px] rounded-full">
-                                    <img
-                                      className="w-full h-full rounded-full"
-                                      src={`${baseImageUrl}/${shopOrder?.shopId?.logo}`}
-                                      alt="logo"
-                                    />
-                                  </div>
-                                  <p className="text-[12px]">
-                                    {shopOrder?.shopId?.name}
-                                  </p>
-                                  <p className="text-[12px]">
-                                    {shopOrder?.shopId?.address}
-                                  </p>
-                                  <p className="text-[12px]">
-                                    {shopOrder?.shopId?.phone}
-                                  </p>
+                              {/* shop */}
+                              <div className="bg-red-200 w-[150px] rounded-r-full p-[16px]">
+                                <div className="h-[30px] w-[30px] rounded-full">
+                                  <img
+                                    className="w-full h-full rounded-full"
+                                    src={`${baseImageUrl}/${shopOrder?.shopId?.logo}`}
+                                    alt="logo"
+                                  />
                                 </div>
+                                <p className="text-[12px]">
+                                  {shopOrder?.shopId?.name}
+                                </p>
+                                <p className="text-[12px]">
+                                  {shopOrder?.shopId?.address}
+                                </p>
+                                <p className="text-[12px]">
+                                  {shopOrder?.shopId?.phone}
+                                </p>
+                              </div>
+                              <div className="flex items-center justify-between p-[16px] gap-[16px]">
                                 {/* items */}
-                                <div>
+                                <div className="flex flex-col gap-[16px] ">
                                   {shopOrder?.items?.map((item, i) => (
                                     <div
                                       key={i}
                                       className="flex items-center gap-[16px]"
                                     >
-                                      <div className="h-full w-[70px] lg:w-[100px] border">
+                                      <div className="h-full w-[50px] lg:w-[100px] border">
                                         <img
                                           className="w-full h-full"
                                           src={`${baseImageUrl}/${item?.img}`}
@@ -396,25 +381,25 @@ const OrderHistory = () => {
                                         />
                                       </div>
                                       <div>
-                                        <h2 className="font-semibold ">
+                                        <h2 className="font-semibold text-[14px] lg:text-[16px]">
                                           {item?.productName}
                                         </h2>
-                                        <p className="text-[12px]">
+                                        <p className=" text-[9px] lg:text-[12px]">
                                           প্রতি ইউনিট মূল্য:{" "}
                                           {convertToBanglaNumber(
                                             item?.pricePerUnit
                                           )}
                                         </p>
-                                        <p className="text-[12px]">
+                                        <p className=" text-[9px] lg:text-[12px]">
                                           অর্ডার পরিমাণ:{" "}
                                           {convertToBanglaNumber(
                                             item?.quantity
                                           )}
                                         </p>
-                                        <p className="text-[12px]">
+                                        <p className=" text-[9px] lg:text-[12px]">
                                           ভেরিয়েন্টের নাম: {item?.variantName}
                                         </p>
-                                        <p className="text-[12px]">
+                                        <p className=" text-[9px] lg:text-[12px]">
                                           সাব টোটাল :{" "}
                                           {convertToBanglaNumber(
                                             item?.totalPrice
@@ -426,7 +411,7 @@ const OrderHistory = () => {
                                 </div>
                                 {/* total price */}
                                 <div className="flex items-center gap-4 my-[30px] lg:my-0">
-                                  <p className="font-bold lg:text-lg text-[16px]">
+                                  <p className="font-bold lg:text-lg text-[14px]">
                                     সাব টোটাল=
                                     {convertToBanglaNumber(
                                       shopOrder?.items?.reduce((total, i) => {
@@ -442,16 +427,22 @@ const OrderHistory = () => {
                         })}
                       </div>
 
-                      <div className="bg-gray-300 rounded-b-[10px] flex items-center justify-between px-[16px] py-[10px]">
-                        <div>
-                          <h2>Current status</h2>
-                          <p className="bg-[#ff5733] text-white">
-                            {order?.status}
+                      <div className="bg-gray-300 rounded-b-[10px] lg:flex items-center justify-between px-[16px] py-[10px]">
+                        <div className="mb-[20px] lg:mb-0 lg:block flex  justify-between ">
+                          <div>
+                            <h2>Current status</h2>
+                            <p className="bg-[#ff5733] text-white p-[8px] rounded-[10px] mt-[10px]">
+                              {order?.status}
+                            </p>
+                          </div>
+                          <p className="font-bold lg:text-lg text-[16px] lg:hidden block">
+                            মোট মূল্য ={convertToBanglaNumber(price)}
+                            টাকা
                           </p>
                         </div>
 
                         {/* Accion */}
-                        <div className="flex items-center gap-2">
+                        <div className="flex  flex-col-reverse lg:flex-row lg:items-center gap-2">
                           <button
                             onClick={() =>
                               handleUpdateStatus(
@@ -507,7 +498,7 @@ const OrderHistory = () => {
                             Cancelled
                           </button>
                         </div>
-                        <p className="font-bold lg:text-lg text-[16px]">
+                        <p className="font-bold lg:text-lg text-[16px] lg:block hidden">
                           মোট মূল্য ={convertToBanglaNumber(price)}
                           টাকা
                         </p>

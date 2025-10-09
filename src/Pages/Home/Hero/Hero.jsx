@@ -11,7 +11,7 @@ const Hero = ({ allData }) => {
             key={i}
             to="/categories"
             state={{ name: item?.name }}
-            className="bg-white flex items-center gap-[16px] p-[16px] rounded-[8px] shadow-lg  "
+            className="bg-white flex items-center gap-[16px] p-[16px] rounded-[8px] transition-all duration-300 hover:shadow-lg hover:scale-[1.03]"
           >
             <h2 className="text-[14px] text-[#101828] whitespace-nowrap">
               {item?.name}

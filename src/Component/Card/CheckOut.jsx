@@ -13,6 +13,7 @@ import axios from "axios";
 import { Slide, toast } from "react-toastify";
 import HomeTopNavber from "../../Pages/Navber/HomeTopNavber";
 import { TiHomeOutline } from "react-icons/ti";
+import { nanoid } from "nanoid";
 
 const CheckOut = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -189,7 +190,7 @@ const CheckOut = () => {
     try {
       const payload = {
         userId: user?.phone, // usually from auth
-        orderNumber: "ACC" + Date.now(),
+        orderNumber: "PF" + nanoid(6),
         status: "pending",
 
         items: orderItem?.items,

@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Loading from "../../Component/Loading/Loading";
-import { FaRegClock, FaUserAlt } from "react-icons/fa";
+import {
+  FaArrowLeft,
+  FaRegCalendarAlt,
+  FaRegClock,
+  FaUserAlt,
+} from "react-icons/fa";
 import { Link } from "react-router";
 
 const MyOrders = () => {
@@ -96,19 +101,27 @@ const MyOrders = () => {
         </div>
       ) : (
         <div className="mb-[120px]">
-          <div className="bg-white h-[65px] text-center flex items-center justify-center top_header_shadow">
-            <h2 className="bg-white font-bold text-[20px]">আমার অর্ডারসমূহ</h2>
+          <div className="bg-white h-[65px]   px-[15px] top_header_shadow flex items-center justify-between lg:hidden">
+            <Link to={"/profile"} className="flex items-center gap-[15px]">
+              <FaArrowLeft className="bg-white text-[20px] text-[#6b7280]" />
+              <h2 className="bg-white font-bold text-[14px] text-[#6b7280]">
+                আমার অর্ডারসমূহ
+              </h2>
+            </Link>
           </div>
 
           {/* order card */}
-          <div className=" rounded-[10px] px-[16px]">
+          <div className=" rounded-t-[10px] px-[16px] mt-[16px]">
             <div className="flex flex-col gap-[20px] ">
               {allOrders?.length > 0 ? (
                 allOrders?.map((order, i) => {
                   let price = 0;
 
                   return (
-                    <div key={i} className="bg-white flex flex-col gap-[20px]">
+                    <div
+                      key={i}
+                      className="bg-white rounded-[10px] flex flex-col gap-[20px]"
+                    >
                       <div className="flex  justify-between gap-3 mb-2 bg-gray-300 rounded-t-[10px] p-[16px] ">
                         <div>
                           <p className="lg:text-[18px] text-[14px] flex items-center gap-[4px]">
@@ -127,11 +140,13 @@ const MyOrders = () => {
                             {getTimeAgoBangla(
                               order?.shopOrders[0]?.createdAt
                             )}{" "}
-                            (
+                          </p>
+                          <p className="flex items-center gap-[6px] text-[10px] lg:text-[14px] mt-[6px]">
+                            <FaRegCalendarAlt />
+
                             {convertToBanglaNumber(
                               order?.shopOrders[0]?.createdAt.slice(0, 10)
                             )}
-                            )
                           </p>
                         </div>
                       </div>
@@ -157,7 +172,7 @@ const MyOrders = () => {
                                       className="flex items-center justify-between gap-[16px]"
                                     >
                                       <div className="flex items-center gap-[16px]">
-                                        <div className=" h-[70px] lg:h-full w-[70px]  lg:w-[100px] border">
+                                        <div className=" h-[70px] lg:h-full w-[70px] rounded-[10px]  lg:w-[100px] border">
                                           <img
                                             className="w-full h-full rounded-[10px]"
                                             src={`${baseImageUrl}/${item?.img}`}
@@ -203,12 +218,12 @@ const MyOrders = () => {
                         })}
                       </div>
 
-                      <div className="bg-gray-300 rounded-b-[10px] flex items-center justify-between px-[16px] py-[10px]">
+                      <div className="bg-gray-300  flex items-center justify-between px-[16px] py-[10px]">
                         {/* Accion */}
                         <div className="flex items-center gap-2">
                           {/* Pending */}
                           {order?.status === "pending" && (
-                            <button className="text-white bg-yellow-500 rounded-md py-[3px] px-[12px] text-sm font-medium shadow-sm">
+                            <button className="text-white bg-yellow-500 rounded-md py-[3px] px-[10px] text-sm text-[9px] shadow-sm">
                               অপেক্ষমান
                             </button>
                           )}
@@ -216,16 +231,16 @@ const MyOrders = () => {
                           {/* Confirmed */}
                           {order?.status === "confirmed" && (
                             <div className="flex items-center gap-3">
-                              <button className="text-white bg-green-600 rounded-md py-[3px] px-[12px] text-sm font-medium shadow-sm">
+                              <button className="text-white bg-green-600 rounded-md py-[3px] px-[10px] text-sm text-[9px] shadow-sm">
                                 নিশ্চিত হয়েছে
                               </button>
                               <Link
                                 to={"/tracking-order"}
                                 state={{
-                                  orderID: order?._id,
+                                  orderID: order?.orderNumber,
                                   orderNumber: order?.orderNumber,
                                 }}
-                                className="text-white bg-[#ff6347] rounded-md py-[3px] px-[10px] text-sm font-medium hover:bg-[#e85a3f] transition"
+                                className="text-white bg-[#ff6347] rounded-md py-[3px] px-[10px] text-sm text-[9px] hover:bg-[#e85a3f] transition"
                               >
                                 অর্ডার ট্র্যাক করুন
                               </Link>
@@ -235,16 +250,16 @@ const MyOrders = () => {
                           {/* Partially Accepted */}
                           {order?.status === "partially_accepted" && (
                             <div className="flex items-center gap-3">
-                              <button className="text-white bg-amber-600 rounded-md py-[3px] px-[12px] text-sm font-medium shadow-sm">
+                              <button className="text-white bg-amber-600 rounded-md py-[3px] px-[10px] text-sm text-[9px] shadow-sm">
                                 আংশিকভাবে গৃহীত
                               </button>
                               <Link
                                 to={"/tracking-order"}
                                 state={{
-                                  orderID: order?._id,
+                                  orderID: order?.orderNumber,
                                   orderNumber: order?.orderNumber,
                                 }}
-                                className="text-white bg-[#ff6347] rounded-md py-[3px] px-[10px] text-sm font-medium hover:bg-[#e85a3f] transition"
+                                className="text-white bg-[#ff6347] rounded-md py-[3px] px-[10px] text-sm text-[9px] hover:bg-[#e85a3f] transition"
                               >
                                 অর্ডার ট্র্যাক করুন
                               </Link>
@@ -254,16 +269,16 @@ const MyOrders = () => {
                           {/* Preparing */}
                           {order?.status === "preparing" && (
                             <div className="flex items-center gap-3">
-                              <button className="text-white bg-blue-500 rounded-md py-[3px] px-[12px] text-sm font-medium shadow-sm animate-pulse">
+                              <button className="text-white bg-blue-500 rounded-md py-[3px] px-[10px] text-sm text-[9px] shadow-sm animate-pulse">
                                 প্রস্তুত হচ্ছে...
                               </button>
                               <Link
                                 to={"/tracking-order"}
                                 state={{
-                                  orderID: order?._id,
+                                  orderID: order?.orderNumber,
                                   orderNumber: order?.orderNumber,
                                 }}
-                                className="text-white bg-[#ff6347] rounded-md py-[3px] px-[10px] text-sm font-medium hover:bg-[#e85a3f] transition"
+                                className="text-white bg-[#ff6347] rounded-md py-[3px] px-[10px] text-sm text-[9px] hover:bg-[#e85a3f] transition"
                               >
                                 অর্ডার ট্র্যাক করুন
                               </Link>
@@ -273,16 +288,16 @@ const MyOrders = () => {
                           {/* Out for Delivery */}
                           {order?.status === "out_for_delivery" && (
                             <div className="flex items-center gap-3">
-                              <button className="text-white bg-indigo-500 rounded-md py-[3px] px-[12px] text-sm font-medium shadow-sm animate-bounce">
+                              <button className="text-white bg-indigo-500 rounded-md py-[3px] px-[10px] text-sm text-[9px] shadow-sm animate-bounce">
                                 ডেলিভারির পথে 🚚
                               </button>
                               <Link
                                 to={"/tracking-order"}
                                 state={{
-                                  orderID: order?._id,
+                                  orderID: order?.orderNumber,
                                   orderNumber: order?.orderNumber,
                                 }}
-                                className="text-white bg-[#ff6347] rounded-md py-[3px] px-[10px] text-sm font-medium hover:bg-[#e85a3f] transition"
+                                className="text-white bg-[#ff6347] rounded-md py-[3px] px-[10px] text-sm text-[9px] hover:bg-[#e85a3f] transition"
                               >
                                 অর্ডার ট্র্যাক করুন
                               </Link>
@@ -291,20 +306,20 @@ const MyOrders = () => {
 
                           {/* Delivered */}
                           {order?.status === "delivered" && (
-                            <button className="text-white bg-emerald-600 rounded-md py-[3px] px-[12px] text-sm font-medium shadow-sm">
+                            <button className="text-white bg-emerald-600 rounded-md py-[3px] px-[10px] text-sm text-[9px] shadow-sm">
                               ডেলিভারি সম্পন্ন
                             </button>
                           )}
 
                           {/* Cancelled */}
                           {order?.status === "cancelled" && (
-                            <button className="text-white bg-red-500 rounded-md py-[3px] px-[12px] text-sm font-medium shadow-sm">
+                            <button className="text-white bg-red-500 rounded-md py-[3px] px-[10px] text-sm font-medium shadow-sm">
                               অর্ডার বাতিল
                             </button>
                           )}
                         </div>
 
-                        <p className="font-bold lg:text-lg text-[14px]">
+                        <p className="font-bold lg:text-lg text-[12px]">
                           মোট মূল্য ={convertToBanglaNumber(price)}
                           টাকা
                         </p>

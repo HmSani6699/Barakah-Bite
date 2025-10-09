@@ -193,12 +193,11 @@ const AllPopularItem = () => {
                     className={`lg:h-[130px] h-[100px] bg-white rounded-t-[8px] w-full object-cover`}
                   >
                     <img
-                      className="h-full w-full bg-cover rounded-t-[15px]"
+                      className="h-full w-full bg-cover rounded-t-[8px]"
                       src={baseImageUrl + "/" + item?.img}
                       alt=""
                     />
                   </div>
-
                   {/* boday */}
                   <div className="px-[15px] bg-white rounded-b-[15px] w-full">
                     <h2 className="bg-white text-[14px] font-bold pt-[5px]">
@@ -252,7 +251,7 @@ const AllPopularItem = () => {
                 প্রয়োজন অনুযায়ী সর্বোচ্চ চেষ্টা করব আইটেমটি সরবরাহ করতে।
               </p>
               <a
-                href="https://wa.me/8801996359111"
+                href="https://wa.me/8801830630365"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block mt-4 bg-green-500 text-white px-5 py-2 rounded-lg shadow hover:bg-green-600 transition"

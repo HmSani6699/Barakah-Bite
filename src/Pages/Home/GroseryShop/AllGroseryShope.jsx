@@ -360,7 +360,7 @@ const AllGroseryShope = () => {
                       সরবরাহ করতে।
                     </p>
                     <a
-                      href="https://wa.me/8801996359111"
+                      href="https://wa.me/8801830630365"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-block mt-4 bg-green-500 text-white px-5 py-2 rounded-lg shadow hover:bg-green-600 transition"

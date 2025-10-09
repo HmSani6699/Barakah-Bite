@@ -19,18 +19,18 @@ const ContactUs = () => {
         <div className="bg-white rounded-[10px] p-[20px] text-center">
           <MdAddIcCall className="text-[#ff6347] inline-block text-[40px] font-bold mb-[10px]" />
           <p>ফোন করুন</p>
-          <p className="text-[18px] text-gray-600">01996359111</p>
+          <p className="text-[18px] text-gray-600">01830630365 ( WhatsApp )</p>
         </div>
         <div className="bg-white rounded-[10px] p-[20px] text-center">
           <MdEmail className="text-[#ff6347] inline-block text-[40px] font-bold mb-[10px]" />
           <p>ইমেইল করুন</p>
-          <p className="text-[18px] text-gray-600">info@gmail.com</p>
+          <p className="text-[18px] text-gray-600">hallo.pfood@gmail.com</p>
         </div>
         <div className="bg-white rounded-[10px] p-[20px] text-center">
           <FaLocationDot className="text-[#ff6347] inline-block text-[40px] font-bold mb-[10px]" />
           <p>অফিস</p>
           <p className="text-[18px] text-gray-600">
-            সাপাহার বাসস্ট্যান্ড, নওগাঁ
+            ভূলতা, গাউছিয়া, রূপগঞ্জ, নারায়ণগঞ্জ
           </p>
         </div>
       </div>

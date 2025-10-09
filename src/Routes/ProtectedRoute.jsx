@@ -67,7 +67,7 @@ const roleRedirectMap = {
   customer: "/",
   rider: "/rider",
   seller: "/food-shop",
-  admin: "/super-admin",
+  admin: "/admin",
 };
 
 const ProtectedRoute = ({ allowedRoles, children }) => {

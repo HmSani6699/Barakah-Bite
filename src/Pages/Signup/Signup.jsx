@@ -4,6 +4,9 @@ import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 import axios from "axios";
 
+import loginLogo from "../../../public/images/login.png";
+import Swal from "sweetalert2";
+
 const Signup = () => {
   const navigate = useNavigate();
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -31,6 +34,11 @@ const Signup = () => {
       }
     } catch (error) {
       console.log(error);
+      Swal.fire(
+        "Error!",
+        error?.response?.data?.message || "Something went wrong!",
+        "error"
+      );
     }
   };
 
@@ -38,17 +46,9 @@ const Signup = () => {
     <div className="flex items-center justify-center h-screen px-[15px] lg:my-[100px]">
       <div className="border-t-[4px] border-[#ff6347] rounded-[10px] bg-white shadow-md  w-full p-[20px] lg:w-[450px]">
         <div className="flex items-center justify-center gap-[10px]">
-          <div className="h-[50px] w-[50px]">
-            <img
-              src="https://i.postimg.cc/bJqXjHd5/FB-IMG-1757409260966.jpg"
-              alt=""
-            />
-          </div>
-          <h2 className="text-[20px] font-bold">Barakah Mart</h2>
+          <img src={loginLogo} className="w-[150px]" alt="logo" />
         </div>
-        <h2 className="text-center text-[20px] font-bold mt-[20px]">
-          স্বাগতম!
-        </h2>
+        <h2 className="text-center text-[20px] font-bold ">স্বাগতম!</h2>
 
         {/* form */}
         <div className="flex flex-col gap-[20px] mt-[30px]">
@@ -78,11 +78,11 @@ const Signup = () => {
         >
           অ্যাকাউন্ট তৈরি করুন
         </button>
-        <h2 className="text-center mt-[20px]">অথবা</h2>
+        {/* <h2 className="text-center mt-[20px]">অথবা</h2>
         <button className="bg-[#eff1f1]  w-full py-[10px] rounded-[10px] mt-[20px] border flex items-center justify-center gap-[10px]">
           <FcGoogle className="text-[20px]" />
           গুগল দিয়ে লগইন করুন
-        </button>
+        </button> */}
         <p className="mt-[20px] text-center">
           ইতিমধ্যে অ্যাকাউন্ট আছে ?
           <Link to={"/login"} className="text-[#ff6347] pl-[5px]">

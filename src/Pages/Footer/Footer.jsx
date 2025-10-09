@@ -73,7 +73,7 @@ const Footer = () => {
               >
                 <FaMapMarkerAlt className="text-[#0f172a]" />
               </a>
-              <p>হাউস# ৪৪, রোড নং ২/এ, ভূলতা, গাউছিয়া, রূপগঞ্জ, নারায়ণগঞ্জ</p>
+              <p> ভূলতা, গাউছিয়া, রূপগঞ্জ, নারায়ণগঞ্জ</p>
             </div>
             <div className="flex items-center gap-3">
               <a
@@ -84,12 +84,12 @@ const Footer = () => {
               </a>
 
               <a
-                href="https://wa.me/8801996359111"
+                href="https://wa.me/8801830630365"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:underline"
               >
-                <p>+8801996-359111 ( WhatsApp )</p>
+                <p>+8801830-630365 ( WhatsApp )</p>
               </a>
             </div>
             <div className="flex items-center gap-3">
@@ -114,25 +114,25 @@ const Footer = () => {
             </span>
             <div className="flex gap-3 text-[#0f172a] text-lg">
               <a
-                href="#"
+                href="https://web.facebook.com/pfood"
                 className="p-2 rounded-full bg-white hover:bg-blue-600"
               >
                 <FaFacebookF />
               </a>
               <a
-                href="#"
+                href="https://web.facebook.com/pfood"
                 className="p-2 rounded-full bg-white hover:bg-pink-500"
               >
                 <FaInstagram />
               </a>
               <a
-                href="#"
+                href="https://web.facebook.com/pfood"
                 className="p-2 rounded-full bg-white hover:bg-sky-500"
               >
                 <FaTwitter />
               </a>
               <a
-                href="#"
+                href="https://web.facebook.com/pfood"
                 className="p-2 rounded-full bg-white hover:bg-red-500"
               >
                 <FaYoutube />

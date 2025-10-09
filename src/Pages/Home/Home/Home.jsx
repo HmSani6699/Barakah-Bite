@@ -352,7 +352,6 @@ const Home = () => {
                   <Loading />
                 ) : (
                   <div>
-                    {" "}
                     {allSearchItem?.length > 0 ? (
                       <div className="mt-[85px] mb-[90px] lg:mt-[60px] px-[16px]">
                         <div className="flex items-center justify-between rounded-full px-[20px] py-[4px] bg-white  border-[2px] border-gray-300 w-[60%] ">
@@ -404,7 +403,7 @@ const Home = () => {
                             চেষ্টা করব আইটেমটি সরবরাহ করতে।
                           </p>
                           <a
-                            href="https://wa.me/8801996359111"
+                            href="https://wa.me/8801830630365"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-block mt-4 bg-green-500 text-white px-5 py-2 rounded-lg shadow hover:bg-green-600 transition"

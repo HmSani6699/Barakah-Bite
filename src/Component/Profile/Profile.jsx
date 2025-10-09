@@ -1,524 +1,351 @@
-// import React, { useEffect, useState } from "react";
-// import { HiClipboardList } from "react-icons/hi";
-// import { IoIosArrowForward } from "react-icons/io";
-// import { Link, useNavigate } from "react-router";
-// import ProfileNaveList from "./ProfileNaveList";
-// import { FaHeadset, FaLocationDot, FaStar } from "react-icons/fa6";
-// import { FaInfoCircle } from "react-icons/fa";
-// import { FiLogOut } from "react-icons/fi";
-// import { FcGoogle } from "react-icons/fc";
-// import InputField from "../InputField/InputField";
-
-// const Profile = () => {
-//   const navigate = useNavigate();
-//   const [user, setUser] = useState("");
-
-//   useEffect(() => {
-//     const user = JSON.parse(localStorage.getItem("user"));
-//     if (user) {
-//       setUser(user);
-//     }
-//   }, []);
-
-//   const handleLogOut = () => {
-//     localStorage.removeItem("user");
-//     navigate("/");
-//   };
-
-//   const [number, setNumber] = useState("01996359111");
-//   const [password, setPassword] = useState("customer");
-
-//   const handleLogin = () => {
-//     const user = JSON.parse(localStorage.getItem("user"));
-//     if (user) {
-//       localStorage.removeItem("user");
-//     }
-//     localStorage.setItem(
-//       "user",
-//       JSON.stringify({ phone: number, role: password })
-//     );
-
-//     if (password === "customer") {
-//       navigate("/");
-//     } else if (password === "rider") {
-//       navigate("/rider");
-//     } else if (password === "foodShop") {
-//       navigate("/food-shop");
-//     } else if (password === "superAdmin") {
-//       navigate("/super-admin");
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <div className="mb-[120px]">
-//         <div className=" h-[90px] text-center flex items-center justify-center">
-//           <div className="h-[90px] w-[90px] rounded-full  border-[4px] border-[#eff1f1] shadow-md mt-[40px]">
-//             <img
-//               className="h-full w-full rounded-full"
-//               src="https://i.postimg.cc/QNH0fRzB/download-3.jpgg"
-//               alt="logo"
-//             />
-//           </div>
-//         </div>
-//         <div className="mt-[30px] text-center">
-//           <h2 className="text-[20px] font-bold">Md Sadiq Sadi</h2>
-
-//           {user?.role === "customer" ? (
-//             <p className="text-gray-500">sadiq@gmail.com</p>
-//           ) : user?.role === "rider" ? (
-//             <div>
-//               <div className="flex items-center justify-center my-[6px]">
-//                 <FaStar className="text-yellow-400 text-[25px] mr-[5px]" />
-//                 <h2 className="font-semibold">
-//                   4.8
-//                   <span className="font-normal text-gray-500">
-//                     (1247 ডেলিভারি)
-//                   </span>
-//                 </h2>
-//               </div>
-//               <button className="text-white bg-[#ff6347] py-[6px] px-[20px] rounded-[8px]">
-//                 Online
-//               </button>
-//             </div>
-//           ) : (
-//             ""
-//           )}
-//         </div>
-
-//         <div className=" px-[20px] mt-[30px]">
-//           {user?.role === "customer" && (
-//             <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md">
-//               <ProfileNaveList
-//                 title={"আমার অর্ডারসমূহ"}
-//                 icon={
-//                   <HiClipboardList className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-//                 }
-//                 url={"/myorders"}
-//               />
-//               <ProfileNaveList
-//                 title={"আমার ঠিকানা"}
-//                 icon={
-//                   <FaLocationDot className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-//                 }
-//                 url={"/address"}
-//               />
-//             </div>
-//           )}
-
-//           {/* About Company */}
-//           <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mt-[20px]">
-//             <ProfileNaveList
-//               title={"আমাদের সম্পর্কে"}
-//               icon={
-//                 <FaInfoCircle className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-//               }
-//               url={"/aboutus"}
-//             />
-//             <ProfileNaveList
-//               title={"যোগাযোগ"}
-//               icon={
-//                 <FaHeadset className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-//               }
-//               url={"/contactus"}
-//             />
-
-//             <div
-//               onClick={handleLogOut}
-//               className="w-full flex items-center justify-between cursor-pointer"
-//             >
-//               <div className="flex items-center gap-[15px]">
-//                 <FiLogOut className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-//                 <p className="text-gray-600">লগআউট</p>
-//               </div>
-//               <IoIosArrowForward />
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-
-//       <div className="flex items-center justify-center p-[20px] mb-[100px]">
-//         <div>
-//           <div className="my-[20px]   rounded-[10px] p-[20px] border-l-[4px] border-red-500 bg-red-100">
-//             <h1>
-//               আপনার প্রোফাইল দেখতে হলে আগে লগইন বা সাইন আপ করতে হবে। এখনই লগইন
-//               করুন অথবা নতুন একাউন্ট তৈরি করুন।
-//             </h1>
-//           </div>
-//           <div className=" rounded-[10px] bg-white shadow-md  w-full p-[20px]">
-//             {/* <div className="flex items-center justify-center gap-[10px]">
-//                 <div className="h-[50px] w-[50px]">
-//                   <img
-//                     src="https://i.postimg.cc/bJqXjHd5/FB-IMG-1757409260966.jpg"
-//                     alt=""
-//                   />
-//                 </div>
-//                 <h2 className="text-[20px] font-bold">Barakah Mart</h2>
-//               </div>*/}
-//             <h2 className="text-center text-[20px] font-bold mt-[20px]">
-//               স্বাগতম!
-//             </h2>
-
-//             {/* form */}
-//             <div className="flex flex-col gap-[20px] mt-[30px]">
-//               <InputField
-//                 title={"ফোন নাম্বার "}
-//                 placeholder={"আপনার ফোন নাম্বার লিখুন"}
-//                 value={number}
-//                 setValue={setNumber}
-//               />
-//               <InputField
-//                 title={"পাসওয়ার্ড "}
-//                 placeholder={" আপনার পাসওয়ার্ড লিখুন"}
-//                 value={password}
-//                 setValue={setPassword}
-//               />
-//             </div>
-
-//             <button
-//               onClick={handleLogin}
-//               className="bg-[#ff6347] text-white w-full py-[10px] rounded-[10px] mt-[30px]"
-//             >
-//               লগইন করুন
-//             </button>
-//             <h2 className="text-center mt-[20px]">অথবা</h2>
-//             <button className="bg-[#eff1f1]  w-full py-[10px] rounded-[10px] mt-[20px] border flex items-center justify-center gap-[10px]">
-//               <FcGoogle className="text-[20px]" />
-//               গুগল দিয়ে লগইন করুন
-//             </button>
-//             <p className="mt-[20px] text-center">
-//               অ্যাকাউন্ট নেই ?
-//               <Link to={"/signup"} className="text-[#ff6347] pl-[5px]">
-//                 সাইন আপ করুন
-//               </Link>
-//             </p>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Profile;
-
-import React, { useEffect, useState } from "react";
-import { HiClipboardList } from "react-icons/hi";
-import { IoIosArrowForward } from "react-icons/io";
+import { IoMdCloseCircle } from "react-icons/io";
 import { Link, useNavigate } from "react-router";
 import ProfileNaveList from "./ProfileNaveList";
-import { FaHeadset, FaLocationDot, FaRegStar, FaStar } from "react-icons/fa6";
+import { FaHeadset } from "react-icons/fa6";
 import { FaInfoCircle } from "react-icons/fa";
-import { FiLogOut } from "react-icons/fi";
-import { FcGoogle } from "react-icons/fc";
+
+import { IoCodeSlash } from "react-icons/io5";
+
+import { useEffect, useState } from "react";
+import FileInputField from "../FileInputField/FileInputField";
+import axios from "axios";
+import Swal from "sweetalert2";
+import Loading from "../Loading/Loading";
+import UserProfile from "./UserProfile";
+import RiderProfile from "./RiderProfile";
+import SellerProfile from "./SellerProfile";
+import AdminProfile from "./AdminProfile";
 import InputField from "../InputField/InputField";
-import { CiGrid41 } from "react-icons/ci";
-import { BsBoxSeam } from "react-icons/bs";
-import { IoCodeSlash, IoLocationOutline } from "react-icons/io5";
-import { CgLock } from "react-icons/cg";
-import { RiFileList2Line } from "react-icons/ri";
-import { useAuth } from "../../Context/AuthContext";
 
 const Profile = () => {
-  const { user, logout } = useAuth();
+  const baseUrl = import.meta.env.VITE_API_URL;
+  const [loading, setLoading] = useState(false);
+  const [userData, setUserData] = useState("");
+  const [preview, setPreview] = useState(null);
+  const [img, setImage] = useState("");
+  const [coverImage, setCoverImage] = useState("");
+  const [openFileForm, setOpenFileForm] = useState(false);
+  const [openFileFormType, setOpenFileFormType] = useState("");
+
+  const [resatePassword, setResatePassword] = useState(false);
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState("");
+
+  const navigate = useNavigate();
 
   const handleLogOut = () => {
-    logout();
+    localStorage.removeItem("user");
+    navigate("/");
   };
 
+  // handle get user
+  const handleGetUser = async () => {
+    setLoading(true);
+
+    try {
+      const getUser = await JSON.parse(localStorage.getItem("user"));
+      if (!getUser) {
+        setLoading(false);
+        return;
+      }
+
+      const res = await axios.get(`${baseUrl}/users/profile/${getUser?.phone}`);
+      if (res?.data?.success) {
+        setUserData(res?.data?.data);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  // handle update user profile
+  const handleUpdateProfile = async () => {
+    try {
+      let payload;
+
+      if (openFileFormType === "Logo") {
+        payload = {
+          logo: img,
+        };
+      } else {
+        payload = {
+          coverImage,
+        };
+      }
+
+      const res = await axios.put(
+        `${baseUrl}/users/${userData?._id}`,
+        payload,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+
+      if (res?.data?.success) {
+        Swal.fire("Success!", "Category updated successfully!", "success");
+        handleGetUser();
+        setImage("");
+        setCoverImage("");
+        setPreview("");
+        setOpenFileForm(false);
+        setOpenFileFormType("");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Handle resate passowrd
+  const handleResatePassword = async () => {
+    if (!password) {
+      setErrors("নতুন পাসওয়ার্ড লিখুন");
+      return;
+    }
+
+    try {
+      let payLoad = {
+        phone: userData?.phone,
+        password,
+      };
+
+      const res = await axios.put(`${baseUrl}/resatePassword`, payLoad);
+      if (res?.data?.success) {
+        setResatePassword(false);
+        setErrors("");
+        setPassword("");
+        Swal.fire("Success!", "Password update successfully!", "success");
+      }
+    } catch (error) {
+      console.log(error);
+      Swal.fire(
+        "Error!",
+        error?.response?.data?.message || "Something went wrong!",
+        "error"
+      );
+    }
+  };
+
+  useEffect(() => {
+    handleGetUser();
+  }, []);
+
   return (
-    <div className="px-[20px] mt-[16px] mb-[100px]">
-      {!user && (
-        <div>
-          <h2 className="text-center text-[25px] font-bold  mb-[20px]">
-            স্বাগতম!
-          </h2>
-
-          {/*  */}
-          <div className="   rounded-[10px] p-[20px] border-l-[4px] border-red-500 bg-red-100">
-            <h1>
-              আপনার প্রোফাইল দেখতে হলে আগে লগইন বা সাইন আপ করতে হবে। এখনই লগইন
-              করুন অথবা নতুন একাউন্ট তৈরি করুন।
-            </h1>
-          </div>
-
-          <div className="flex items-center gap-[16px] my-[16px]">
-            <Link
-              to={"/login"}
-              className="bg-white py-[8px] w-full rounded-[8px] shadow-md text-center"
-            >
-              Login
-            </Link>
-
-            <Link
-              to={"/signup"}
-              className="w-full bg-[#ff6347] py-[8px] rounded-[8px] text-white shadow-md text-center"
-            >
-              Signup
-            </Link>
-          </div>
+    <div>
+      {loading ? (
+        <div className="mt-[200px]">
+          <Loading />
         </div>
-      )}
-
-      {user && (
-        <div className="mb-[16px]">
-          <div className=" h-[90px] text-center flex items-center justify-center">
-            <div className="h-[90px] w-[90px] rounded-full  border-[4px] border-[#eff1f1] shadow-md mt-[40px]">
-              <img
-                className="h-full w-full rounded-full"
-                src="https://i.postimg.cc/QNH0fRzB/download-3.jpgg"
-                alt="logo"
-              />
+      ) : (
+        <div className=" mb-[100px]">
+          {userData ? (
+            <div>
+              {userData?.role === "customer" ? (
+                <UserProfile
+                  userData={userData}
+                  setOpenFileFormType={setOpenFileFormType}
+                  setOpenFileForm={setOpenFileForm}
+                  handleLogOut={handleLogOut}
+                  setResatePassword={setResatePassword}
+                />
+              ) : userData?.role === "rider" ? (
+                <RiderProfile
+                  userData={userData}
+                  setOpenFileFormType={setOpenFileFormType}
+                  setOpenFileForm={setOpenFileForm}
+                  handleLogOut={handleLogOut}
+                  setResatePassword={setResatePassword}
+                />
+              ) : userData?.role === "seller" ? (
+                <SellerProfile
+                  userData={userData}
+                  setOpenFileFormType={setOpenFileFormType}
+                  setOpenFileForm={setOpenFileForm}
+                  handleLogOut={handleLogOut}
+                  setResatePassword={setResatePassword}
+                />
+              ) : userData?.role === "admin" ? (
+                <AdminProfile
+                  userData={userData}
+                  setOpenFileFormType={setOpenFileFormType}
+                  setOpenFileForm={setOpenFileForm}
+                  handleLogOut={handleLogOut}
+                  setResatePassword={setResatePassword}
+                />
+              ) : null}
             </div>
-          </div>
-          <div className="mt-[30px] text-center">
-            <h2 className="text-[20px] font-bold">{user?.name}</h2>
-
-            {user?.role === "customer" ? (
-              <p className="text-gray-500">{user?.phone}</p>
-            ) : user?.role === "rider" ? (
-              <div>
-                <div className="flex items-center justify-center my-[6px]">
-                  <FaStar className="text-yellow-400 text-[25px] mr-[5px]" />
-                  <h2 className="font-semibold">
-                    4.8
-                    <span className="font-normal text-gray-500">
-                      (1247 ডেলিভারি)
-                    </span>
+          ) : (
+            <div className="mt-[100px]">
+              {!userData && !loading && (
+                <div className="px-[16px]">
+                  <h2 className="text-center text-[25px] font-bold  mb-[20px]">
+                    স্বাগতম!
                   </h2>
+
+                  {/*  */}
+                  <div className="   rounded-[10px] p-[20px] border-l-[4px] border-red-500 bg-red-100">
+                    <h1>
+                      আপনার প্রোফাইল দেখতে হলে আগে লগইন বা সাইন আপ করতে হবে।
+                      এখনই লগইন করুন অথবা নতুন একাউন্ট তৈরি করুন।
+                    </h1>
+                  </div>
+
+                  <div className="flex items-center gap-[16px] my-[16px]">
+                    <Link
+                      to={"/login"}
+                      className="bg-white py-[8px] w-full rounded-[8px] shadow-md text-center"
+                    >
+                      Login
+                    </Link>
+
+                    <Link
+                      to={"/signup"}
+                      className="w-full bg-[#ff6347] py-[8px] rounded-[8px] text-white shadow-md text-center"
+                    >
+                      Signup
+                    </Link>
+                  </div>
                 </div>
-                <button className="text-white bg-[#ff6347] py-[6px] px-[20px] rounded-[8px]">
-                  Online
-                </button>
-              </div>
-            ) : (
-              ""
-            )}
+              )}
+            </div>
+          )}
+
+          {/* About Company */}
+          <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mx-[16px]">
+            <ProfileNaveList
+              title={"আমাদের সম্পর্কে"}
+              icon={
+                <FaInfoCircle className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+              }
+              url={"/aboutus"}
+            />
+            <ProfileNaveList
+              title={"যোগাযোগ"}
+              icon={
+                <FaHeadset className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+              }
+              url={"/contactus"}
+            />
+            <ProfileNaveList
+              title={"ডেভেলপার"}
+              icon={
+                <IoCodeSlash className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+              }
+              url={"/developer"}
+            />
           </div>
-        </div>
-      )}
 
-      {/* Customer */}
-      {user?.role === "customer" && (
-        <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mb-[16px]">
-          {/* <ProfileNaveList
-            title={"ড্যাশবোর্ড"}
-            icon={
-              <CiGrid41 className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-            }
-            url={"/myorders"}
-          /> */}
-          <ProfileNaveList
-            title={"আমার অর্ডারসমূহ"}
-            icon={
-              <RiFileList2Line className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-            }
-            url={"/myorders"}
-          />
-          <ProfileNaveList
-            title={"ট্র্যাক অর্ডার"}
-            icon={
-              <BsBoxSeam className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-            }
-            url={"/tracking-order"}
-          />
-          <ProfileNaveList
-            title={"আমার ঠিকানা"}
-            icon={
-              <IoLocationOutline className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-            }
-            url={"/address"}
-          />
-          {/* <ProfileNaveList
-            title={"আমার রিভিউ"}
-            icon={
-              <FaRegStar className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-            }
-            url={"/address"}
-          />
-          <ProfileNaveList
-            title={"পাসওয়ার্ড পরিবর্তন করুন"}
-            icon={
-              <CgLock className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-            }
-            url={"/address"}
-          /> */}
-
-          {user && (
-            <div
-              onClick={handleLogOut}
-              className="w-full flex items-center justify-between cursor-pointer"
-            >
-              <div className="flex items-center gap-[15px]">
-                <FiLogOut className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-                <p className="text-gray-600">লগআউট</p>
+          {/* Prifiel update */}
+          {openFileForm && (
+            <div className="fixed inset-0 bg-[#000000d9] z-[200] flex items-center justify-center">
+              <div className=" mx-[15px] p-[20px] rounded-[10px] w-full bg-white">
+                <div className="flex items-end justify-end mb-[20px]">
+                  <IoMdCloseCircle
+                    onClick={() => {
+                      setOpenFileForm(false);
+                      setOpenFileFormType("");
+                    }}
+                    className="text-red-600 text-[30px]"
+                  />
+                </div>
+                <div>
+                  {!preview ? (
+                    <div>
+                      {openFileFormType === "Logo" ? (
+                        <FileInputField
+                          title={"Logo"}
+                          value={img}
+                          setValue={setImage}
+                          size={"Height-90px Width-90px"}
+                          setPreview={setPreview}
+                        />
+                      ) : (
+                        <FileInputField
+                          title={"Cover Image"}
+                          value={coverImage}
+                          setValue={setCoverImage}
+                          size={"Height-140px Width-90px"}
+                          setPreview={setPreview}
+                        />
+                      )}
+                    </div>
+                  ) : (
+                    <div>
+                      <p className="mb-[10px] text-[16px]">
+                        {openFileFormType === "logo" ? " Logo" : "Cover Image"}
+                        <span className="text-red-500 text-[18px] pl-[5px]">
+                          *
+                        </span>
+                      </p>
+                      <div className="flex items-center justify-center border-2 border-dashed p-[16px] border-[#ff6347] rounded-[10px]">
+                        <div className="h-[160px] w-[160px] ">
+                          <img
+                            className=" h-full w-full"
+                            src={preview && preview}
+                            alt="preview"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex items-end justify-end ">
+                        <button
+                          onClick={() => {
+                            setPreview("");
+                            setImage("");
+                          }}
+                          className="bg-[#ff6347] text-white mt-[16px] py-[8px] px-[20px] rounded-[8px]"
+                        >
+                          Canchel
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                  <div className="flex items-end justify-end mt-[16px]">
+                    <button
+                      onClick={() => handleUpdateProfile()}
+                      className="bg-[#ff5733] text-white py-[6px] px-[15px] rounded-[8px] "
+                    >
+                      Update
+                    </button>
+                  </div>
+                </div>
               </div>
-              <IoIosArrowForward />
+            </div>
+          )}
+
+          {/* Resate Password */}
+          {resatePassword && (
+            <div className="fixed inset-0 bg-[#000000d9] z-[200] flex items-center justify-center">
+              <div className=" mx-[15px] p-[20px] rounded-[10px] w-full bg-white">
+                <div className="flex items-end justify-end mb-[20px]">
+                  <IoMdCloseCircle
+                    onClick={() => setResatePassword(false)}
+                    className="text-red-600 text-[30px]"
+                  />
+                </div>
+                <div>
+                  <InputField
+                    title={"নতুন পাসওয়ার্ড লিখুন"}
+                    value={password}
+                    setValue={setPassword}
+                    required={true}
+                    errorMessage={errors}
+                  />
+
+                  <div className="flex items-end justify-end mt-[16px]">
+                    <button
+                      onClick={() => handleResatePassword()}
+                      className="bg-[#ff5733] text-white py-[6px] px-[15px] rounded-[8px] "
+                    >
+                      Update
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </div>
       )}
-
-      {/* Rider */}
-      {user?.role === "rider" && (
-        <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mb-[16px]">
-          {/* <ProfileNaveList
-            title={"ড্যাশবোর্ড"}
-            icon={
-              <CiGrid41 className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-            }
-            url={"/myorders"}
-          /> */}
-          <ProfileNaveList
-            title={"আমার অর্ডারসমূহ"}
-            icon={
-              <RiFileList2Line className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-            }
-            url={"/tracking-order"}
-          />
-          <ProfileNaveList
-            title={"ট্র্যাক অর্ডার"}
-            icon={
-              <BsBoxSeam className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-            }
-            url={"/tracking-order"}
-          />
-          <ProfileNaveList
-            title={"আমার ঠিকানা"}
-            icon={
-              <IoLocationOutline className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-            }
-            url={"/address"}
-          />
-          {/* <ProfileNaveList
-            title={"আমার রিভিউ"}
-            icon={
-              <FaRegStar className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-            }
-            url={"/address"}
-          />
-          <ProfileNaveList
-            title={"পাসওয়ার্ড পরিবর্তন করুন"}
-            icon={
-              <CgLock className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-            }
-            url={"/address"}
-          /> */}
-
-          {user && (
-            <div
-              onClick={handleLogOut}
-              className="w-full flex items-center justify-between cursor-pointer"
-            >
-              <div className="flex items-center gap-[15px]">
-                <FiLogOut className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-                <p className="text-gray-600">লগআউট</p>
-              </div>
-              <IoIosArrowForward />
-            </div>
-          )}
-        </div>
-      )}
-      {/* Food Shop */}
-      {user?.role === "seller" && (
-        <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mb-[16px]">
-          {/* <ProfileNaveList
-            title={"ড্যাশবোর্ড"}
-            icon={
-              <CiGrid41 className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-            }
-            url={"/myorders"}
-          /> */}
-          <ProfileNaveList
-            title={" অর্ডারসমূহ"}
-            icon={
-              <RiFileList2Line className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-            }
-            url={"/tracking-order"}
-          />
-          <ProfileNaveList
-            title={"ট্র্যাক অর্ডার"}
-            icon={
-              <BsBoxSeam className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-            }
-            url={"/tracking-order"}
-          />
-          <ProfileNaveList
-            title={"আমার ঠিকানা"}
-            icon={
-              <IoLocationOutline className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-            }
-            url={"/address"}
-          />
-          {/* <ProfileNaveList
-            title={"আমার রিভিউ"}
-            icon={
-              <FaRegStar className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-            }
-            url={"/address"}
-          />
-          <ProfileNaveList
-            title={"পাসওয়ার্ড পরিবর্তন করুন"}
-            icon={
-              <CgLock className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-            }
-            url={"/address"}
-          /> */}
-
-          {user && (
-            <div
-              onClick={handleLogOut}
-              className="w-full flex items-center justify-between cursor-pointer"
-            >
-              <div className="flex items-center gap-[15px]">
-                <FiLogOut className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-                <p className="text-gray-600">লগআউট</p>
-              </div>
-              <IoIosArrowForward />
-            </div>
-          )}
-        </div>
-      )}
-      {user?.role === "admin" && (
-        <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mb-[16px]">
-          {user && (
-            <div
-              onClick={handleLogOut}
-              className="w-full flex items-center justify-between cursor-pointer"
-            >
-              <div className="flex items-center gap-[15px]">
-                <FiLogOut className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-                <p className="text-gray-600">লগআউট</p>
-              </div>
-              <IoIosArrowForward />
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* About Company */}
-      <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md ">
-        <ProfileNaveList
-          title={"আমাদের সম্পর্কে"}
-          icon={
-            <FaInfoCircle className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-          }
-          url={"/aboutus"}
-        />
-        <ProfileNaveList
-          title={"যোগাযোগ"}
-          icon={
-            <FaHeadset className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-          }
-          url={"/contactus"}
-        />
-        <ProfileNaveList
-          title={"ডেভেলপার"}
-          icon={
-            <IoCodeSlash className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
-          }
-          url={"/developer"}
-        />
-      </div>
     </div>
   );
 };

@@ -1,0 +1,111 @@
+import ProfileNaveList from "./ProfileNaveList";
+import { IoLocationOutline } from "react-icons/io5";
+import { FiLogOut } from "react-icons/fi";
+import { IoIosArrowForward, IoIosCamera } from "react-icons/io";
+import noImage from "../../../public/images/notimage.svg";
+import { CgLock } from "react-icons/cg";
+import { LuNotebookText } from "react-icons/lu";
+import { FaSearchPlus } from "react-icons/fa";
+import { MdOutlineDashboard } from "react-icons/md";
+
+const AdminProfile = ({
+  userData,
+  handleLogOut,
+  setOpenFileForm,
+  setOpenFileFormType,
+  setResatePassword,
+}) => {
+  const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
+
+  return (
+    <div>
+      <div className="relative h-[130px] w-full bg-gray-200 rounded-xl  shadow-sm">
+        {/* Cover Image */}
+        <img
+          src={
+            userData?.coverImage
+              ? `${baseImageUrl}/${userData.coverImage}`
+              : noImage
+          }
+          alt="cover"
+          className="h-full w-full object-cover"
+        />
+
+        {/* Cover Image Edit Button */}
+        <button
+          onClick={() => {
+            setOpenFileForm(true);
+            setOpenFileFormType("cover");
+          }}
+          className="absolute top-3 right-3 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-md transition-all"
+          title="Change Cover Photo"
+        >
+          <IoIosCamera className="text-xl" />
+        </button>
+
+        {/* Logo Section */}
+        <div className="absolute bottom-[-55px] left-[16px] flex flex-col items-center z-[200]">
+          <div className="relative">
+            <div className="relative h-[100px] w-[100px] rounded-full border-4 border-white shadow-md overflow-hidden bg-gray-100">
+              <img
+                src={
+                  userData?.logo ? `${baseImageUrl}/${userData.logo}` : noImage
+                }
+                alt="logo"
+                className="h-full w-full object-cover rounded-full"
+              />
+            </div>
+            {/* Logo Edit Button */}
+            <button
+              onClick={() => {
+                setOpenFileForm(true);
+                setOpenFileFormType("Logo");
+              }}
+              className="absolute bottom-1 right-1 bg-white hover:bg-gray-100 text-gray-800 rounded-full p-1 shadow-md transition-all"
+              title="Change Profile Picture"
+            >
+              <IoIosCamera className="text-lg" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-[70px] px-[16px] mb-[30px] ">
+        <h2 className="text-[20px] font-bold">{userData?.name}</h2>
+        <p className="text-gray-500">{userData?.phone}</p>
+      </div>
+
+      <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mb-[16px] mx-[16px]">
+        <ProfileNaveList
+          title={"ড্যাশবোর্ড"}
+          icon={
+            <MdOutlineDashboard className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+          }
+          url={"/super-admin"}
+        />
+
+        <div onClick={() => setResatePassword(true)}>
+          <ProfileNaveList
+            title={"পাসওয়ার্ড পরিবর্তন করুন"}
+            icon={
+              <CgLock className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+            }
+          />
+        </div>
+
+        <div
+          onClick={handleLogOut}
+          className="w-full flex items-center justify-between cursor-pointer"
+        >
+          <div className="flex items-center gap-[15px]">
+            <FiLogOut className="text-[22px] mb-[3px]0 bg-white text-[#ff6347]" />
+            <p className="text-gray-600">লগআউট</p>
+          </div>
+          <IoIosArrowForward />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AdminProfile;

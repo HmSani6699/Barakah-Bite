@@ -4,17 +4,14 @@ import { useCart } from "../../Component/CartContext/CartContext";
 
 import Footer from "../../Pages/Footer/Footer";
 import { ToastContainer } from "react-toastify";
-import { MdOutlineArrowOutward } from "react-icons/md";
 
 const MainLayout = () => {
   const location = useLocation();
 
-  const { cartItems } = useCart();
-
   return (
     <div className="relative">
       {/* Mobile */}
-      <div className="lg:flex max-w-[1200px] mx-auto relative">
+      <div className=" max-w-[1200px] mx-auto relative">
         <Outlet />
 
         {/* {cartItems?.length > 0 && (

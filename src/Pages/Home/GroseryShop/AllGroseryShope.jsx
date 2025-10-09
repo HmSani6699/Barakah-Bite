@@ -19,6 +19,8 @@ import "swiper/css/free-mode";
 import { FreeMode, Navigation } from "swiper/modules";
 import { MdOutlineArrowOutward } from "react-icons/md";
 
+import logo from "../../../../public/images/facebook.png";
+
 const AllGroseryShope = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
   const baseImageUrl = import.meta.env.VITE_API_URL_IMAGE;
@@ -112,7 +114,6 @@ const AllGroseryShope = () => {
 
   return (
     <>
-      {" "}
       {loading ? (
         <div className="lg:h-screen">
           <Loading />
@@ -154,7 +155,7 @@ const AllGroseryShope = () => {
             <div className="h-[65px] w-[65px] rounded-full  border-[4px] border-[#eff1f1] -mb-[90px] shadow-md absolute">
               <img
                 className="h-full w-full rounded-full"
-                src="https://i.postimg.cc/QNH0fRzB/download-3.jpgg"
+                src={logo}
                 alt="logo"
               />
             </div>

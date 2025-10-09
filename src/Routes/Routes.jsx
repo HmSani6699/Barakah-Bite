@@ -42,6 +42,7 @@ import ProductCategory from "../Dashboard/SuperAdmin/Category/ProductCategory/Pr
 import Unite from "../Dashboard/SuperAdmin/Unit/Unite";
 import PopulerSearch from "../Dashboard/SuperAdmin/Search/PopulerSearch/PopulerSearch";
 import OrderHistory from "../Dashboard/SuperAdmin/OrderHistory/OrderHistory";
+import CustomRequest from "../Pages/Home/CustomRequest/CustomRequest";
 
 const router = createBrowserRouter([
   {
@@ -73,6 +74,7 @@ const router = createBrowserRouter([
       { path: "/address", element: <Address /> },
       { path: "/card", element: <Card /> },
       { path: "/profile", element: <Profile /> },
+      { path: "/custom-request", element: <CustomRequest /> },
       {
         path: "/aboutus",
         element: <AboutUs />,

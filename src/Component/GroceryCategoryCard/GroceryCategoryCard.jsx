@@ -191,11 +191,11 @@ const GroceryCategoryCard = () => {
               <Loading />
             </div>
           ) : (
-            <>
+            <div>
               {allCategories?.length > 0 ? (
                 <div className="grid grid-cols-2 lg:grid-cols-5 gap-[20px] bg-white  p-[20px] mt-[16px]">
                   {allCategories?.map((item, i) => (
-                    <>
+                    <div key={i}>
                       {!item?.status ? (
                         <GroceryCard
                           style_clss={{
@@ -268,7 +268,7 @@ const GroceryCategoryCard = () => {
                           </div>
                         </div>
                       )}{" "}
-                    </>
+                    </div>
                   ))}
                 </div>
               ) : (
@@ -290,7 +290,7 @@ const GroceryCategoryCard = () => {
                 </div>
               )}{" "}
               <ToastContainer />
-            </>
+            </div>
           )}
         </div>
       )}

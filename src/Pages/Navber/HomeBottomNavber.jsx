@@ -1,4 +1,4 @@
-import { FaRegUser, FaUser } from "react-icons/fa";
+import { FaRegCommentDots, FaRegUser, FaUser } from "react-icons/fa";
 
 import "./Navber.css";
 import { Link, useLocation } from "react-router";
@@ -39,13 +39,6 @@ const HomeBottomNavber = () => {
           : "block"
       }`}
     >
-      {/* Customer Navlist  Start*/}
-      {/* <HomeBottomNavList
-        title={"হোম"}
-        url={"/"}
-        icon={<img className="mb-[3px]" src={homeIcon} alt="card" />}
-      /> */}
-
       <Link
         to={"/"}
         className={` ${pathname === "/" ? "text-[#ff6347]" : "text-gray-500"}`}
@@ -63,16 +56,14 @@ const HomeBottomNavber = () => {
       <HomeBottomNavList
         title={"ক্যাটাগরি"}
         url={"/categories"}
-        // icon={<HiClipboardList className="text-[22px] mb-[3px]0 bg-white" />}
         icon={<CiGrid41 className="text-[25px] mb-[3px] bg-white" />}
       />
-      {/* <HomeBottomNavList
-        title={"কার্ড"}
-        url={"/card"}
-        icon={<img className="mb-[3px] w-[25px]" src={shopCard} alt="card" />}
-      />
 
-      {totalCount} */}
+      <HomeBottomNavList
+        title={"প্রয়োজন"}
+        url={"/custom-request"}
+        icon={<FaRegCommentDots className="text-[23px] mb-[3px] bg-white" />}
+      />
 
       <Link
         to={"/card"}

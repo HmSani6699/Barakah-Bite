@@ -70,8 +70,10 @@ const UserProfile = ({
       </div>
 
       <div className="mt-[70px] px-[16px] mb-[30px] ">
-        <h2 className="text-[20px] font-bold">{userData?.name}</h2>
-        <p className="text-gray-500">{userData?.phone}</p>
+        <h2 className=" font-bold text-[16px] text-[#171717]">
+          {userData?.name}
+        </h2>
+        <p className="text-gray-600">{userData?.phone}</p>
       </div>
       {/* ====> Nav list <==== */}
       <div className="bg-white p-[20px] rounded-[10px] flex flex-col gap-[25px] shadow-md mb-[16px] mx-[16px]">

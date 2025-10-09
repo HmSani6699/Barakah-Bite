@@ -75,7 +75,7 @@ const FilterTab = ({ setIsFullImageOpen, allRestaurantActiveItems }) => {
           <IoIosArrowForward className="text-[25px]" />
         </div>
       </div>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
   );
 };

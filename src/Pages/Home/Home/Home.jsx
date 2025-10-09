@@ -24,6 +24,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useCart } from "../../../Component/CartContext/CartContext";
 import { MdOutlineArrowOutward } from "react-icons/md";
 import { Link } from "react-router";
+import whatsapp from "../../../../public/images/whatsapp.svg";
 
 const Home = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -427,7 +428,7 @@ const Home = () => {
                 />
                 <GroseryShop allSubCategory={allSubCategory} />
                 <RestaurantsShops allRestaurent={allRestaurent} />
-                <ToastContainer />
+                {/* <ToastContainer /> */}
               </div>
             )}
 
@@ -436,7 +437,7 @@ const Home = () => {
             {cartItems?.length > 0 && (
               <div className="fixed bottom-[70px] left-0 z-[500] w-full py-[10px] text-white px-[16px] ">
                 <Link to={"/card"}>
-                  <div className="bg-[#ff5733] shadow-lg flex items-center justify-between px-[16px] py-[6px] rounded-full">
+                  <div className="bg-[#ff5733] shadow-lg flex items-center justify-between px-[16px] py-[10px] rounded-full">
                     <h2 className="text-[14px]"> {totalCardCount} আইটেম</h2>
 
                     <button className="text-[14px] flex items-center gap-[4px]">
@@ -616,7 +617,7 @@ const Home = () => {
         </div>
       )}
 
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
   );
 };

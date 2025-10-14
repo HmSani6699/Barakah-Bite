@@ -435,7 +435,7 @@ const Home = () => {
             {/* <PopularItem /> */}
 
             {cartItems?.length > 0 && (
-              <div className="fixed bottom-[70px] left-0 z-[500] w-full py-[10px] text-white px-[16px] ">
+              <div className="fixed bottom-[70px] left-0 z-[500] w-full py-[10px] text-white px-[16px] lg:hidden block">
                 <Link to={"/card"}>
                   <div className="bg-[#ff5733] shadow-lg flex items-center justify-between px-[16px] py-[10px] rounded-full">
                     <h2 className="text-[14px]"> {totalCardCount} আইটেম</h2>

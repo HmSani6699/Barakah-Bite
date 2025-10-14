@@ -75,6 +75,8 @@ const HomeTopNavber = ({
         </div>
       </div>
 
+      <h2>hallo</h2>
+
       {/* Pc */}
       <div className="bg-[#0f172a] fixed top-0 left-0 w-full z-[500] top_header_shadow px-[20px] py-[10px] lg:block hidden">
         <div className="max-w-[1100px] mx-auto flex items-center justify-between">

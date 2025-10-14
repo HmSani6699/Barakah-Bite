@@ -332,23 +332,64 @@ const FoodShopOrders = () => {
                         টাকা
                       </p>
                     </div>
-                    <div className="flex items-end justify-end gap-2">
-                      <button
-                        onClick={() =>
-                          handleUpdateStatuse(item._id, "accepted")
-                        }
-                        className="text-white bg-green-700 rounded-[6px] py-[2px] px-[10px]"
-                      >
-                        কন্ফার্ম
-                      </button>
-                      <button
-                        onClick={() =>
-                          handleUpdateStatuse(item._id, "cancelled")
-                        }
-                        className="text-white bg-red-500 rounded-[6px] py-[2px] px-[10px]"
-                      >
-                        বাতিল
-                      </button>
+
+                    <div className="flex items-center gap-2">
+                      {/* Pending */}
+                      {item?.status === "pending" && (
+                        <button className="text-white bg-yellow-500 rounded-md py-[3px] px-[10px] text-sm text-[9px] shadow-sm">
+                          অপেক্ষমান
+                        </button>
+                      )}
+
+                      {/* Confirmed */}
+                      {item?.status === "confirmed" && (
+                        <div className="flex items-center gap-3">
+                          <button className="text-white bg-green-600 rounded-md py-[3px] px-[10px] text-sm text-[9px] shadow-sm">
+                            নিশ্চিত হয়েছে
+                          </button>
+                        </div>
+                      )}
+
+                      {/* Partially Accepted */}
+                      {item?.status === "partially_accepted" && (
+                        <div className="flex items-center gap-3">
+                          <button className="text-white bg-amber-600 rounded-md py-[3px] px-[10px] text-sm text-[9px] shadow-sm">
+                            আংশিকভাবে গৃহীত
+                          </button>
+                        </div>
+                      )}
+
+                      {/* Preparing */}
+                      {item?.status === "preparing" && (
+                        <div className="flex items-center gap-3">
+                          <button className="text-white bg-blue-500 rounded-md py-[3px] px-[10px] text-sm text-[9px] shadow-sm animate-pulse">
+                            প্রস্তুত হচ্ছে...
+                          </button>
+                        </div>
+                      )}
+
+                      {/* Out for Delivery */}
+                      {item?.status === "out_for_delivery" && (
+                        <div className="flex items-center gap-3">
+                          <button className="text-white bg-indigo-500 rounded-md py-[3px] px-[10px] text-sm text-[9px] shadow-sm animate-bounce">
+                            ডেলিভারির পথে 🚚
+                          </button>
+                        </div>
+                      )}
+
+                      {/* Delivered */}
+                      {item?.status === "delivered" && (
+                        <button className="text-white bg-emerald-600 rounded-md py-[3px] px-[10px] text-sm text-[9px] shadow-sm">
+                          ডেলিভারি সম্পন্ন
+                        </button>
+                      )}
+
+                      {/* Cancelled */}
+                      {item?.status === "cancelled" && (
+                        <button className="text-white bg-red-500 rounded-md py-[3px] px-[10px] text-sm font-medium shadow-sm">
+                          অর্ডার বাতিল
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>

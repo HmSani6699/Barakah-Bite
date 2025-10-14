@@ -3,6 +3,9 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { Link } from "react-router";
 
 import logo from "../../../../public/images/login.png";
+import HomeTopNavber from "../../Navber/HomeTopNavber";
+import { TiHomeOutline } from "react-icons/ti";
+import { IoIosArrowForward } from "react-icons/io";
 
 const AboutUs = () => {
   return (
@@ -15,10 +18,21 @@ const AboutUs = () => {
           </h2>
         </div>
       </Link>
-      {/*  */}
 
-      <div className="mt-[30px]">
-        <div className="px-[20px] h-[250px] w-full">
+      <HomeTopNavber />
+
+      <div className="hidden  lg:mt-[30px] px-[16px] lg:flex items-center gap-[10px] mb-[30px]">
+        <TiHomeOutline className="text-[25px] text-[#6b7280]" />
+        <Link to={"/"} className="text-[#6b7280] hover:underline">
+          হোম
+        </Link>
+        <IoIosArrowForward className="text-[#6b7280]" />
+        <h2> আমাদের সম্পর্কে</h2>
+      </div>
+
+      {/*  */}
+      <div className="mt-[30px] flex flex-col items-center">
+        <div className="px-[20px] h-[250px]  w-full lg:w-[500px] lg:h-[400px]">
           <img className="h-full w-full rounded-[10px]" src={logo} alt="logo" />
         </div>
 

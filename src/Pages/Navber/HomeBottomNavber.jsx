@@ -53,34 +53,50 @@ const HomeBottomNavber = () => {
         </div>
       </Link>
 
-      <HomeBottomNavList
-        title={"ক্যাটাগরি"}
-        url={"/categories"}
-        icon={<CiGrid41 className="text-[25px] mb-[3px] bg-white" />}
-      />
+      <div className="mr-[-4px]">
+        <HomeBottomNavList
+          title={"ক্যাটাগরি"}
+          url={"/categories"}
+          icon={<CiGrid41 className="text-[25px] mb-[3px] bg-white" />}
+        />
+      </div>
+
+      <div className="mt-[-52px] mr-[-14px] border-[15px]  border-[#eff1f1] bg-white rounded-full relative shadow-md">
+        <span
+          className="w-4 h-4 bg-transparent absolute top-[14px] -left-[33px] 
+    rounded-tr-[12px] myShadow1"
+        ></span>
+        <span
+          className="w-4 h-4 bg-transparent absolute top-[14px] -right-[33px] 
+    rounded-tl-[12px] myShadow2"
+        ></span>
+
+        <Link
+          to={"/card"}
+          className={`${
+            pathname === "/card" ? "text-[#ff6347]" : "text-gray-500"
+          }`}
+        >
+          <div className="flex flex-col items-center  relative ">
+            <img
+              className="mb-[3px] w-[35px] p-[5px]"
+              src={shopCard}
+              alt="card"
+            />
+            {totalCardCount > 0 && (
+              <span className="absolute top-0 -right-[5px] text-white z-[20] text-[10px] bg-[#ff6347] rounded-full h-[15px] w-[15px] flex items-center justify-center">
+                {totalCardCount}
+              </span>
+            )}
+          </div>
+        </Link>
+      </div>
 
       <HomeBottomNavList
         title={"প্রয়োজন"}
         url={"/custom-request"}
         icon={<FaRegCommentDots className="text-[23px] mb-[3px] bg-white" />}
       />
-
-      <Link
-        to={"/card"}
-        className={` ${
-          pathname === "/card" ? "text-[#ff6347]" : "text-gray-500"
-        }`}
-      >
-        <div className="flex flex-col items-center bg-white relative">
-          <img className="mb-[3px] w-[25px]" src={shopCard} alt="card" />
-          <h2 className="text-[14px] bg-white">কার্ড</h2>
-          {totalCardCount > 0 && (
-            <span className="absolute top-0 -right-[5px] text-[#fff] z-[20] text-[10px] bg-[#ff6347] rounded-full h-[15px] w-[15px] flex items-center justify-center">
-              {totalCardCount}
-            </span>
-          )}
-        </div>
-      </Link>
 
       <Link
         to={"/profile"}

@@ -2,6 +2,9 @@ import React from "react";
 import { FaArrowLeft, FaLocationDot } from "react-icons/fa6";
 import { MdAddIcCall, MdEmail } from "react-icons/md";
 import { Link } from "react-router";
+import HomeTopNavber from "../../Navber/HomeTopNavber";
+import { TiHomeOutline } from "react-icons/ti";
+import { IoIosArrowForward } from "react-icons/io";
 
 const ContactUs = () => {
   return (
@@ -15,6 +18,15 @@ const ContactUs = () => {
           </h2>
         </div>
       </Link>
+      <HomeTopNavber />
+      <div className="hidden  lg:mt-[30px] px-[16px] lg:flex items-center gap-[10px] mb-[30px]">
+        <TiHomeOutline className="text-[25px] text-[#6b7280]" />
+        <Link to={"/"} className="text-[#6b7280] hover:underline">
+          হোম
+        </Link>
+        <IoIosArrowForward className="text-[#6b7280]" />
+        <h2> যোগাযোগ</h2>
+      </div>
       <div className="px-[15px] flex flex-col gap-[30px] mt-[30px]">
         <div className="bg-white rounded-[10px] p-[20px] text-center">
           <MdAddIcCall className="text-[#ff6347] inline-block text-[40px] font-bold mb-[10px]" />

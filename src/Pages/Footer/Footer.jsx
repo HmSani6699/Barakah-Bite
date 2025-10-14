@@ -34,7 +34,7 @@ const Footer = () => {
           <h3 className="font-semibold text-lg mb-4">দ্রুত লিংক</h3>
           <ul className="space-y-2 text-sm text-gray-300">
             <li>
-              <a href="#">আমাদের সম্পর্কে</a>
+              <a href="/aboutus">আমাদের সম্পর্কে</a>
             </li>
             <li>
               <a href="#">নিয়মাবলী</a>
@@ -51,7 +51,7 @@ const Footer = () => {
           <h3 className="font-semibold text-lg mb-4">যোগাযোগ করুন</h3>
           <ul className="space-y-2 text-sm text-gray-300">
             <li>
-              <a href="#">আমাদের সাথে যোগাযোগ করুন</a>
+              <a href="/contactus">আমাদের সাথে যোগাযোগ করুন</a>
             </li>
             <li>
               <a href="#">প্রায়শই জিজ্ঞাসিত প্রশ্নাবলী</a>

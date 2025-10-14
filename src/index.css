@@ -18,6 +18,16 @@ body {
   color: #171717;
 }
 
+.myShadow1 {
+  box-shadow: 6px -6px 0 0 #eff1f1;
+  border-top-right-radius: 12px;
+}
+
+.myShadow2 {
+  box-shadow: -6px -6px 0 0 #eff1f1;
+  border-top-left-radius: 12px;
+}
+
 /* global.css বা index.css এ রাখবেন */
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari */

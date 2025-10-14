@@ -30,10 +30,12 @@ const MainLayout = () => {
 
       <div
         className={`${
-          location?.pathname === "/login" || location?.pathname === "/signup"
+          location?.pathname === "/login" ||
+          location?.pathname === "/signup" ||
+          location?.pathname === "/success"
             ? "hidden"
-            : "block"
-        } hidden lg:block`}
+            : "lg:block hidden"
+        }`}
       >
         <Footer />
       </div>

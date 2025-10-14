@@ -36,7 +36,7 @@ const Banner = () => {
       >
         {allBanner?.map((item) => (
           <SwiperSlide>
-            <div className=" h-[180px] lg:h-[300px] px-[15px] rounded-[10px]">
+            <div className=" h-[180px] lg:h-[350px] px-[15px] rounded-[10px]">
               <img
                 className="h-full w-full object-cover rounded-[10px]"
                 src={item?.img}

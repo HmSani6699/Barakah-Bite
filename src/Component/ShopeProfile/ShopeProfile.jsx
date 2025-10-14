@@ -248,7 +248,7 @@ const ShopeProfile = () => {
                 {allItemsData?.length > 0 ? (
                   <div className="px-[15px] mt-[20px] grid grid-cols-1 lg:grid-cols-4 gap-[20px] mb-[20px]">
                     {allItemsData?.map((item, i) => (
-                      <FoodCard height="h-[190px]" item={item} />
+                      <FoodCard height="h-[250px]" item={item} />
                     ))}
                   </div>
                 ) : (
